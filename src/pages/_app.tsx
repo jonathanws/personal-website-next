@@ -1,10 +1,10 @@
-import { BG_ALT } from '@/services/theming'
-import '@/styles/globals.css'
 import { CssBaseline } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import type { AppProps } from 'next/app'
 import { Lato } from 'next/font/google'
+import { BG_ALT } from '@/services/theming'
+import '@/styles/globals.css'
 
 const lato = Lato({
 	fallback: ['Arial', 'sans-serif'],
