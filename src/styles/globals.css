@@ -105,3 +105,8 @@ a {
     color-scheme: dark;
   }
 }
+
+/* don't show line numbers in code blocks */
+.linenumber {
+	display: none !important;
+}
