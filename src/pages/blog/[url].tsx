@@ -1,9 +1,3 @@
-import SiteLogo from '@/components/SiteLogo'
-import BlogBody from '@/components/blog/Body'
-import BlogFooter from '@/components/blog/Footer'
-import { BlogPost, getBlogPosts } from '@/services/blogPosts'
-import { getHostname } from '@/services/constants'
-import { BG_ALT } from '@/services/theming'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useTheme } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
@@ -20,6 +14,12 @@ import Typography from '@mui/material/Typography'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import BlogBody from '@/components/blog/Body'
+import BlogFooter from '@/components/blog/Footer'
+import SiteLogo from '@/components/SiteLogo'
+import { BlogPost, getBlogPosts } from '@/services/blogPosts'
+import { getHostname } from '@/services/constants'
+import { BG_ALT } from '@/services/theming'
 
 const drawerWidth = 300
 

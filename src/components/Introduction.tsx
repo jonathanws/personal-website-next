@@ -1,12 +1,12 @@
-import { RESUME_URL } from '@/services/constants'
-import { BG_ALT, sectionPaddings } from '@/services/theming'
 import { default as ArticleIcon } from '@mui/icons-material/Article'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
 import { useTheme } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { RESUME_URL } from '@/services/constants'
+import { BG_ALT, sectionPaddings } from '@/services/theming'
 
 export default function Introduction() {
 	const theme = useTheme()

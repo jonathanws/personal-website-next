@@ -1,8 +1,8 @@
-import { BlogPost } from '@/services/blogPosts'
-import { BG_ALT } from '@/services/theming'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import { BlogPost } from '@/services/blogPosts'
+import { BG_ALT } from '@/services/theming'
 import BlogArticleMeta from './ArticleMeta'
 import BlogImage from './Image'
 

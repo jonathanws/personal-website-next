@@ -1,11 +1,11 @@
-import { getBlogPosts } from '@/services/blogPosts'
-import { BG_PRIMARY } from '@/services/theming'
 import { Divider, Grid } from '@mui/material'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { getBlogPosts } from '@/services/blogPosts'
+import { BG_PRIMARY } from '@/services/theming'
 import BlogCard from './Card'
 
 export default function BlogFooter() {

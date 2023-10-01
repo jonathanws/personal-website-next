@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-key */
+import Typography from '@mui/material/Typography'
 import BlogAlert from '@/components/blog/Alert'
 import BlogBulletList from '@/components/blog/BulletList'
 import Code from '@/components/blog/Code'
@@ -6,7 +7,6 @@ import BlogImage from '@/components/blog/Image'
 import BlogInlineCode from '@/components/blog/InlineCode'
 import BlogLink from '@/components/blog/Link'
 import { BlogPost } from '@/services/blogPosts'
-import Typography from '@mui/material/Typography'
 
 const gitStyleFormat = '%C(<your-style>)<git-flag>'
 const gitStyleFormatExample = '%C(red italic)%ah'

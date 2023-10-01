@@ -1,10 +1,10 @@
-import { BlogPost } from '@/services/blogPosts'
 import ReplayIcon from '@mui/icons-material/Replay'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
+import { BlogPost } from '@/services/blogPosts'
 import BlogCard from './Card'
 
 interface ToggleableBlogPost extends BlogPost {

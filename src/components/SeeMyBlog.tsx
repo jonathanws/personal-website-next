@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import { BG_ALT, sectionPaddings } from '@/services/theming'
-import Button from '@mui/material/Button'
 
 export default function SeeMyBlog() {
 	return (

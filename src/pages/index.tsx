@@ -1,10 +1,10 @@
+import Head from 'next/head'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Interested from '@/components/Interested'
 import Introduction from '@/components/Introduction'
 import SeeMyBlog from '@/components/SeeMyBlog'
 import Skills from '@/components/Skills'
-import Head from 'next/head'
 
 export default function Home() {
 	return (

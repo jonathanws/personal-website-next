@@ -1,7 +1,3 @@
-import BlogSearchResults from '@/components/blog/SearchResults'
-import BlogSelectableChip from '@/components/blog/SelectableChip'
-import { blogPostTags, getBlogPosts } from '@/services/blogPosts'
-import { BG_ALT } from '@/services/theming'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
@@ -9,6 +5,10 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
+import BlogSearchResults from '@/components/blog/SearchResults'
+import BlogSelectableChip from '@/components/blog/SelectableChip'
+import { blogPostTags, getBlogPosts } from '@/services/blogPosts'
+import { BG_ALT } from '@/services/theming'
 
 export default function Blog() {
 	const [toggleableBlogTags, setToggleableBlogTags] = useState(blogPostTags.map((tag) => ({

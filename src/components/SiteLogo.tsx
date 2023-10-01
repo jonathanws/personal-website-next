@@ -1,9 +1,9 @@
 /**
  * {@link https://mui.com/system/getting-started/the-sx-prop/#passing-the-sx-prop Passing the sx property}
  */
-import SvgIcon, { SvgIconTypeMap } from '@mui/material/SvgIcon'
 import { blue, grey } from '@mui/material/colors'
 import { SxProps, Theme } from '@mui/material/styles'
+import SvgIcon, { SvgIconTypeMap } from '@mui/material/SvgIcon'
 
 interface Props {
 	size?: SvgIconTypeMap['props']['fontSize']

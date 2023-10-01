@@ -1,5 +1,3 @@
-import { EMAIL_URL, GITHUB_URL, LINKEDIN_URL } from '@/services/constants'
-import { BG_PRIMARY, sectionPaddings } from '@/services/theming'
 import { default as EmailIcon } from '@mui/icons-material/Email'
 import { default as GitHubIcon } from '@mui/icons-material/GitHub'
 import { default as LinkedInIcon } from '@mui/icons-material/LinkedIn'
@@ -9,6 +7,8 @@ import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
+import { EMAIL_URL, GITHUB_URL, LINKEDIN_URL } from '@/services/constants'
+import { BG_PRIMARY, sectionPaddings } from '@/services/theming'
 
 export default function Interested() {
 	return (

@@ -1,5 +1,3 @@
-import { GITHUB_URL, LINKEDIN_URL } from '@/services/constants'
-import { BG_ALT, headerPaddings } from '@/services/theming'
 import { default as GitHubIcon } from '@mui/icons-material/GitHub'
 import { default as LinkedInIcon } from '@mui/icons-material/LinkedIn'
 import AppBar from '@mui/material/AppBar'
@@ -9,6 +7,8 @@ import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import { GITHUB_URL, LINKEDIN_URL } from '@/services/constants'
+import { BG_ALT, headerPaddings } from '@/services/theming'
 import SiteLogo from './SiteLogo'
 
 export default function Header() {

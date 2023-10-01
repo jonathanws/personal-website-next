@@ -1,5 +1,5 @@
-import prettyGitHistory from '@/blogPosts/prettyGitHistory/prettyGitHistory'
 import React from 'react'
+import prettyGitHistory from '@/blogPosts/prettyGitHistory/prettyGitHistory'
 import { authors } from './blogAuthors'
 
 export const blogPostTags = ['git', 'typescript'] as const

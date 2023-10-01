@@ -1,5 +1,5 @@
-import { BlogPostTag } from '@/services/blogPosts'
 import Chip from '@mui/material/Chip'
+import { BlogPostTag } from '@/services/blogPosts'
 
 interface Props {
 	index: number
