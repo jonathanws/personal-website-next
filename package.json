@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev -H 192.168.86.194",
+    "prebuild": "rm -rf out/*",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "aws s3 sync ./out/ s3://smoleycodes.com"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

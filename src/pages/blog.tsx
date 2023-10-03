@@ -61,7 +61,7 @@ export default function Blog() {
 				{/* this line sometimes shows up in link previews */}
 				<meta name="description" content="Jon's Blogs" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<link rel="icon" href="/favicon.ico" />
+				<link rel="icon" href="/images/favicon.ico" />
 			</Head>
 
 			<Container maxWidth={false} sx={{ backgroundColor: BG_ALT, minHeight: '100vh' }}>

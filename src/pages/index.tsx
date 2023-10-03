@@ -14,7 +14,6 @@ export default function Home() {
 				{/* this line sometimes shows up in link previews */}
 				<meta name="description" content="Your favorite programmer" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
 			<Header />

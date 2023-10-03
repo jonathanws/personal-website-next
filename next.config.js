@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	distDir: 'out',
 	// only generate static exports instead of both static and dynamic
 	output: 'export',
 	reactStrictMode: true,
