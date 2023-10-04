@@ -10,6 +10,7 @@ export default function BlogBody({ author, body, bodyTitle, date, heroSrc, tags 
 	// sizing styles that keep everything in a nice, narrow column
 	const contentContainerStyles = {
 		width: {
+			md: '680px',
 			sm: '580px',
 			xs: '100%',
 		},
