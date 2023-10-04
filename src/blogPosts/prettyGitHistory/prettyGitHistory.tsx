@@ -109,7 +109,7 @@ const prettyGitHistory: BlogPost = {
 		<BlogImage src={`${IMG_DIR}/git-pretty.png`} alt='pretty git history' />
 	</>,
 	bodyTitle: 'Creating a more human-readable git history',
-	date: 'Tuesday Oct 4, 2023',
+	date: 'Wednesday Oct 4, 2023',
 	description: 'How to decorate and optimize your git output to reduce clutter and irrelevant information.',
 	heroSrc:`${IMG_DIR}/hero.png`,
 	icon: <img src='/git.svg' alt='git' height={24} width={24} />,
