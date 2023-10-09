@@ -1,5 +1,6 @@
-import { Divider, Grid } from '@mui/material'
 import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import Link from 'next/link'
@@ -38,7 +39,7 @@ export default function BlogFooter() {
 				{
 					blogPosts.length
 						? <>
-							<Typography variant='h4' mb={4}>Continue Reading</Typography>
+							<Typography variant='h4' mb={4} mt={0}>Continue Reading</Typography>
 
 							<Grid container spacing={2}>
 								{

@@ -19,9 +19,9 @@ export default function Introduction() {
 					isLargeDevice
 						? <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', pb: 3, pt: 6 }}>
 							<Box sx={{ flexGrow: 1 }}>
-								<Typography variant="h2" sx={{ mb: 5 }}>Hey, I&apos;m Jon 👋</Typography>
+								<Typography variant="h2" mb={5}>Hey, I&apos;m Jon 👋</Typography>
 								<Typography variant="h1">A <span style={{ color: theme.palette.primary.main }}>software engineer</span></Typography>
-								<Typography variant="h1" sx={{ mb: 4 }}>in Denver, Colorado</Typography>
+								<Typography variant="h1" mb={4}>in Denver, Colorado</Typography>
 
 								<Button size='large' color="primary" variant="contained" startIcon={<ArticleIcon />} href={RESUME_URL} target='_blank'>
 									See Resume
@@ -31,9 +31,9 @@ export default function Introduction() {
 							<img src='/jon-hero.jpg' alt="its a-me" style={{ borderRadius: '50%', width: '30%' }}></img>
 						</Box>
 						: <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column', pb: 3, pt: 6 }}>
-							<Typography variant="h4" sx={{ mb: 3 }}>Hey, I&apos;m Jon 👋</Typography>
-							<Typography variant="h3" sx={{ mb: 0 }}>A <span style={{ color: theme.palette.primary.main }}>software engineer</span></Typography>
-							<Typography variant="h3" sx={{ mb: 5, mt: 1 }}>in Denver, Colorado</Typography>
+							<Typography variant="h4" mb={3} mt={0}>Hey, I&apos;m Jon 👋</Typography>
+							<Typography variant="h3" mb={0}>A <span style={{ color: theme.palette.primary.main }}>software engineer</span></Typography>
+							<Typography variant="h3" mb={5} mt={1}>in Denver, Colorado</Typography>
 
 							<img src='/jon-hero.jpg' alt="its a-me" style={{ borderRadius: '50%', width: '70%' }}></img>
 

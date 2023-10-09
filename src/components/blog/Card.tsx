@@ -29,6 +29,7 @@ export default function BlogCard({ description, heroSrc, title, url }: Props) {
 						gutterBottom
 						variant="h4"
 						component="p"
+						mt={0}
 						style={{
 							display: '-webkit-box',
 							overflow: 'hidden',

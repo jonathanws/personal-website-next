@@ -24,7 +24,7 @@ const firaCode = Fira_Code({
 // IconButton component initialized with styles
 const StyledIconButton = styled(IconButton)<IconButtonProps>(() => ({
 	'&:hover': {
-		background: lighten(codeBlockBackgroundColor, 0.3),
+		background: lighten(codeBlockBackgroundColor, 0.2),
 	},
 	background: darken(`${codeBlockBackgroundColor}`, 0.3),
 	borderRadius: '6px',
@@ -66,6 +66,7 @@ export default function Code({ highlightLines, language, text }: Props) {
 					{showSuccessIcon ? <CheckIcon fontSize='inherit' /> : <ContentCopy fontSize='inherit' />}
 				</StyledIconButton>
 			</Tooltip>
+
 			<SyntaxHighlighter
 				codeTagProps={{
 					style: {

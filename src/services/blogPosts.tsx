@@ -1,5 +1,6 @@
 import React from 'react'
-import prettyGitHistory from '@/blogPosts/prettyGitHistory/prettyGitHistory'
+import prettyGitHistory from '@/blogPosts/prettyGitHistory'
+import typeguardingApiResponses from '@/blogPosts/typeguardingApiResponses'
 import { authors } from './blogAuthors'
 
 export const blogPostTags = ['git', 'typescript'] as const
@@ -20,4 +21,5 @@ export interface BlogPost {
 
 export const getBlogPosts = (): BlogPost[] => [
 	prettyGitHistory,
+	typeguardingApiResponses,
 ]
