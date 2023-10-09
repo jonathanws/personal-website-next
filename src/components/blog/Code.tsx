@@ -84,7 +84,13 @@ export default function Code({ highlightLines, language, text }: Props) {
 				}}
 				language={language}
 				lineProps={(line: number) => highlightLines?.includes(line)
-					? ({ style: { backgroundColor: alpha(theme.palette.primary.main, 0.4) } })
+					? ({
+						style: {
+							backgroundColor: alpha(theme.palette.primary.main, 0.4),
+							display: 'block',
+							width: '100%',
+						},
+					})
 					: ({})
 				}
 				showLineNumbers={true}
