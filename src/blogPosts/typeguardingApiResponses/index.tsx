@@ -9,8 +9,8 @@ const IMG_DIR = '/blog/typeguardingApiResponses'
 const typeguardingApiResponses: BlogPost = {
 	author: 'jonSmoley',
 	body: <>
-		<Typography paragraph>Whether it&apos;s a database query, API call, or reading from a local file, every Node.js developer has had to pull data into their code. Good developers might validate and verify what they&apos;re reading, but if you&apos;re using Typescript it can be tricky to accurately assign types to data that could essentially be anything!</Typography>
-		<Typography paragraph>Let&apos;s say we&apos;re reading data returned from a call to the <BlogLink href='https://dog.ceo/dog-api/' text='Dog API'></BlogLink>.</Typography>
+		<Typography paragraph>Whether it&apos;s a database query, API call, or reading from a local file, every Node.js developer has had to pull data into their code. Good developers might take the extra steps to validate and verify what they&apos;re reading, but if you&apos;re using Typescript it can be tricky to accurately assign types to incoming data that could essentially be anything!</Typography>
+		<Typography paragraph>Let&apos;s say we&apos;re making an API call, and reading data returned from a the <BlogLink href='https://dog.ceo/dog-api/' text='Dog API'></BlogLink>.</Typography>
 		<Code
 			language='typescript'
 			text={[
@@ -36,7 +36,7 @@ const typeguardingApiResponses: BlogPost = {
 				'}',
 			]}
 		/>
-		<Typography paragraph>Unsurprisingly, the <BlogInlineCode>fetch</BlogInlineCode> function has no clue what the shape of the returned data is (when we call <BlogInlineCode>.json()</BlogInlineCode> on the response, it&apos;s type is <BlogInlineCode>any</BlogInlineCode>).  But this isn&apos;t a bug; <BlogInlineCode>fetch</BlogInlineCode> is supposed to be used for many API calls, and it&apos;s up to the developer to determine the type.  Also, imagine if the owner of the Dog API decides to later tweak a property or change the shape of the data, how would Typescript ever know?  We need to create our own strategy to figure out how to add types after the call is made.</Typography>
+		<Typography paragraph>Unsurprisingly, the <BlogInlineCode>fetch</BlogInlineCode> function has no clue what the shape of the jsonified returned data is. (when we call <BlogInlineCode>.json()</BlogInlineCode> on the response, it&apos;s type is <BlogInlineCode>any</BlogInlineCode>)  But this isn&apos;t a bug; <BlogInlineCode>fetch</BlogInlineCode> is supposed to be used for many API calls, and it&apos;s up to the developer to determine the type.  Also, imagine if the owner of the Dog API decides to later tweak a property or change the shape of the data, how would Typescript ever know?  We need to create our own strategy to figure out how to add types after the call is made.</Typography>
 		<Typography paragraph>Typescript supports casting types (<BlogLink href='https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions' text='called type assertions' />) that allow us to force type behavior if typescript support is lacking.  With the right syntax (using <BlogInlineCode>as</BlogInlineCode>) you can force almost any type, for better or for worse.</Typography>
 		<Code
 			language='typescript'
@@ -53,7 +53,7 @@ const typeguardingApiResponses: BlogPost = {
 				'}',
 			]}
 		/>
-		<Typography paragraph>Since we know that our route <i>should</i> return a <BlogInlineCode>RandomDog</BlogInlineCode>, we could cast the reponse from the API call to be of that type, and we get correct typing and syntax highlighting in our IDE.  Nice!</Typography>
+		<Typography paragraph>Since we know that our route <i>should</i> return a <BlogInlineCode>RandomDog</BlogInlineCode>, we could cast the response from the API call to be of that type, and we get correct typing and syntax highlighting in our IDE.  Nice!</Typography>
 		<Typography paragraph>However, <BlogInlineCode>as</BlogInlineCode> really trusts you to make the right decision, and if you aren&apos;t careful, you can end up doing more harm than good.  All the code below is valid Typescript.</Typography>
 		<Code
 			language='typescript'
@@ -73,7 +73,7 @@ const typeguardingApiResponses: BlogPost = {
 				'}',
 			]}
 		/>
-		<Typography paragraph>So, if we knew beforehand exactly what shape the Dog API would return, we could use the <BlogInlineCode>as</BlogInlineCode> keyword to just declare that the returned data is of type <BlogInlineCode>RandomDog</BlogInlineCode>.  But imagine sometime later, several months after your code has been deployed to production, the author of the Dog API changed the shape of the API response and since we just <i>declared</i> that the above response is of type <BlogInlineCode>RandomDog</BlogInlineCode>, we never catch the changed data.  <b>We have a bug.</b>  The returned data is different, and we see the ever famous <BlogInlineCode>Cannot read properties of undefined</BlogInlineCode> error.  Our boss makes us deploy a patch on a Saturday while we&apos;re on vacation in Maui.  If only we validated our data!</Typography>
+		<Typography paragraph>So, our function uses a type assertion to give us correct types, but imagine sometime later, several months after our code has been deployed to production, the author of the Dog API changes the shape of the API response.  Since we <i>declared</i> that the above response will always be of type <BlogInlineCode>RandomDog</BlogInlineCode>, we never catch the changed data.  <b>We have a bug.</b>  The returned data is different, and we see the ever famous <BlogInlineCode>Cannot read properties of undefined</BlogInlineCode> error.  Our boss makes us deploy a patch on a Saturday while we&apos;re on vacation in Maui.  If only we validated our data!</Typography>
 		<Typography paragraph>&quot;But wait!&quot; you say, &quot;What if I just add <BlogInlineCode>if</BlogInlineCode> checks to see if the properties exist?&quot;</Typography>
 		<Code
 			language='typescript'
@@ -94,10 +94,10 @@ const typeguardingApiResponses: BlogPost = {
 				'}',
 			]}
 		/>
-		<Typography paragraph>Our vacations are saved!  Our function now does validation and we have a way to handle unexpected changes in our API contracts.  We&apos;ve solved our issues, but our code is looking a little unweildy.  Wouldn&apos;t it be great if Typescript had syntax for this type of logic?</Typography>
+		<Typography paragraph>Our vacations are saved!  Our function now does validation, we have correct typing, and we have a way to handle unexpected changes in our API contracts.  We&apos;ve solved our issues, but our code is looking a little unweildy.  Wouldn&apos;t it be great if Typescript had syntax for this type of logic?</Typography>
 
-		<Typography variant='h3'>Type Guards</Typography>
-		<Typography paragraph>A <BlogLink href='https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards' text='type guard'></BlogLink> is a function that can assign a type to a variable, but only if conditions are met, similar to what we just saw above.  They always return a boolean, and use a new keyword, <BlogInlineCode>is</BlogInlineCode>, as part of the return signature.</Typography>
+		<Typography variant='h3'>Type Guard Functions</Typography>
+		<Typography paragraph>A <BlogLink href='https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards' text='type guard function'></BlogLink> is a function that can assign a type to a variable, but only if conditions are met, similar to what we just saw above.  They always return a boolean, and use a new keyword, <BlogInlineCode>is</BlogInlineCode>, as part of the return signature.</Typography>
 		<Code
 			language='typescript'
 			text={[
@@ -159,7 +159,7 @@ const typeguardingApiResponses: BlogPost = {
 		/>
 
 		<Typography variant='h4'>String unions</Typography>
-		<Typography paragraph>String union types can&apos;t be used inside of <BlogInlineCode>if</BlogInlineCode>/<BlogInlineCode>else</BlogInlineCode> statements, so we can&apos;t directly check against them.  To create a type guard, we can change the way we declare our string union types by instead defining them from a string array, and use <i>that</i> array in the type guard.</Typography>
+		<Typography paragraph>String union types can&apos;t be used inside of <BlogInlineCode>if</BlogInlineCode>/<BlogInlineCode>else</BlogInlineCode> statements, so we can&apos;t directly check against them.  To create a type guard, we can change the way we declare our string union types by instead defining them from a string array, and using <i>that</i> array in the type guard.</Typography>
 		<Code
 			language='typescript'
 			text={[
@@ -200,7 +200,7 @@ const typeguardingApiResponses: BlogPost = {
 		/>
 	</>,
 	bodyTitle: 'Using Typescript type guards to validate API responses',
-	date: 'TODO',
+	date: 'Monday Oct 9, 2023',
 	description: 'How to use typescript\'s type guard features to property validate incoming data like SQL, HTTP responses, and files',
 	heroSrc:`${IMG_DIR}/hero.png`,
 	icon: <img src='/typescript.svg' alt='Typescript' height={24} width={24} />,
