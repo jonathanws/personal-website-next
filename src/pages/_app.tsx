@@ -3,9 +3,11 @@ import { blue, grey } from '@mui/material/colors'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import type { AppProps } from 'next/app'
 import { Lato } from 'next/font/google'
-import Head from 'next/head'
-import { BG_ALT } from '@/services/theming'
 import '@/styles/globals.css'
+import Head from 'next/head'
+import NextLink from 'next/link'
+import { forwardRef } from 'react'
+import { BG_ALT } from '@/services/theming'
 
 const lato = Lato({
 	fallback: ['Arial', 'sans-serif'],
@@ -13,7 +15,25 @@ const lato = Lato({
 	weight: ['100', '300', '400', '700', '900'], // TODO: optimize
 })
 
+
+const LinkBehavior = forwardRef(function LinkBehavior(props, ref) {
+	// @ts-ignore
+	return <NextLink ref={ref} {...props} />
+})
+
 const theme = createTheme({
+	components: {
+		MuiButtonBase: {
+			defaultProps: {
+				LinkComponent: LinkBehavior,
+			},
+		},
+		MuiLink: {
+			defaultProps: {
+				component: LinkBehavior,
+			},
+		},
+	},
 	palette: {
 		background: {
 			default: BG_ALT,

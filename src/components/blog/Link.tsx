@@ -1,5 +1,4 @@
-import { Link as MUILink } from '@mui/material'
-import NextLink from 'next/link'
+import Link from '@mui/material/Link'
 
 interface Props {
 	href: string
@@ -8,14 +7,8 @@ interface Props {
 
 export default function BlogLink({ href, text }: Props) {
 	return (
-		<NextLink
-			href={href}
-			passHref
-			target='_blank'
-		>
-			<MUILink>
-				{text}
-			</MUILink>
-		</NextLink>
+		<Link href={href}>
+			{text}
+		</Link>
 	)
 }
