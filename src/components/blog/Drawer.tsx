@@ -1,4 +1,3 @@
-import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
@@ -18,7 +17,6 @@ interface Props {
 }
 
 export default function BlogDrawer({ drawerOpen, onDrawerToggle }: Props) {
-	const theme = useTheme()
 	const drawerWidth = 300
 
 	const router = useRouter()
@@ -59,7 +57,7 @@ export default function BlogDrawer({ drawerOpen, onDrawerToggle }: Props) {
 								disablePadding
 								sx={{
 									'& .Mui-selected .MuiListItemText-primary': {
-										color: theme.palette.primary.light,
+										color: 'primary.light',
 									},
 									'&:hover .MuiListItemText-primary': {
 										color: 'white',
