@@ -20,6 +20,6 @@ export interface BlogPost {
 }
 
 export const getBlogPosts = (): BlogPost[] => [
-	prettyGitHistory,
 	typeguardingApiResponses,
+	prettyGitHistory,
 ]
