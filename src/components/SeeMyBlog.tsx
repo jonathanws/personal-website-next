@@ -55,8 +55,8 @@ export default function SeeMyBlog() {
 				>
 					<Button
 						size='large'
-						color="primary"
-						variant="contained"
+						color='primary'
+						variant='contained'
 						href='/blog'
 					>
 						See all blog posts

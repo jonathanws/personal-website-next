@@ -13,12 +13,12 @@ import SiteLogo from './SiteLogo'
 
 export default function Header() {
 	return (
-		<AppBar position="static" color='transparent' elevation={0} sx={{ backgroundColor: BG_ALT }}>
+		<AppBar position='static' color='transparent' elevation={0} sx={{ backgroundColor: BG_ALT }}>
 			<Container sx={headerPaddings}>
 				<Toolbar disableGutters>
 					<Stack direction='row' spacing={2}>
 						<SiteLogo />
-						<Typography variant="h6" sx={{ flexGrow: 1 }}>
+						<Typography variant='h6' sx={{ flexGrow: 1 }}>
 							Jon Smoley
 						</Typography>
 					</Stack>
@@ -26,10 +26,10 @@ export default function Header() {
 					<Box sx={{ flexGrow: 1 }} />
 
 					<Stack direction='row' spacing={2}>
-						<IconButton aria-label="linkedin" href={LINKEDIN_URL} target="_blank">
+						<IconButton aria-label='linkedin' href={LINKEDIN_URL} target='_blank'>
 							<LinkedInIcon />
 						</IconButton>
-						<IconButton aria-label="github" href={GITHUB_URL} target="blank">
+						<IconButton aria-label='github' href={GITHUB_URL} target='blank'>
 							<GitHubIcon />
 						</IconButton>
 					</Stack>

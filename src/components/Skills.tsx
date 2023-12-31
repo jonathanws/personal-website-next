@@ -104,8 +104,8 @@ export default function Skills() {
 					{skills.map(({ duration, icons, title }, index) => (
 						<Grid item xs={2} sm={4} md={4} key={index}>
 							<Stack direction='row' spacing={1}>{icons}</Stack>
-							<Typography variant="h6">{title}</Typography>
-							<Typography variant="body2" sx={{ color: '#b0b8c4', mb: 4 }}>{duration}</Typography>
+							<Typography variant='h6'>{title}</Typography>
+							<Typography variant='body2' sx={{ color: '#b0b8c4', mb: 4 }}>{duration}</Typography>
 						</Grid>
 					))}
 				</Grid>

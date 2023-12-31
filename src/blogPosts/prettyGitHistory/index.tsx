@@ -37,7 +37,7 @@ const prettyGitHistory: BlogPost = {
 				'	co = checkout',
 			]}
 		/>
-		<BlogAlert severity="info">While it is possible to configure your base <BlogInlineCode>git log</BlogInlineCode> behavior with styling below, it is recommended to instead customize an alias in case you need to reference the original output.</BlogAlert>
+		<BlogAlert severity='info'>While it is possible to configure your base <BlogInlineCode>git log</BlogInlineCode> behavior with styling below, it is recommended to instead customize an alias in case you need to reference the original output.</BlogAlert>
 		<Typography paragraph>The rest of this article will focus on customizing an alias for the <BlogInlineCode>git log</BlogInlineCode> command, and show how to use the supported color and style formatting to change the output to a much more readable output, like this:</Typography>
 		<BlogImage src={`${IMG_DIR}/git-pretty.png`} alt='pretty Git history' />
 

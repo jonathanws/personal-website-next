@@ -12,8 +12,8 @@ export default function Home() {
 			<Head>
 				<title>Smoley Codes</title>
 				{/* this line sometimes shows up in link previews */}
-				<meta name="description" content="Your favorite programmer" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta name='description' content='Your favorite programmer' />
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
 			</Head>
 
 			<Header />

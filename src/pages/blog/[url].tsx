@@ -65,11 +65,11 @@ export default function BlogArticle({ blogToDisplayId }: Props) {
 						<meta property='og:title' content={blogToDisplay.bodyTitle} />
 						<meta property='og:description' content={blogToDisplay.description} />
 						<meta property='og:type' content='article' />
-						<meta property="og:locale" content="en_US" />
+						<meta property='og:locale' content='en_US' />
 					</>
 				}
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<link rel="icon" href="/images/favicon.ico" />
+				<meta name='viewport' content='width=device-width, initial-scale=1' />
+				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
 
 			<Box>

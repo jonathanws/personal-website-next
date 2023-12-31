@@ -18,7 +18,7 @@ export default function BlogFooter() {
 
 	return (
 		<Box
-			component="footer"
+			component='footer'
 			sx={{
 				alignItems: 'center',
 				background: BG_PRIMARY,

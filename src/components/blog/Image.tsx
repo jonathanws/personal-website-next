@@ -12,7 +12,7 @@ export default function BlogImage({ alt, caption, hero = false, src }: Props) {
 	function ImgComponent({ marginBottom = 4 }: { marginBottom?: number }) {
 		return (
 			<Box
-				component="img"
+				component='img'
 				alt={alt}
 				src={src}
 				sx={{

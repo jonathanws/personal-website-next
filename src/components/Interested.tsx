@@ -14,10 +14,10 @@ export default function Interested() {
 	return (
 		<Box sx={{ backgroundColor: BG_PRIMARY }}>
 			<Container sx={sectionPaddings}>
-				<Typography variant="h4" marginY={4} sx={{ textAlign: 'center' }}>Interested? Let me know!</Typography>
+				<Typography variant='h4' marginY={4} sx={{ textAlign: 'center' }}>Interested? Let me know!</Typography>
 
 				<Box sx={{ display: 'flex', justifyContent: 'center', m: '32px' }}>
-					<Avatar alt="jon smoley" src='/jon-hero.jpg' sx={{ height: 96, width: 96 }} />
+					<Avatar alt='jon smoley' src='/jon-hero.jpg' sx={{ height: 96, width: 96 }} />
 
 					<Stack spacing={1} sx={{ justifyContent: 'center', ml: '20px' }}>
 						<Typography variant='h5'>Jon Smoley</Typography>

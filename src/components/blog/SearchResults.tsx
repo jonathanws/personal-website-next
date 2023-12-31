@@ -51,9 +51,9 @@ export default function BlogSearchResults({ blogPosts, onResetSearch }: Props) {
 					xl={3}
 					key={i}>
 					<Box
-						display="flex"
-						justifyContent="center"
-						alignItems="center">
+						display='flex'
+						justifyContent='center'
+						alignItems='center'>
 						<BlogCard
 							description={description}
 							heroSrc={heroSrc}

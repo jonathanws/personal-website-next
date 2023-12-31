@@ -27,8 +27,8 @@ export default function BlogCard({ description, heroSrc, title, url }: Props) {
 				<CardContent>
 					<Typography
 						gutterBottom
-						variant="h4"
-						component="p"
+						variant='h4'
+						component='p'
 						mt={0}
 						style={{
 							display: '-webkit-box',
@@ -39,8 +39,8 @@ export default function BlogCard({ description, heroSrc, title, url }: Props) {
 						{title}
 					</Typography>
 					<Typography
-						variant="body2"
-						color="text.secondary"
+						variant='body2'
+						color='text.secondary'
 					>
 						{description}
 					</Typography>

@@ -37,6 +37,7 @@ const StyledIconButton = styled(IconButton)<IconButtonProps>(() => ({
 
 interface Props {
 	highlightLines?: number[]
+	// https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MD
 	language:
 		| 'bash'
 		| 'typescript'
@@ -53,13 +54,16 @@ export default function Code({ highlightLines, language, text }: Props) {
 	}
 
 	return (
-		<div style={{ maxWidth: 'calc(100vw - 5vw)', position: 'relative' }}>
+		<div style={{
+			maxWidth: 'calc(100vw - 5vw)',
+			position: 'relative',
+		}}>
 			<Tooltip
-				title="Copy"
-				placement="left"
+				title='Copy'
+				placement='left'
 			>
 				<StyledIconButton
-					aria-label="copy"
+					aria-label='copy'
 					onClick={onCopyClick}
 					size='small'
 				>
@@ -84,8 +88,8 @@ export default function Code({ highlightLines, language, text }: Props) {
 				}}
 				language={language}
 				lineProps={(line: number) => highlightLines?.includes(line)
-					? ({ style: { backgroundColor: alpha(theme.palette.primary.main, 0.4) } })
-					: ({})
+					? { style: { backgroundColor: alpha(theme.palette.primary.main, 0.4) } }
+					: {}
 				}
 				showLineNumbers={true}
 				style={atomOneDark}

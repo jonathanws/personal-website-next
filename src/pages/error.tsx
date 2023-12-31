@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 export default function ErrorPage() {
 	return (
 		<Container>
-			<Box display="flex" justifyContent="center" alignItems="center" height="100vh" flexDirection='column'>
+			<Box display='flex' justifyContent='center' alignItems='center' height='100vh' flexDirection='column'>
 				<Typography variant='h1' style={{ fontSize: '8rem' }}>404</Typography>
 				<Typography variant='h2' style={{ marginBottom: 64 }}>Page not found</Typography>
 

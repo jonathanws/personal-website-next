@@ -20,7 +20,7 @@ export default function BlogBody({ author, body, bodyTitle, date, heroSrc, tags 
 
 	return (
 		<Box
-			component="main"
+			component='main'
 			sx={{
 				alignItems: 'center',
 				background: BG_ALT,
