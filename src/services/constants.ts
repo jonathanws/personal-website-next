@@ -13,10 +13,16 @@ const getHostname = () => {
 	return 'http://192.168.86.194:3000'
 }
 
+const PAGES: Record<Uppercase<string>, `/${string}`> = {
+	BLOG: '/blog',
+	HOME: '/',
+}
+
 export {
 	EMAIL_URL,
 	GITHUB_URL,
 	LINKEDIN_URL,
+	PAGES,
 	RESUME_URL,
 	getHostname,
 	isEnvironment,

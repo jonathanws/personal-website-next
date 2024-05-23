@@ -9,6 +9,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
 import { BlogPost, getBlogPosts } from '@/services/blogPosts'
+import { PAGES } from '@/services/constants'
 import { BG_ALT } from '@/services/theming'
 
 interface Props {
@@ -22,7 +23,7 @@ export default function BlogDrawer({ drawerOpen, onDrawerToggle }: Props) {
 	const router = useRouter()
 	const onDrawerItemSelected = (url: BlogPost['url']) => {
 		onDrawerToggle()
-		router.push(`/blog/${url}`)
+		router.push(`${PAGES.BLOG}/${url}`)
 	}
 
 	return (

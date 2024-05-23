@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
 import SiteLogo from '@/components/SiteLogo'
+import { PAGES } from '@/services/constants'
 import { BG_ALT } from '@/services/theming'
 
 interface Props {
@@ -13,7 +14,7 @@ interface Props {
 
 export default function BlogHeader({ onDrawerToggle }: Props) {
 	const router = useRouter()
-	const handleLogoClick = () => router.push('/')
+	const handleLogoClick = () => router.push(PAGES.HOME)
 
 	return (
 		<AppBar
