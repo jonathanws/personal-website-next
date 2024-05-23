@@ -4,6 +4,7 @@
 import { blue, grey } from '@mui/material/colors'
 import { SxProps, Theme } from '@mui/material/styles'
 import SvgIcon, { SvgIconTypeMap } from '@mui/material/SvgIcon'
+import { useRouter } from 'next/router'
 
 interface Props {
 	size?: SvgIconTypeMap['props']['fontSize']
@@ -14,6 +15,8 @@ interface Props {
  * Hardcoded svg here since I couldn't figure out how to get it to work with import
  */
 export default function SiteLogo({ size = 'large', sx = [] }: Props) {
+	const router = useRouter()
+
 	const colorPrimary = blue[700]
 	const colorSecondary = grey[300]
 
@@ -22,7 +25,13 @@ export default function SiteLogo({ size = 'large', sx = [] }: Props) {
 		sx={[
 			// cannot spread `sx` directly because `SxProps` (typeof sx) can be an array.
 			...(Array.isArray(sx) ? sx : [sx]),
+			{
+				'&:hover': {
+					cursor: 'pointer',
+				},
+			},
 		]}
+		onClick={() => router.push('/')}
 	>
 		<svg
 			width='2500'

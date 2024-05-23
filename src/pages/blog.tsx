@@ -7,6 +7,7 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import BlogSearchResults from '@/components/blog/SearchResults'
 import BlogSelectableChip from '@/components/blog/SelectableChip'
+import Header from '@/components/Header'
 import { blogPostTags, getBlogPosts } from '@/services/blogPosts'
 import { BG_ALT } from '@/services/theming'
 
@@ -63,6 +64,8 @@ export default function Blog() {
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
+
+			<Header />
 
 			<Container maxWidth={false} sx={{ backgroundColor: BG_ALT, minHeight: '100vh' }}>
 				<Container sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column', pt: 4 }}>
