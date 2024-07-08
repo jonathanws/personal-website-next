@@ -46,7 +46,7 @@ const skills: Skill[] = [
 		title: 'Web Frameworks',
 	},
 	{
-		duration: '2.5 years',
+		duration: '2.5 years / 5 years',
 		icons: getTooltips([
 			{
 				alt: 'Typescript',
