@@ -10,8 +10,8 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 // because you can't configure indentation to use tabs...
-export const TAB = '	'
-export const FOUR_SPACES = '    '
+const TAB = '	'
+const FOUR_SPACES = '    '
 
 // background color of the code blocks.  Unsure how to import, so duplicated here
 const codeBlockBackgroundColor = 'rgb(40, 44, 52)'
