@@ -201,7 +201,7 @@ const typeguardingApiResponses: BlogPost = {
 	</>,
 	bodyTitle: 'Using Typescript type guards to validate API responses',
 	date: 'Monday Oct 9, 2023',
-	description: 'How to use typescript\'s type guard features to property validate incoming data like SQL, HTTP responses, and files',
+	description: 'How to use typescript\'s type guard features to properly validate incoming data like SQL, HTTP responses, and files',
 	heroSrc:`${IMG_DIR}/hero.png`,
 	icon: <img src='/typescript.svg' alt='Typescript' height={24} width={24} />,
 	menuTitle: 'Validating API Responses',
