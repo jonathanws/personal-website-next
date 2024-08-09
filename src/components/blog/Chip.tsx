@@ -17,11 +17,17 @@ export default function BlogChip({ type }: Props) {
 	let label: ChipTypeMap['props']['label']
 
 	switch (type) {
+		case 'git':
+			label = 'Git'
+			break
+		case 'html':
+			label = 'HTML'
+			break
+		case 'seo':
+			label = 'SEO'
 		case 'typescript':
 			label = 'Typescript'
 			break
-		case 'git':
-			label = 'Git'
 			break
 	}
 

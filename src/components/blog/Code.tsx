@@ -40,6 +40,7 @@ interface Props {
 	// https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MD
 	language:
 		| 'bash'
+		| 'htmlbars'
 		| 'typescript'
 	text: string[]
 }

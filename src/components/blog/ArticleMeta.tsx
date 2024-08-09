@@ -58,14 +58,15 @@ export default function BlogArticleMeta({ author, date, tags }: Props) {
 			<Stack spacing={1} sx={{ marginBottom: 4 }}>
 				<Divider />
 				<Stack
-					direction={'row'}
-					spacing={4}
+					direction='row'
 					sx={{
 						alignItems: 'center',
 						justifyContent: 'space-between',
 					}}
 				>
-					{tags.map((tag, i) => <BlogChip key={i} type={tag} />)}
+					<Stack direction='row' spacing={2}>
+						{tags.map((tag, i) => <BlogChip key={i} type={tag} />)}
+					</Stack>
 
 					<Stack direction='row'>
 						<Button size='large' startIcon={<ShareIcon />} onClick={onShare}>Share</Button>
