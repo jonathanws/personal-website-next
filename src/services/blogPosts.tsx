@@ -3,7 +3,7 @@ import prettyGitHistory from '@/blogPosts/prettyGitHistory'
 import typeguardingApiResponses from '@/blogPosts/typeguardingApiResponses'
 import { authors } from './blogAuthors'
 
-export const blogPostTags = ['git', 'typescript'] as const
+export const blogPostTags = ['git', 'html', 'seo', 'typescript'] as const
 export type BlogPostTag = typeof blogPostTags[number]
 
 export interface BlogPost {

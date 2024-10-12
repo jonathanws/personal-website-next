@@ -25,9 +25,9 @@ export default function BlogChip({ type }: Props) {
 			break
 		case 'seo':
 			label = 'SEO'
+			break
 		case 'typescript':
 			label = 'Typescript'
-			break
 			break
 	}
 

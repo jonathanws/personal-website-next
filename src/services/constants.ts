@@ -7,7 +7,7 @@ const isEnvironment = (env: 'development' | 'production' | 'test') => process.en
 
 const getHostname = () => {
 	if (isEnvironment('production')) {
-		return 'http://smoleycodes.com'
+		return 'https://smoleycodes.com'
 	}
 
 	return 'http://192.168.86.194:3000'
