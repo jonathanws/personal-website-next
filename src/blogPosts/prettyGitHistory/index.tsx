@@ -107,7 +107,7 @@ const prettyGitHistory: BlogPost = {
 	</>,
 	bodyTitle: 'Creating a more human-readable Git history',
 	date: 'Wednesday Oct 4, 2023',
-	description: 'How to decorate and optimize your Git output to reduce clutter and irrelevant information.',
+	description: 'How to decorate and optimize your Git output to reduce clutter and irrelevant information',
 	heroSrc:`${IMG_DIR}/hero.png`,
 	icon: <img src='/git.svg' alt='Git' height={24} width={24} />,
 	menuTitle: 'Pretty Git History',

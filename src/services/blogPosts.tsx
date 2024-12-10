@@ -1,5 +1,6 @@
 import React from 'react'
 import prettyGitHistory from '@/blogPosts/prettyGitHistory'
+import prettyLinkPreviews from '@/blogPosts/prettyLinkPreviews'
 import typeguardingApiResponses from '@/blogPosts/typeguardingApiResponses'
 import { authors } from './blogAuthors'
 
@@ -19,7 +20,9 @@ export interface BlogPost {
 	url: string // the unique identifier of a blog post
 }
 
+// ordered from newest to
 export const getBlogPosts = (): BlogPost[] => [
+	prettyLinkPreviews,
 	typeguardingApiResponses,
 	prettyGitHistory,
 ]
