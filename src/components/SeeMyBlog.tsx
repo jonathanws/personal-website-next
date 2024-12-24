@@ -9,7 +9,7 @@ import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { getBlogPosts } from '@/services/blogPosts'
-import { BG_ALT, sectionPaddings } from '@/services/theming'
+import { BG_PRIMARY, sectionPaddings } from '@/services/theming'
 
 export default function SeeMyBlog() {
 	const theme = useTheme()
@@ -35,7 +35,7 @@ export default function SeeMyBlog() {
 		))
 
 	return (
-		<Box sx={{ backgroundColor: BG_ALT }}>
+		<Box sx={{ backgroundColor: BG_PRIMARY }}>
 			<Container sx={sectionPaddings}>
 				<Typography variant='h3'>Latest Blog Posts</Typography>
 

@@ -8,11 +8,11 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { EMAIL_URL, GITHUB_URL, LINKEDIN_URL } from '@/services/constants'
-import { BG_PRIMARY, sectionPaddings } from '@/services/theming'
+import { BG_ALT, sectionPaddings } from '@/services/theming'
 
 export default function Interested() {
 	return (
-		<Box sx={{ backgroundColor: BG_PRIMARY }}>
+		<Box sx={{ backgroundColor: BG_ALT }}>
 			<Container sx={sectionPaddings}>
 				<Typography variant='h4' marginY={4} sx={{ textAlign: 'center' }}>Interested? Let me know!</Typography>
 
