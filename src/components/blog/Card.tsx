@@ -1,19 +1,22 @@
 import Card from '@mui/material/Card'
 import CardActionArea from '@mui/material/CardActionArea'
+import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
+import Chip from '@mui/material/Chip'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
 import { PAGES } from '@/services/constants'
 
 interface Props {
 	description: string
-	title: string
 	heroSrc: string
+	tags?: string[]
+	title: string
 	url: string
 }
 
-export default function BlogCard({ description, heroSrc, title, url }: Props) {
+export default function BlogCard({ description, heroSrc, tags, title, url }: Props) {
 	const router = useRouter()
 
 	return (
@@ -46,6 +49,13 @@ export default function BlogCard({ description, heroSrc, title, url }: Props) {
 						{description}
 					</Typography>
 				</CardContent>
+
+				{
+					tags &&
+					<CardActions sx={{ justifyContent: 'flex-end' }}>
+						{tags.map((tag) => <Chip label={tag} key={tag} />)}
+					</CardActions>
+				}
 			</CardActionArea>
 		</Card>
 	)
