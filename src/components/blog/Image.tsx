@@ -37,6 +37,7 @@ export default function BlogImage({ alt, caption, hero = false, src }: Props) {
 	return caption
 		? <Box>
 			<ImgComponent marginBottom={0} />
+
 			<Typography
 				variant='caption'
 				align='center'

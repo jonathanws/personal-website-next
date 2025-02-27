@@ -41,7 +41,8 @@ export default function BlogSearchResults({ blogPosts, onResetSearch }: Props) {
 	return (
 		<Grid
 			container
-			spacing={2}>
+			spacing={2}
+		>
 			{blogPosts.map(({ bodyTitle, description, heroSrc, url }, i) =>
 				<Grid
 					item
