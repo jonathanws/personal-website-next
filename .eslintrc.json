@@ -4,6 +4,8 @@
         "import"
     ],
 	"rules": {
+		// disable next from insisting on using the <Image> component
+		"@next/next/no-img-element": "off",
 		// warns against not using dangling commas
         "comma-dangle": [
             "warn",
