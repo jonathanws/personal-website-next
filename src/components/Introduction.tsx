@@ -6,14 +6,18 @@ import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { RESUME_URL } from '@/services/constants'
-import { BG_ALT, sectionPaddings } from '@/services/theming'
+import { sectionPaddings } from '@/services/theming'
 
-export default function Introduction() {
+interface Props {
+	backgroundColor: string
+}
+
+export default function Introduction({ backgroundColor }: Props) {
 	const theme = useTheme()
 	const isLargeDevice = useMediaQuery(theme.breakpoints.up('sm'))
 
 	return (
-		<Box sx={{ backgroundColor: BG_ALT }}>
+		<Box sx={{ backgroundColor }}>
 			<Container sx={sectionPaddings}>
 				{
 					isLargeDevice

@@ -9,9 +9,13 @@ import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { getBlogPosts } from '@/services/blogPosts'
-import { BG_PRIMARY, sectionPaddings } from '@/services/theming'
+import { sectionPaddings } from '@/services/theming'
 
-export default function SeeMyBlog() {
+interface Props {
+	backgroundColor: string
+}
+
+export default function SeeMyBlog({ backgroundColor }: Props) {
 	const theme = useTheme()
 
 	const slidesPerView = useMediaQuery(theme.breakpoints.up('sm'))
@@ -35,7 +39,7 @@ export default function SeeMyBlog() {
 		))
 
 	return (
-		<Box sx={{ backgroundColor: BG_PRIMARY }}>
+		<Box sx={{ backgroundColor }}>
 			<Container sx={sectionPaddings}>
 				<Typography variant='h3'>Latest Blog Posts</Typography>
 

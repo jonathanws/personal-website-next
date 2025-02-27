@@ -1,9 +1,12 @@
 import Box from '@mui/material/Box'
-import { BG_ALT } from '@/services/theming'
 
-export default function Footer() {
+interface Props {
+	backgroundColor: string
+}
+
+export default function Footer({ backgroundColor }: Props) {
 	return <Box sx={{
-		backgroundColor: BG_ALT,
+		backgroundColor,
 		height: 100,
 	}} />
 }

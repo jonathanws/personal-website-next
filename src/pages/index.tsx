@@ -5,8 +5,16 @@ import Interested from '@/components/Interested'
 import Introduction from '@/components/Introduction'
 import SeeMyBlog from '@/components/SeeMyBlog'
 import Skills from '@/components/Skills'
+import { BG_ALT, BG_PRIMARY } from '@/services/theming'
 
 export default function Home() {
+	const sections = [
+		Introduction,
+		Skills,
+		SeeMyBlog,
+		Interested,
+	]
+
 	return (
 		<>
 			<Head>
@@ -18,15 +26,15 @@ export default function Home() {
 
 			<Header />
 
-			<Introduction />
+			{
+				sections.map((Section, index) => <Section
+					backgroundColor={ index % 2 === 0 ? BG_ALT : BG_PRIMARY }
+					key={index}
+				/>)
+			}
 
-			<Skills />
-
-			<SeeMyBlog />
-
-			<Interested />
-
-			<Footer />
+			{/* match whatever the previous section background color is */}
+			<Footer backgroundColor={ sections.length % 2 === 0 ? BG_PRIMARY : BG_ALT } />
 		</>
 	)
 }
