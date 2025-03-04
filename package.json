@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 192.168.86.194",
+    "dev": "next dev",
     "prebuild": "rm -rf out/*",
     "build": "next build",
     "start": "next start",
@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.11",
     "@mui/material": "^5.14.11",
+    "@supabase/supabase-js": "^2.49.1",
     "clipboard-copy": "^4.0.1",
     "next": "latest",
     "react": "latest",

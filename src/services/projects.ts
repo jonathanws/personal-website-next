@@ -13,7 +13,7 @@ export const getProjects = (): Project[] => [
 		alt: 'Sample image of the Jersey ID project',
 		description: 'Watching a football game and wonder who just caught that ball?  See who caught it with Jersey ID!',
 		href: PAGES.PROJECT_JERSEY_ID,
-		src: '',
+		src: '/404-img.jpg',
 		title: 'Jersey ID',
 	},
 ]

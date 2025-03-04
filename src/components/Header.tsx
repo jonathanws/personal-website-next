@@ -11,7 +11,11 @@ import { GITHUB_URL, LINKEDIN_URL } from '@/services/constants'
 import { BG_ALT, headerPaddings } from '@/services/theming'
 import SiteLogo from './SiteLogo'
 
-export default function Header() {
+interface Props {
+	title?: string
+}
+
+export default function Header({ title }: Props) {
 	return (
 		<AppBar position='static' color='transparent' elevation={0} sx={{ backgroundColor: BG_ALT }}>
 			<Container sx={headerPaddings}>
@@ -19,7 +23,7 @@ export default function Header() {
 					<Stack direction='row' spacing={2}>
 						<SiteLogo />
 						<Typography variant='h6' sx={{ flexGrow: 1 }}>
-							Jon Smoley
+							{ title ?? 'Jon Smoley' }
 						</Typography>
 					</Stack>
 
