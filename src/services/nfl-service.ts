@@ -11,42 +11,63 @@ const SUPABASE_FUNCTIONS = [
 
 const invokeSupabaseFunction = async(name: typeof SUPABASE_FUNCTIONS[number], options?: FunctionInvokeOptions) => supabase.functions.invoke(name, options)
 
+interface NFLAthleteAndNFLTeam {
+	player: NFLAthlete
+	team: NFLTeam
+}
+
 interface NFLAthlete {
-	id: string
+	displayHeight: string
+	displayWeight: string
 	firstName: string
-	lastName: string
 	fullName: string
-	jersey: string
 	headshot: {
 		href: string
 		alt: string
 	}
+	id: string
+	jersey: string
+	lastName: string
 	position: {
 		name: string
 		abbreviation: string
 	}
 }
 
-const isNFLAthlete = (maybe: any): maybe is NFLAthlete =>
-	maybe &&
-	maybe.id && typeof maybe.id === 'string' &&
-	maybe.firstName && typeof maybe.firstName === 'string' &&
-	maybe.lastName && typeof maybe.lastName === 'string' &&
-	maybe.fullName && typeof maybe.fullName === 'string' &&
-	(maybe.jersey ? typeof maybe.jersey === 'string' : true) &&
-	maybe.position &&
-	maybe.position.name && typeof maybe.position.name === 'string' &&
-	maybe.position.abbreviation && typeof maybe.position.abbreviation === 'string' &&
-	maybe.headshot &&
-	maybe.headshot.href &&
-	maybe.headshot.alt
+const isNFLPosition = (maybe: unknown): maybe is NFLAthlete['position'] =>
+	typeof maybe === 'object'
+	&& maybe !== null
+	&& 'name' in maybe && typeof maybe.name === 'string'
+	&& 'abbreviation' in maybe && typeof maybe.abbreviation === 'string'
+
+const isNFLHeadshot = (maybe: unknown): maybe is NFLAthlete['headshot'] =>
+	typeof maybe === 'object'
+	&& maybe !== null
+	&& 'href' in maybe && typeof maybe.href === 'string'
+	&& 'alt' in maybe && typeof maybe.alt === 'string'
+
+const isNFLAthlete = (maybe: unknown): maybe is NFLAthlete =>
+	typeof maybe === 'object'
+	&& maybe !== null
+	&& 'id' in maybe && typeof maybe.id === 'string'
+	&& 'displayHeight' in maybe && typeof maybe.displayHeight === 'string'
+	&& 'displayWeight' in maybe && typeof maybe.displayWeight === 'string'
+	&& 'firstName' in maybe && typeof maybe.firstName === 'string'
+	&& 'lastName' in maybe && typeof maybe.lastName === 'string'
+	&& 'fullName' in maybe && typeof maybe.fullName === 'string'
+	&& ('jersey' in maybe ? typeof maybe.jersey === 'string' : true)
+	&& 'position' in maybe && isNFLPosition(maybe.position)
+	&& 'headshot' in maybe && isNFLHeadshot(maybe.headshot)
+
+const isNFLAthleteAndTeam = (maybe: unknown): maybe is NFLAthleteAndNFLTeam =>
+	typeof maybe === 'object'
+	&& maybe !== null
+	&& 'player' in maybe && isNFLAthlete(maybe.player)
+	&& 'team' in maybe && isNFLTeam(maybe.team)
 
 const getPlayerByTeamIdAndJersey = async (teamId: string, jersey: string) => {
 	try {
-		const { data, error } = await invokeSupabaseFunction(
-			'player-by-team-jersey',
-			{ body: { jersey, teamId } },
-		)
+		const { data, error } = await invokeSupabaseFunction('player-by-team-jersey', { body: { jersey, teamId } })
 
 		if (error) {
 			console.error(`Error fetching player for team ${teamId} and jersey ${jersey}`, error)
@@ -54,8 +75,15 @@ const getPlayerByTeamIdAndJersey = async (teamId: string, jersey: string) => {
 			return
 		}
 
-		if (!isNFLAthlete(data)) {
-			console.error('Malformed data returned for specific player')
+		// successful call, but player just doesn't exist
+		if (typeof data === 'string' && data === '') {
+			console.log('player not found')
+
+			return
+		}
+
+		if (!isNFLAthleteAndTeam(data)) {
+			console.error('Malformed data returned for specific player', data)
 
 			return
 		}
@@ -65,17 +93,6 @@ const getPlayerByTeamIdAndJersey = async (teamId: string, jersey: string) => {
 		console.error(e, 'error fetching player by team id and jersey')
 	}
 }
-
-interface RandomPlayer {
-	player: NFLAthlete
-	teamId: string
-}
-
-const isRandomPlayer = (maybe: any): maybe is RandomPlayer =>
-	typeof maybe === 'object'
-	&& maybe !== null
-	&& 'player' in maybe && typeof isNFLAthlete(maybe.player)
-	&& 'teamId' in maybe && typeof maybe.teamId === 'string'
 
 const getRandomPlayer = async () => {
 	try {
@@ -87,7 +104,7 @@ const getRandomPlayer = async () => {
 			return
 		}
 
-		if (!isRandomPlayer(data)) {
+		if (!isNFLAthleteAndTeam(data)) {
 			console.error('Malformed data returned for random player')
 
 			return
@@ -120,16 +137,16 @@ interface NFLTeam extends NFLTeamBackend {
 	logo: string
 }
 
-const isNFLTeam = (maybeNFLTeam: any): maybeNFLTeam is NFLTeam =>
-	maybeNFLTeam && (
-		typeof maybeNFLTeam.abbreviation === 'string' &&
-		typeof maybeNFLTeam.color === 'string' &&
-		typeof maybeNFLTeam.displayName === 'string' &&
-		typeof maybeNFLTeam.id === 'string' &&
-		typeof maybeNFLTeam.location === 'string' &&
-		typeof maybeNFLTeam.logo === 'string' &&
-		typeof maybeNFLTeam.name === 'string'
-	)
+const isNFLTeam = (maybe: unknown): maybe is NFLTeam =>
+	typeof maybe === 'object'
+	&& maybe !== null
+	&& 'abbreviation' in maybe && typeof maybe.abbreviation === 'string'
+	&& 'color' in maybe && typeof maybe.color === 'string'
+	&& 'displayName' in maybe && typeof maybe.displayName === 'string'
+	&& 'id' in maybe && typeof maybe.id === 'string'
+	&& 'location' in maybe && typeof maybe.location === 'string'
+	&& 'logo' in maybe && typeof maybe.logo === 'string'
+	&& 'name' in maybe && typeof maybe.name === 'string'
 
 const isNFLTeams = (maybeNFLTeams: any): maybeNFLTeams is NFLTeam[] =>
 	Array.isArray(maybeNFLTeams) &&
@@ -163,5 +180,6 @@ export {
 	getRandomPlayer,
 	getTeams,
 	type NFLAthlete,
+	type NFLAthleteAndNFLTeam,
 	type NFLTeam,
 }

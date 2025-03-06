@@ -1,6 +1,6 @@
+import Container from '@mui/material/Container'
 import Head from 'next/head'
-import Header from '@/components/Header'
-import JerseyIdPageBody from '@/components/projects/jersey-id/JerseyIdPageBody'
+import PlayerLookup from '@/components/projects/jersey-id/PlayerLookup'
 
 export default function JerseyIdProjectPage() {
 	return (
@@ -13,9 +13,23 @@ export default function JerseyIdProjectPage() {
 				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
 
-			<Header title='NFL Jersey ID' />
-
-			<JerseyIdPageBody />
+			<Container
+				disableGutters
+				sx={{
+					mt: {
+						sm: 2,
+						xs: 0,
+					},
+					// sizing styles that keep everything in a nice, narrow column
+					width: {
+						md: '680px',
+						sm: '580px',
+						xs: '100%',
+					},
+				}}
+			>
+				<PlayerLookup />
+			</Container>
 		</>
 	)
 }

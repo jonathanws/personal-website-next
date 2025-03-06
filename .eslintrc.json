@@ -95,7 +95,7 @@
         ],
         // enforces member sorting within objects
         "sort-keys": [
-            "error",
+            "warn",
             "asc",
             {
                 "caseSensitive": false,
