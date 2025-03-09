@@ -1,11 +1,12 @@
 /**
  * First component after the main project/jersey-id page
  */
-import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
+import { useTheme } from '@mui/material/styles'
 import { useEffect, useState } from 'react'
 import { getPlayerByTeamIdAndJersey, getRandomPlayer, getTeams, NFLAthleteAndNFLTeam, NFLTeam } from '@/services/nfl-service'
+import MySnackbar from './MySnackbar'
 import PlayerHeadshot from './PlayerHeadshot'
 import PlayerSearch from './PlayerSearch'
 import PlayerSummary from './PlayerSummary'
@@ -16,7 +17,8 @@ import TeamPicker from './TeamPicker'
 export const borderRadiusNum = 16
 
 export default function PlayerLookup() {
-	const backgroundColor = useTheme().palette.background.paper
+	const theme = useTheme()
+	const backgroundColor = theme.palette.background.paper
 
 	const [playerAndTeam, setPlayerAndTeam] = useState<NFLAthleteAndNFLTeam>()
 	const [teams, setTeams] = useState<NFLTeam[]>([])
@@ -24,6 +26,9 @@ export default function PlayerLookup() {
 	// fields that eventually go to the backend
 	const [teamIdForQuery, setTeamIdForQuery] = useState('')
 	const [jerseyForQuery, setJerseyForQuery] = useState('')
+
+	// error state
+	const [showPlayerNotFound, setShowPlayerNotFound] = useState(false)
 
 	// Randomly fetch a team and player at startup
 	useEffect(() => {
@@ -60,6 +65,8 @@ export default function PlayerLookup() {
 			const data = await getPlayerByTeamIdAndJersey(teamIdForQuery, jerseyForQuery)
 
 			if (!data) {
+				setShowPlayerNotFound(true)
+
 				return
 			}
 
@@ -162,6 +169,14 @@ export default function PlayerLookup() {
 				onRecentPlayerClick={onRecentPlayerClick}
 				recentPlayers={recentPlayers}
 			/>
+
+			<MySnackbar
+				open={showPlayerNotFound}
+				onClose={() => setShowPlayerNotFound(false)}
+				severity='error'
+			>
+				Player not found
+			</MySnackbar>
 		</Box>
 	)
 }

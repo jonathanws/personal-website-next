@@ -21,7 +21,7 @@ export default function BlogArticleMeta({ author, date, tags }: Props) {
 	const theme = useTheme()
 	const { avatar, name, title } = getAuthor(author)
 
-	// display at bottom on phones, top-right on every thing else
+	// display at bottom on phones, top-right on everything else
 	const snackbarPosition: SnackbarProps['anchorOrigin'] = useMediaQuery(theme.breakpoints.up('md'))
 		? { horizontal: 'right', vertical: 'top' }
 		: { horizontal: 'center', vertical: 'bottom' }
