@@ -21,7 +21,6 @@ export default function PlayerSearch({ input, onJerseyChange, onSearch, onTeamPi
 		<Box display='flex'>
 			{/* TeamPicker toggle button */}
 			<Button
-				variant='outlined'
 				onClick={onTeamPickerClick}
 			>
 				<Box

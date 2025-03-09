@@ -11,6 +11,9 @@ import PlayerSummary from './PlayerSummary'
 import RecentPlayers from './RecentPlayers'
 import TeamPicker from './TeamPicker'
 
+// ensure common look and feel for each "section"
+export const sectionBorderRadius = '16px'
+
 export default function PlayerLookup() {
 	const backgroundColor = useTheme().palette.background.paper
 
@@ -72,7 +75,14 @@ export default function PlayerLookup() {
 
 	const [showTeamPicker, setShowTeamPicker] = useState(false)
 
-	const onJerseyPicked = (jersey: string) => setJerseyForQuery(jersey)
+	const onJerseyPicked = (jersey: string) => {
+		// remove leading zeroes, but allow query for '0'
+		setJerseyForQuery(
+			jersey.startsWith('0') && jersey.length === 2
+				? jersey.slice(1)
+				: jersey
+		)
+	}
 	const onTeamPicked = (id: string) => {
 		setTeamIdForQuery(id)
 		toggleShowTeamPicker()
@@ -106,30 +116,47 @@ export default function PlayerLookup() {
 		<Box
 			display='flex'
 			flexDirection='column'
-			sx={{ background: backgroundColor }}
+			sx={{
+				background: 'white',
+				borderRadius: sectionBorderRadius,
+				overflow: 'hidden', // needed for rounded corners at bottom of recents
+				position: 'relative', // needed for z-index
+			}}
 		>
-			{playerAndTeam && <PlayerHeadshot
-				src={playerAndTeam.player.headshot.href}
-				fadeTo={backgroundColor}
-			/>}
-
-			<Box pl={2} pr={2}>
-				{playerAndTeam && <PlayerSummary
-					height={playerAndTeam.player.displayHeight}
-					jersey={playerAndTeam.player.jersey}
-					name={playerAndTeam.player.fullName}
-					position={playerAndTeam.player.position.name}
-					weight={playerAndTeam.player.displayWeight}
+			<Box
+				display='flex'
+				flexDirection='column'
+				sx={{
+					borderRadius: sectionBorderRadius,
+					boxShadow: 3,
+					overflow: 'hidden', // needed for rounded corners at bottom of team picker
+					position: 'relative', // needed for z-index
+					zIndex: 3,
+				}}
+			>
+				{playerAndTeam && <PlayerHeadshot
+					src={playerAndTeam.player.headshot.href}
+					fadeTo={backgroundColor}
 				/>}
-			</Box>
 
-			<PlayerSearch
-				input={jerseyForQuery}
-				onSearch={onPlayerSearch}
-				onJerseyChange={onJerseyPicked}
-				onTeamPickerClick={toggleShowTeamPicker}
-				teamLogo={teams.find(({ id }) => id === teamIdForQuery)?.logo}
-			/>
+				<Box pl={2} pr={2}>
+					{playerAndTeam && <PlayerSummary
+						height={playerAndTeam.player.displayHeight}
+						jersey={playerAndTeam.player.jersey}
+						name={playerAndTeam.player.fullName}
+						position={playerAndTeam.player.position.name}
+						weight={playerAndTeam.player.displayWeight}
+					/>}
+				</Box>
+
+				<PlayerSearch
+					input={jerseyForQuery}
+					onSearch={onPlayerSearch}
+					onJerseyChange={onJerseyPicked}
+					onTeamPickerClick={toggleShowTeamPicker}
+					teamLogo={teams.find(({ id }) => id === teamIdForQuery)?.logo}
+				/>
+			</Box>
 
 			<TeamPicker
 				onSelect={onTeamPicked}
