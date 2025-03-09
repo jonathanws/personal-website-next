@@ -3,6 +3,7 @@
  */
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
 import { useEffect, useState } from 'react'
 import { getPlayerByTeamIdAndJersey, getRandomPlayer, getTeams, NFLAthleteAndNFLTeam, NFLTeam } from '@/services/nfl-service'
 import PlayerHeadshot from './PlayerHeadshot'
@@ -12,7 +13,7 @@ import RecentPlayers from './RecentPlayers'
 import TeamPicker from './TeamPicker'
 
 // ensure common look and feel for each "section"
-export const sectionBorderRadius = '16px'
+export const borderRadiusNum = 16
 
 export default function PlayerLookup() {
 	const backgroundColor = useTheme().palette.background.paper
@@ -46,7 +47,7 @@ export default function PlayerLookup() {
 					setTeams(_teams)
 				}
 			} catch (e) {
-				console.error('Error fetching teams', e)
+				console.error('error fetching teams', e)
 			}
 		}
 
@@ -97,7 +98,7 @@ export default function PlayerLookup() {
 
 	const addRecentPlayer = (newguy: NFLAthleteAndNFLTeam) => {
 		// don't add players already in the list
-		if (recentPlayers.some(({ player, team }) => player.id === newguy.player.id && team.id === newguy.team.id )) {
+		if (recentPlayers.some(({ player, team }) => player.id === newguy.player.id && team.id === newguy.team.id)) {
 			return
 		}
 
@@ -114,24 +115,16 @@ export default function PlayerLookup() {
 
 	return (
 		<Box
-			display='flex'
-			flexDirection='column'
-			sx={{
-				background: 'white',
-				borderRadius: sectionBorderRadius,
-				overflow: 'hidden', // needed for rounded corners at bottom of recents
-				position: 'relative', // needed for z-index
-			}}
+			my={4}
+			borderRadius={`${borderRadiusNum}px`}
+			overflow='hidden'
+			position='relative' // TODO: do I need this?
 		>
-			<Box
-				display='flex'
-				flexDirection='column'
+			<Paper
 				sx={{
-					borderRadius: sectionBorderRadius,
-					boxShadow: 3,
-					overflow: 'hidden', // needed for rounded corners at bottom of team picker
+					borderRadius: `${borderRadiusNum}px`,
 					position: 'relative', // needed for z-index
-					zIndex: 3,
+					zIndex: 3, // Ensure this section is always on top
 				}}
 			>
 				{playerAndTeam && <PlayerHeadshot
@@ -139,7 +132,7 @@ export default function PlayerLookup() {
 					fadeTo={backgroundColor}
 				/>}
 
-				<Box pl={2} pr={2}>
+				<Box px={2}>
 					{playerAndTeam && <PlayerSummary
 						height={playerAndTeam.player.displayHeight}
 						jersey={playerAndTeam.player.jersey}
@@ -156,7 +149,7 @@ export default function PlayerLookup() {
 					onTeamPickerClick={toggleShowTeamPicker}
 					teamLogo={teams.find(({ id }) => id === teamIdForQuery)?.logo}
 				/>
-			</Box>
+			</Paper>
 
 			<TeamPicker
 				onSelect={onTeamPicked}
