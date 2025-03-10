@@ -4,7 +4,7 @@
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import { useTheme } from '@mui/material/styles'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { getPlayerByTeamIdAndJersey, getRandomPlayer, getTeams, NFLAthleteAndNFLTeam, NFLTeam } from '@/services/nfl-service'
 import FullScreenLoading from './FullScreenLoading'
 import MySnackbar from './MySnackbar'
@@ -30,61 +30,58 @@ export default function PlayerLookup() {
 	const [teamIdForQuery, setTeamIdForQuery] = useState('')
 	const [jerseyForQuery, setJerseyForQuery] = useState('')
 
+	// Memoize the team logo displayed on the TeamPicker button to prevent re-renders
+	const selectedTeamLogo = useMemo(
+		() => teams.find(({ id }) => id === teamIdForQuery)?.logo,
+		[teamIdForQuery, teams],
+	)
+
 	// Randomly fetch a team and player at startup
 	useEffect(() => {
-		const populateSamplePlayer = async () => {
+		const fetchData = async () => {
 			try {
 				setIsLoading(true)
-				const randomPlayer = await getRandomPlayer()
+				const [randomPlayer, teamsData] = await Promise.all([
+					getRandomPlayer(),
+					getTeams(),
+				])
 
 				if (randomPlayer) {
 					setPlayerAndTeam(randomPlayer)
 				}
-			} catch (e) {
-				console.error('error populating random player', e)
-			} finally {
-				setIsLoading(false)
-			}
-		}
 
-		const populateTeams = async () => {
-			try {
-				setIsLoading(true)
-				const _teams = await getTeams()
-
-				if (_teams) {
-					setTeams(_teams)
+				if (teamsData) {
+					setTeams(teamsData)
 				}
 			} catch (e) {
-				console.error('error fetching teams', e)
+				console.error('Error fetching data', e)
 			} finally {
 				setIsLoading(false)
 			}
 		}
 
-		populateSamplePlayer()
-		populateTeams()
+		fetchData()
 	}, [])
 
 	const onPlayerSearch = async () => {
+		if (!teamIdForQuery) {
+			popSnackbar('Pick a team to search')
+
+			return
+		}
+
+		if (!jerseyForQuery) {
+			popSnackbar('Enter a jersey number to search')
+
+			return
+		}
+
 		try {
-			if (!teamIdForQuery) {
-				popSnackbar('Pick a team to search' )
-
-				return
-			}
-
-			if (!jerseyForQuery) {
-				popSnackbar('Enter a jersey number to search' )
-
-				return
-			}
-
 			setIsLoading(true)
 			const data = await getPlayerByTeamIdAndJersey(teamIdForQuery, jerseyForQuery)
 
 			if (!data) {
-				popSnackbar('Player not found' )
+				popSnackbar('Player not found')
 
 				return
 			}
@@ -92,7 +89,7 @@ export default function PlayerLookup() {
 			setPlayerAndTeam(data)
 			addRecentPlayer(data)
 		} catch (e) {
-			console.error('error searching for player', e)
+			popSnackbar('Error searching for player')
 		} finally {
 			setIsLoading(false)
 		}
@@ -163,62 +160,62 @@ export default function PlayerLookup() {
 			<Box position='relative'>
 				{isLoading && <FullScreenLoading />}
 
-			<Paper
-				sx={{
+				<Paper
+					sx={{
 						background: backgroundColor,
-					borderRadius: `${borderRadiusNum}px`,
-					position: 'relative', // needed for z-index
-					zIndex: 3, // Ensure this section is always on top
-				}}
-			>
-				{playerAndTeam && <PlayerHeadshot
+						borderRadius: `${borderRadiusNum}px`,
+						position: 'relative', // needed for z-index
+						zIndex: 3, // ensure this section is always on top
+					}}
+				>
+					{playerAndTeam && <PlayerHeadshot
 						alt={playerAndTeam.player.headshot.alt}
 						fadeTo={backgroundColor}
 						logo={playerAndTeam.team.logo}
 						logoAlt={playerAndTeam.team.abbreviation}
-					src={playerAndTeam.player.headshot.href}
+						src={playerAndTeam.player.headshot.href}
 						teamColor={playerAndTeam.team.color}
-				/>}
-
-				<Box px={2}>
-					{playerAndTeam && <PlayerSummary
-						height={playerAndTeam.player.displayHeight}
-						jersey={playerAndTeam.player.jersey}
-						name={playerAndTeam.player.fullName}
-						position={playerAndTeam.player.position.name}
-						weight={playerAndTeam.player.displayWeight}
 					/>}
-				</Box>
 
-				<PlayerSearch
+					<Box px={2}>
+						{playerAndTeam && <PlayerSummary
+							height={playerAndTeam.player.displayHeight}
+							jersey={playerAndTeam.player.jersey}
+							name={playerAndTeam.player.fullName}
+							position={playerAndTeam.player.position.name}
+							weight={playerAndTeam.player.displayWeight}
+						/>}
+					</Box>
+
+					<PlayerSearch
 						expandIconOpen={showTeamPicker}
-					input={jerseyForQuery}
-					onSearch={onPlayerSearch}
-					onJerseyChange={onJerseyPicked}
-					onTeamPickerClick={toggleShowTeamPicker}
-					teamLogo={teams.find(({ id }) => id === teamIdForQuery)?.logo}
+						input={jerseyForQuery}
+						onSearch={onPlayerSearch}
+						onJerseyChange={onJerseyPicked}
+						onTeamPickerClick={toggleShowTeamPicker}
+						teamLogo={selectedTeamLogo}
+					/>
+				</Paper>
+
+				<TeamPicker
+					onSelect={onTeamPicked}
+					open={showTeamPicker}
+					selectedTeamId={teamIdForQuery}
+					teams={teams}
 				/>
-			</Paper>
 
-			<TeamPicker
-				onSelect={onTeamPicked}
-				open={showTeamPicker}
-				selectedTeamId={teamIdForQuery}
-				teams={teams}
-			/>
+				<RecentPlayers
+					onRecentPlayerClick={onRecentPlayerClick}
+					recentPlayers={recentPlayers}
+				/>
 
-			<RecentPlayers
-				onRecentPlayerClick={onRecentPlayerClick}
-				recentPlayers={recentPlayers}
-			/>
-
-			<MySnackbar
-				open={showSnackbar}
-				onClose={onCloseSnackbar}
-				severity='error'
-			>
-				{snackbarText}
-			</MySnackbar>
+				<MySnackbar
+					open={showSnackbar}
+					onClose={onCloseSnackbar}
+					severity='error'
+				>
+					{snackbarText}
+				</MySnackbar>
 			</Box>
 		</Box>
 	)
