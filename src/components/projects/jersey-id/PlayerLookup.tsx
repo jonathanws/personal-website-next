@@ -1,6 +1,7 @@
 /**
  * First component after the main project/jersey-id page
  */
+import { AlertColor } from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import { useTheme } from '@mui/material/styles'
@@ -65,13 +66,13 @@ export default function PlayerLookup() {
 
 	const onPlayerSearch = async () => {
 		if (!teamIdForQuery) {
-			popSnackbar('Pick a team to search')
+			popSnackbar('Pick a team to search', 'warning')
 
 			return
 		}
 
 		if (!jerseyForQuery) {
-			popSnackbar('Enter a jersey number to search')
+			popSnackbar('Enter a jersey number to search', 'warning')
 
 			return
 		}
@@ -81,7 +82,7 @@ export default function PlayerLookup() {
 			const data = await getPlayerByTeamIdAndJersey(teamIdForQuery, jerseyForQuery)
 
 			if (!data) {
-				popSnackbar('Player not found')
+				popSnackbar('Player not found', 'info')
 
 				return
 			}
@@ -89,7 +90,7 @@ export default function PlayerLookup() {
 			setPlayerAndTeam(data)
 			addRecentPlayer(data)
 		} catch (e) {
-			popSnackbar('Error searching for player')
+			popSnackbar('Error searching for player', 'error')
 		} finally {
 			setIsLoading(false)
 		}
@@ -144,10 +145,12 @@ export default function PlayerLookup() {
 
 	const [showSnackbar, setShowSnackbar] = useState(false)
 	const [snackbarText, setSnackbarText] = useState('')
+	const [snackbarSeverity, setSnackbarSeverity] = useState<AlertColor>('info')
 
-	const popSnackbar = (text: string) => {
+	const popSnackbar = (text: string, severity: AlertColor) => {
 		setShowSnackbar(true)
 		setSnackbarText(text)
+		setSnackbarSeverity(severity)
 	}
 	const onCloseSnackbar = () => setShowSnackbar(false)
 
@@ -169,11 +172,12 @@ export default function PlayerLookup() {
 					}}
 				>
 					{playerAndTeam && <PlayerHeadshot
-						alt={playerAndTeam.player.headshot.alt}
 						fadeTo={backgroundColor}
-						logo={playerAndTeam.team.logo}
-						logoAlt={playerAndTeam.team.abbreviation}
-						src={playerAndTeam.player.headshot.href}
+						headshot={playerAndTeam.player.headshot}
+						logo={{
+							alt: playerAndTeam.team.abbreviation,
+							href: playerAndTeam.team.logo,
+						}}
 						teamColor={playerAndTeam.team.color}
 					/>}
 
@@ -212,7 +216,7 @@ export default function PlayerLookup() {
 				<MySnackbar
 					open={showSnackbar}
 					onClose={onCloseSnackbar}
-					severity='error'
+					severity={snackbarSeverity}
 				>
 					{snackbarText}
 				</MySnackbar>

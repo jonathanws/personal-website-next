@@ -1,12 +1,14 @@
+import { SxProps, Theme } from '@mui/material/styles'
 import TextField from '@mui/material/TextField'
 
 interface Props {
 	onChange: (c: string) => void
 	onEnter?: () => void
+	sx?: SxProps<Theme>
 	value: string
 }
 
-export default function NumericInput({ onChange, onEnter, value }: Props) {
+export default function NumericInput({ onChange, onEnter, sx, value }: Props) {
 	const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
 		// only numbers are allowed
 		if (!/^\d*$/.test(target.value)) {
@@ -18,7 +20,6 @@ export default function NumericInput({ onChange, onEnter, value }: Props) {
 
 	const handleKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (onEnter && event.key === 'Enter') {
-			console.log('entered')
 			event.preventDefault() // prevent submitting entire form if inside a form
 
 			if (event.target instanceof HTMLInputElement) {
@@ -41,6 +42,7 @@ export default function NumericInput({ onChange, onEnter, value }: Props) {
 				style: { MozAppearance: 'textfield' },
 			}}
 			sx={{
+				...sx,
 				'& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
 					display: 'none',
 				},

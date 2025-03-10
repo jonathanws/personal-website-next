@@ -1,5 +1,5 @@
-import { NFLTeam } from '@/services/nfl-service'
 import Box from '@mui/material/Box'
+import { NFLTeam } from '@/services/nfl-service'
 import CollapsableOverlapPaper from './CollapsableOverlapPaper'
 import { borderRadiusNum } from './PlayerLookup'
 import TeamPickerGridItem from './TeamPickerGridItem'
