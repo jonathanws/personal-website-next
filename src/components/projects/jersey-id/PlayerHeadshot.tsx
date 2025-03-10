@@ -2,10 +2,11 @@ import Box from '@mui/material/Box'
 
 interface Props {
 	fadeTo: string
+	logo: string
 	src: string
 }
 
-export default function PlayerHeadshot({ fadeTo, src }: Props) {
+export default function PlayerHeadshot({ fadeTo, logo, src }: Props) {
 	const baseBackgroundColor = '#222'
 	const spiral = '255'
 
@@ -17,6 +18,8 @@ export default function PlayerHeadshot({ fadeTo, src }: Props) {
 		`url('${src}')`,
 		// underneath spiral gradient.  Gradient ends at the "closest side", won't go to corners
 		`radial-gradient(closest-side, rgba(${spiral}, ${spiral}, ${spiral}, 0.8), rgba(${spiral}, ${spiral}, ${spiral}, 0))`,
+		// url of the team logo
+		`url('${logo}')`,
 		// base color of the background
 		`linear-gradient(0deg, ${baseBackgroundColor}, ${baseBackgroundColor})`,
 	]
@@ -26,8 +29,10 @@ export default function PlayerHeadshot({ fadeTo, src }: Props) {
 			background: gradients.join(','),
 			backgroundPosition: 'center',
 			backgroundRepeat: 'no-repeat',
-			height: '300px',
-			width: '380px',
+			backgroundSize: 'contain', // don't stretch the image
+			paddingBottom: '72%', // weird aspect ratio trick suggested by chatgpt
+			position: 'relative', // allows height to be controlled by padding
+			width: '100%',
 		}}
 	/>
 }

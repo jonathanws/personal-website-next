@@ -2,7 +2,6 @@ import Alert, { AlertColor } from '@mui/material/Alert'
 import Snackbar, { SnackbarProps } from '@mui/material/Snackbar'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { useEffect, useState } from 'react'
 
 interface Props {
 	children: string
@@ -13,20 +12,6 @@ interface Props {
 
 export default function MySnackbar({ children, onClose, open, severity }: Props) {
 	const theme = useTheme()
-	const [visible, setVisible] = useState(open)
-
-	useEffect(() => {
-		const timeout = setTimeout(() => {
-			setVisible(false)
-			onClose()
-		}, 3_000)
-
-		if (open) {
-			setVisible(true)
-
-			return () => clearTimeout(timeout)
-		}
-	}, [open, onClose])
 
 	// display at bottom on phones, top-right on everything else
 	const snackbarPosition: SnackbarProps['anchorOrigin'] = useMediaQuery(theme.breakpoints.up('md'))
@@ -36,12 +21,13 @@ export default function MySnackbar({ children, onClose, open, severity }: Props)
 	return (
 		<Snackbar
 			anchorOrigin={snackbarPosition}
+			autoHideDuration={3_000}
 			onClose={onClose}
-			open={visible}
+			open={open}
 		>
 			<Alert
 				severity={severity}
-				variant="filled"
+				variant='filled'
 			>
 				{children}
 			</Alert>

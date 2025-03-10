@@ -27,9 +27,6 @@ export default function PlayerLookup() {
 	const [teamIdForQuery, setTeamIdForQuery] = useState('')
 	const [jerseyForQuery, setJerseyForQuery] = useState('')
 
-	// error state
-	const [showPlayerNotFound, setShowPlayerNotFound] = useState(false)
-
 	// Randomly fetch a team and player at startup
 	useEffect(() => {
 		const populateSamplePlayer = async () => {
@@ -62,10 +59,22 @@ export default function PlayerLookup() {
 
 	const onPlayerSearch = async () => {
 		try {
+			if (!teamIdForQuery) {
+				popSnackbar('Pick a team to search' )
+
+				return
+			}
+
+			if (!jerseyForQuery) {
+				popSnackbar('Enter a jersey number to search' )
+
+				return
+			}
+
 			const data = await getPlayerByTeamIdAndJersey(teamIdForQuery, jerseyForQuery)
 
 			if (!data) {
-				setShowPlayerNotFound(true)
+				popSnackbar('Player not found' )
 
 				return
 			}
@@ -120,6 +129,19 @@ export default function PlayerLookup() {
 
 	const onRecentPlayerClick = (index: number) => setPlayerAndTeam(recentPlayers[index])
 
+	/**
+	 * Error state / snackbar
+	 */
+
+	const [showSnackbar, setShowSnackbar] = useState(false)
+	const [snackbarText, setSnackbarText] = useState('')
+
+	const popSnackbar = (text: string) => {
+		setShowSnackbar(true)
+		setSnackbarText(text)
+	}
+	const onCloseSnackbar = () => setShowSnackbar(false)
+
 	return (
 		<Box
 			my={4}
@@ -171,11 +193,11 @@ export default function PlayerLookup() {
 			/>
 
 			<MySnackbar
-				open={showPlayerNotFound}
-				onClose={() => setShowPlayerNotFound(false)}
+				open={showSnackbar}
+				onClose={onCloseSnackbar}
 				severity='error'
 			>
-				Player not found
+				{snackbarText}
 			</MySnackbar>
 		</Box>
 	)
