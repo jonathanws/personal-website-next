@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper'
 import { useTheme } from '@mui/material/styles'
 import { useEffect, useState } from 'react'
 import { getPlayerByTeamIdAndJersey, getRandomPlayer, getTeams, NFLAthleteAndNFLTeam, NFLTeam } from '@/services/nfl-service'
+import FullScreenLoading from './FullScreenLoading'
 import MySnackbar from './MySnackbar'
 import PlayerHeadshot from './PlayerHeadshot'
 import PlayerSearch from './PlayerSearch'
@@ -20,6 +21,8 @@ export default function PlayerLookup() {
 	const theme = useTheme()
 	const backgroundColor = theme.palette.background.paper
 
+	const [isLoading, setIsLoading] = useState(false)
+
 	const [playerAndTeam, setPlayerAndTeam] = useState<NFLAthleteAndNFLTeam>()
 	const [teams, setTeams] = useState<NFLTeam[]>([])
 
@@ -31,6 +34,7 @@ export default function PlayerLookup() {
 	useEffect(() => {
 		const populateSamplePlayer = async () => {
 			try {
+				setIsLoading(true)
 				const randomPlayer = await getRandomPlayer()
 
 				if (randomPlayer) {
@@ -38,11 +42,14 @@ export default function PlayerLookup() {
 				}
 			} catch (e) {
 				console.error('error populating random player', e)
+			} finally {
+				setIsLoading(false)
 			}
 		}
 
 		const populateTeams = async () => {
 			try {
+				setIsLoading(true)
 				const _teams = await getTeams()
 
 				if (_teams) {
@@ -50,6 +57,8 @@ export default function PlayerLookup() {
 				}
 			} catch (e) {
 				console.error('error fetching teams', e)
+			} finally {
+				setIsLoading(false)
 			}
 		}
 
@@ -71,6 +80,7 @@ export default function PlayerLookup() {
 				return
 			}
 
+			setIsLoading(true)
 			const data = await getPlayerByTeamIdAndJersey(teamIdForQuery, jerseyForQuery)
 
 			if (!data) {
@@ -83,6 +93,8 @@ export default function PlayerLookup() {
 			addRecentPlayer(data)
 		} catch (e) {
 			console.error('error searching for player', e)
+		} finally {
+			setIsLoading(false)
 		}
 	}
 
@@ -144,21 +156,28 @@ export default function PlayerLookup() {
 
 	return (
 		<Box
-			my={4}
+			mb={4}
 			borderRadius={`${borderRadiusNum}px`}
 			overflow='hidden'
-			position='relative' // TODO: do I need this?
 		>
+			<Box position='relative'>
+				{isLoading && <FullScreenLoading />}
+
 			<Paper
 				sx={{
+						background: backgroundColor,
 					borderRadius: `${borderRadiusNum}px`,
 					position: 'relative', // needed for z-index
 					zIndex: 3, // Ensure this section is always on top
 				}}
 			>
 				{playerAndTeam && <PlayerHeadshot
+						alt={playerAndTeam.player.headshot.alt}
+						fadeTo={backgroundColor}
+						logo={playerAndTeam.team.logo}
+						logoAlt={playerAndTeam.team.abbreviation}
 					src={playerAndTeam.player.headshot.href}
-					fadeTo={backgroundColor}
+						teamColor={playerAndTeam.team.color}
 				/>}
 
 				<Box px={2}>
@@ -172,6 +191,7 @@ export default function PlayerLookup() {
 				</Box>
 
 				<PlayerSearch
+						expandIconOpen={showTeamPicker}
 					input={jerseyForQuery}
 					onSearch={onPlayerSearch}
 					onJerseyChange={onJerseyPicked}
@@ -199,6 +219,7 @@ export default function PlayerLookup() {
 			>
 				{snackbarText}
 			</MySnackbar>
+			</Box>
 		</Box>
 	)
 }
