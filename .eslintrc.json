@@ -87,7 +87,7 @@
             "error",
             "single"
         ],
-        //add customize rules here as per your project's needs
+        // don't require importing react in jsx files
         "react/react-in-jsx-scope": "off",
         "semi": [
             "error",

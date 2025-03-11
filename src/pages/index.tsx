@@ -1,9 +1,9 @@
 import Head from 'next/head'
+import Demos from '@/components/Demos'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Interested from '@/components/Interested'
 import Introduction from '@/components/Introduction'
-import Projects from '@/components/Projects'
 import SeeMyBlog from '@/components/SeeMyBlog'
 import Skills from '@/components/Skills'
 import { BG_ALT, BG_PRIMARY } from '@/services/theming'
@@ -12,7 +12,7 @@ export default function Home() {
 	const sections = [
 		Introduction,
 		Skills,
-		Projects,
+		Demos,
 		SeeMyBlog,
 		Interested,
 	]

@@ -16,6 +16,8 @@ import PlayerSummary from './PlayerSummary'
 import RecentPlayers from './RecentPlayers'
 import TeamPicker from './TeamPicker'
 
+// TODO: prevent phone rotation
+
 // ensure common look and feel for each "section"
 export const borderRadiusNum = 16
 
@@ -129,6 +131,7 @@ export default function PlayerLookup() {
 			return
 		}
 
+		// TODO: change this on different screen sizes?
 		const MAX_RECENT_PLAYERS = 4 // does not include zero
 
 		if (recentPlayers.length === MAX_RECENT_PLAYERS) {

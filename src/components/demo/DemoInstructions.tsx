@@ -10,7 +10,7 @@ interface Props {
 	text: string
 }
 
-export default function ProjectInstructions({ title, text }: Props) {
+export default function DemoInstructions({ title, text }: Props) {
 	const [alertOpen, setAlertOpen] = useState(true)
 
 	return <Collapse in={alertOpen}>

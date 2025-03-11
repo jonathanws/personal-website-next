@@ -3,17 +3,17 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import { getProjects } from '@/services/projects'
+import { getDemos } from '@/services/demos'
 import { sectionPaddings } from '@/services/theming'
 
 interface Props {
 	backgroundColor: string
 }
 
-export default function Projects({ backgroundColor }: Props) {
+export default function Demos({ backgroundColor }: Props) {
 	const isSmallDevice = useMediaQuery(useTheme().breakpoints.down('sm'))
 
-	const displayProjects = () => getProjects().map(({ alt, description, href, src, title }, index) => (
+	const displayDemos = () => getDemos().map(({ alt, description, href, src, title }, index) => (
 		<Box
 			display='flex'
 			flexDirection={
@@ -55,9 +55,9 @@ export default function Projects({ backgroundColor }: Props) {
 	return (
 		<Box sx={{ backgroundColor }}>
 			<Container sx={sectionPaddings}>
-				<Typography variant='h3'>Projects</Typography>
+				<Typography variant='h3'>Demos</Typography>
 
-				{displayProjects()}
+				{displayDemos()}
 			</Container>
 		</Box>
 	)

@@ -1,8 +1,9 @@
 import Container from '@mui/material/Container'
 import Head from 'next/head'
-import PlayerLookup from '@/components/projects/jersey-id/PlayerLookup'
+import DebugBreakpoints from '@/components/DebugBreakpoints'
+import PlayerLookup from '@/components/demo/jersey-id/PlayerLookup'
 
-export default function JerseyIdProjectPage() {
+export default function JerseyIdDemoPage() {
 	return (
 		<>
 			<Head>
@@ -12,6 +13,8 @@ export default function JerseyIdProjectPage() {
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
+
+			{/* <DebugBreakpoints /> */}
 
 			<Container
 				disableGutters

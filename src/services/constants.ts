@@ -7,25 +7,25 @@ const NEXT_PUBLIC_HOSTNAME = process.env.NEXT_PUBLIC_HOSTNAME || ''
 const NEXT_PUBLIC_SUPABASE_JERSEY_ID = process.env.NEXT_PUBLIC_SUPABASE_JERSEY_ID || ''
 const NEXT_PUBLIC_SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
-const PROJECT_IDS = {
+const DEMO_IDS = {
 	JERSEY_ID: 'jersey-id',
 } as const
 
-const projectMap: Record<typeof PROJECT_IDS[keyof typeof PROJECT_IDS], string> = {
+const demoMap: Record<typeof DEMO_IDS[keyof typeof DEMO_IDS], string> = {
 	'jersey-id': NEXT_PUBLIC_SUPABASE_JERSEY_ID,
 }
 
 /**
- * Returns either the domain where nextjs is hosted (used by <img> and <meta> tags), or gets the supabase backend urls for projects
+ * Returns either the domain where nextjs is hosted (used by <img> and <meta> tags), or gets the supabase backend urls for demos
  */
-const getHostname = (project?: typeof PROJECT_IDS[keyof typeof PROJECT_IDS]) => project ? projectMap[project] : NEXT_PUBLIC_HOSTNAME
+const getHostname = (demo?: typeof DEMO_IDS[keyof typeof DEMO_IDS]) => demo ? demoMap[demo] : NEXT_PUBLIC_HOSTNAME
 
-const PROJECTS = '/projects'
+const DEMO = '/demo'
 
 const PAGES: Record<Uppercase<string>, `/${string}`> = {
 	BLOG: '/blog',
+	DEMO_JERSEY_ID: `${DEMO}/${DEMO_IDS.JERSEY_ID}`,
 	HOME: '/',
-	PROJECT_JERSEY_ID: `${PROJECTS}/${PROJECT_IDS.JERSEY_ID}`,
 }
 
 export {
