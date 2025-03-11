@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box'
+import { blueGrey } from '@mui/material/colors'
 import { NFLTeam } from '@/services/nfl-service'
 import CollapsableOverlapPaper from './CollapsableOverlapPaper'
 import { borderRadiusNum } from './PlayerLookup'
@@ -16,7 +17,8 @@ export default function TeamPicker({ onSelect, open, selectedTeamId, teams }: Pr
 
 	return (
 		<CollapsableOverlapPaper
-			background='green'
+			elevation={3}
+			background={blueGrey[700]}
 			borderRadius={borderRadiusNum}
 			open={open}
 			zIndex={2}

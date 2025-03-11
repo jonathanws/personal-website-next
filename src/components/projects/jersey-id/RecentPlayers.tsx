@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box'
+import { blueGrey } from '@mui/material/colors'
 import { NFLAthleteAndNFLTeam } from '@/services/nfl-service'
 import CollapsableOverlapPaper from './CollapsableOverlapPaper'
 import { borderRadiusNum } from './PlayerLookup'
@@ -12,7 +13,8 @@ interface Props {
 export default function RecentPlayers({ onRecentPlayerClick, recentPlayers }: Props) {
 	return (
 		<CollapsableOverlapPaper
-			background='gray'
+			elevation={3}
+			background={blueGrey[500]}
 			borderRadius={borderRadiusNum}
 			open={recentPlayers.length > 0}
 			zIndex={1}

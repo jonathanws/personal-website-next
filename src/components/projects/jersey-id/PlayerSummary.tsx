@@ -16,13 +16,13 @@ export default function PlayerSummary({ height, jersey, name, position, weight }
 			gap={2}
 			alignItems='center'
 		>
-			<Typography sx={{ fontSize: '3em' }}>{`#${jersey}`}</Typography>
+			<Typography fontSize='3em'>{`#${jersey}`}</Typography>
 
 			<Box
 				flexGrow={1}
 				textAlign='center'
 			>
-				<Typography>{name}</Typography>
+				<Typography fontSize='1.3em'>{name}</Typography>
 				<Typography>{position} - {height} - {weight}</Typography>
 			</Box>
 		</Box>

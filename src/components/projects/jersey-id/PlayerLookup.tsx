@@ -3,9 +3,10 @@
  */
 import { AlertColor } from '@mui/material/Alert'
 import Box from '@mui/material/Box'
+import { blueGrey } from '@mui/material/colors'
 import Paper from '@mui/material/Paper'
 import { useTheme } from '@mui/material/styles'
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getPlayerByTeamIdAndJersey, getRandomPlayer, getTeams, NFLAthleteAndNFLTeam, NFLTeam } from '@/services/nfl-service'
 import FullScreenLoading from './FullScreenLoading'
 import MySnackbar from './MySnackbar'
@@ -20,7 +21,7 @@ export const borderRadiusNum = 16
 
 export default function PlayerLookup() {
 	const theme = useTheme()
-	const backgroundColor = theme.palette.background.paper
+	const backgroundColor = blueGrey[900]
 
 	const [isLoading, setIsLoading] = useState(false)
 
@@ -158,15 +159,16 @@ export default function PlayerLookup() {
 		<Box
 			mb={4}
 			borderRadius={`${borderRadiusNum}px`}
-			overflow='hidden'
 		>
 			<Box position='relative'>
 				{isLoading && <FullScreenLoading />}
 
 				<Paper
+					elevation={3}
 					sx={{
 						background: backgroundColor,
 						borderRadius: `${borderRadiusNum}px`,
+						overflow: 'hidden',
 						position: 'relative', // needed for z-index
 						zIndex: 3, // ensure this section is always on top
 					}}

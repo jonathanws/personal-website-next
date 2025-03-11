@@ -1,4 +1,4 @@
-import Box from '@mui/material/Box'
+import Box, { BoxProps } from '@mui/material/Box'
 import { useEffect, useState } from 'react'
 
 interface Props {
@@ -69,7 +69,7 @@ export default function PlayerHeadshot({ fadeTo, headshot, logo, teamColor }: Pr
 		zIndex,
 	})
 	// players slide in from the right, and background logo slides in from the left
-	const getStylesForImageFrom = (dir: 'left' | 'right') => {
+	const getStylesForImageFrom = (dir: 'left' | 'right'): BoxProps['sx'] => {
 		const translateX = (n: number) => `translateX(${n}%)`
 		const duration = `${TRANSITION_DURATION / 1_000}s`
 		const distance = 2
