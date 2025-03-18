@@ -9,10 +9,12 @@ const NEXT_PUBLIC_SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY 
 
 const DEMO_IDS = {
 	JERSEY_ID: 'jersey-id',
+	JSON_INSPECTOR: 'json-inspector',
 } as const
 
 const demoMap: Record<typeof DEMO_IDS[keyof typeof DEMO_IDS], string> = {
 	'jersey-id': NEXT_PUBLIC_SUPABASE_JERSEY_ID,
+	'json-inspector': '',
 }
 
 /**
@@ -25,6 +27,7 @@ const DEMO = '/demo'
 const PAGES: Record<Uppercase<string>, `/${string}`> = {
 	BLOG: '/blog',
 	DEMO_JERSEY_ID: `${DEMO}/${DEMO_IDS.JERSEY_ID}`,
+	DEMO_JSON_INSPECTOR: `${DEMO}/${DEMO_IDS.JSON_INSPECTOR}`,
 	HOME: '/',
 }
 

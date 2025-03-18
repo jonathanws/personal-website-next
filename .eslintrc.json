@@ -1,107 +1,107 @@
 {
 	"extends": "next/core-web-vitals",
-    "plugins": [
-        "import"
-    ],
+	"plugins": [
+		"import"
+	],
 	"rules": {
 		// disable next from insisting on using the <Image> component
 		"@next/next/no-img-element": "off",
 		// warns against not using dangling commas
-        "comma-dangle": [
-            "warn",
-            "always-multiline"
-        ],
-        // warns against not using spaces after commas
-        "comma-spacing": [
-            "error",
-            {
-                "after": true,
-                "before": false
-            }
-        ],
-        // warns against not using new line(s) after last import statement.  Depends on 'import' plugin
-        "import/newline-after-import": [
-            "warn",
-            {
-                "count": 1
-            }
-        ],
-        // warns against using imports being "out of order"
-        "import/order": [
-            "error",
-            {
-                "alphabetize": {
-                    "order": "asc",
-                    "caseInsensitive": true
-                },
-                // defines "groups" of imports, in order:
-                "groups": [
-                    // built-in node packages: assert/fs/crypto...
-                    "builtin",
-                    // packages installed through "npm install"
-                    "external",
-                    // our source code
-                    "internal"
-                ],
-                "newlines-between": "never",
-                // The values in this array should be read like: "<pattern> appears <position> the <group> group".
-                // Example:
-                //        { pattern: "@mission-money/shared/test-utils/**", position: "after", group: "external" }
-                // reads like:
-                //        @mission-money/shared/test-utils/** appears after the external group
-                "pathGroups": [
-                    // all of our remaining unnamed aliases
-                    {
-                        "pattern": "@/**",
-                        "group": "external",
-                        "position": "after"
-                    }
-                ],
-                "pathGroupsExcludedImportTypes": []
-            }
-        ],
-        "indent": [
-            "error",
-            "tab",
-            {
-                "SwitchCase": 1
-            }
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        // warns against trailing spaces
-        "no-trailing-spaces": "warn",
-        // enforces single-spaces inside one-line object literals
-        "object-curly-spacing": [
-            "warn",
-            "always"
-        ],
-        // enforces no blank lines inside of blocks at beginning and start
-        "padded-blocks": [
-            "error",
-            "never"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        // don't require importing react in jsx files
-        "react/react-in-jsx-scope": "off",
-        "semi": [
-            "error",
-            "never"
-        ],
-        // enforces member sorting within objects
-        "sort-keys": [
-            "warn",
-            "asc",
-            {
-                "caseSensitive": false,
-                "natural": true,
-                "minKeys": 2
-            }
-        ]
+		"comma-dangle": [
+			"warn",
+			"always-multiline"
+		],
+		// warns against not using spaces after commas
+		"comma-spacing": [
+			"error",
+			{
+				"after": true,
+				"before": false
+			}
+		],
+		// warns against not using new line(s) after last import statement.  Depends on 'import' plugin
+		"import/newline-after-import": [
+			"warn",
+			{
+				"count": 1
+			}
+		],
+		// warns against using imports being "out of order"
+		"import/order": [
+			"warn",
+			{
+				"alphabetize": {
+					"order": "asc",
+					"caseInsensitive": true
+				},
+				// defines "groups" of imports, in order:
+				"groups": [
+					// built-in node packages: assert/fs/crypto...
+					"builtin",
+					// packages installed through "npm install"
+					"external",
+					// our source code
+					"internal"
+				],
+				"newlines-between": "never",
+				// The values in this array should be read like: "<pattern> appears <position> the <group> group".
+				// Example:
+				//        { pattern: "@mission-money/shared/test-utils/**", position: "after", group: "external" }
+				// reads like:
+				//        @mission-money/shared/test-utils/** appears after the external group
+				"pathGroups": [
+					// all of our remaining unnamed aliases
+					{
+						"pattern": "@/**",
+						"group": "external",
+						"position": "after"
+					}
+				],
+				"pathGroupsExcludedImportTypes": []
+			}
+		],
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		// warns against trailing spaces
+		"no-trailing-spaces": "warn",
+		// enforces single-spaces inside one-line object literals
+		"object-curly-spacing": [
+			"warn",
+			"always"
+		],
+		// enforces no blank lines inside of blocks at beginning and start
+		"padded-blocks": [
+			"error",
+			"never"
+		],
+		"quotes": [
+			"error",
+			"single"
+		],
+		// don't require importing react in jsx files
+		"react/react-in-jsx-scope": "off",
+		"semi": [
+			"error",
+			"never"
+		],
+		// enforces member sorting within objects
+		"sort-keys": [
+			"warn",
+			"asc",
+			{
+				"caseSensitive": false,
+				"natural": true,
+				"minKeys": 2
+			}
+		]
 	}
 }
