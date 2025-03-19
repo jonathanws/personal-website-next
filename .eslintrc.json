@@ -1,11 +1,18 @@
 {
-	"extends": "next/core-web-vitals",
+	"extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
+	"parser": "@typescript-eslint/parser",
 	"plugins": [
-		"import"
+		"import",
+		"@typescript-eslint"
 	],
 	"rules": {
 		// disable next from insisting on using the <Image> component
 		"@next/next/no-img-element": "off",
+
+		"@typescript-eslint/no-unused-vars": "warn",
+		// disallows ternaries that result in console logs.  Boo
+		"@typescript-eslint/no-unused-expressions": "off",
+
 		// warns against not using dangling commas
 		"comma-dangle": [
 			"warn",

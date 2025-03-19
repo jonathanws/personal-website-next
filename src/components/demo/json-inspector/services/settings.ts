@@ -11,20 +11,18 @@ interface Settings {
 	trailingComma: boolean
 }
 
-const reactTokenTypes = [
-	'boolean',
-	'comma',
-	'curly',
-	'key',
-	'meta',
-	'null',
-	'number',
-	'semi',
-	'square',
-	'string',
-	'whitespace',
-] as const
-type ReactTokenType = typeof reactTokenTypes[number]
+type ReactTokenType =
+	| 'boolean'
+	| 'comma'
+	| 'curly'
+	| 'key'
+	| 'meta'
+	| 'null'
+	| 'number'
+	| 'semi'
+	| 'square'
+	| 'string'
+	| 'whitespace'
 
 const indentCharactersMap = {
 	space: ' ',
