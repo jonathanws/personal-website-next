@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box'
-import { ReactLine } from './json'
+import { ReactLine, ReactToken } from './json'
 import PrintLineSegment from './PrintLineSegment'
 import PrintMeta from './PrintMeta'
 import PrintWhitespace from './PrintWhitespace'
@@ -12,32 +12,16 @@ interface Props {
 }
 
 export default function JsonSection({ reactLines, settings }: Props) {
-	const LineSegment = ({ segment: { text, type }, key }: { key: string, segment: ReactLine[number] }) => {
+	const LineSegment = ({ text, type }: Pick<ReactToken, 'text' | 'type'>) => {
 		if (type === 'meta') {
-			return <PrintMeta
-				key={key}
-				settings={settings}
-			>
-				{text}
-			</PrintMeta>
+			return <PrintMeta settings={settings}>{text}</PrintMeta>
 		}
 
 		if (type === 'whitespace') {
-			return <PrintWhitespace
-				key={key}
-				settings={settings}
-			>
-				{text}
-			</PrintWhitespace>
+			return <PrintWhitespace settings={settings}>{text}</PrintWhitespace>
 		}
 
-		return <PrintLineSegment
-			key={key}
-			settings={settings}
-			sxProps={getStylesFor(getThemeTypeFromReactType(type), settings)}
-		>
-			{text}
-		</PrintLineSegment>
+		return <PrintLineSegment sxProps={getStylesFor(getThemeTypeFromReactType(type), settings)}>{text}</PrintLineSegment>
 	}
 
 	return (
@@ -49,13 +33,15 @@ export default function JsonSection({ reactLines, settings }: Props) {
 						sx={{ lineHeight: 1 }}
 					>
 						{
-							line.map((segment, segmentIndex) => <LineSegment
-								segment={segment}
+							line.map(({ text, type }, segmentIndex) => <LineSegment
 								key={`${lineIndex}_${segmentIndex}`}
+								text={text}
+								type={type}
 							/>)
 						}
-				</Box>
-			)}
+					</Box>
+				)
+			}
 		</>
 	)
 }

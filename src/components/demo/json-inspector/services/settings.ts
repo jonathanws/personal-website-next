@@ -1,11 +1,9 @@
 import { cyan, grey, lightGreen, orange, pink, purple, red, yellow } from '@mui/material/colors'
 import { Theme as MaterialUiTheme, SxProps } from '@mui/material/styles'
+import { Formatting } from './formatting'
 
 interface Settings {
-	indentation: {
-		char: IndentChar
-		rhythm: number
-	}
+	formatting: Formatting
 	renderWhitespace: boolean
 	showLineNumbers: boolean
 	showMetaText: boolean
@@ -32,7 +30,7 @@ const indentCharactersMap = {
 	space: ' ',
 	tab: '	',
 } as const
-type IndentChar = keyof typeof indentCharactersMap
+type IndentChar = (typeof indentCharactersMap)[keyof typeof indentCharactersMap]
 
 interface Theme {
 	booleanStyles: SxProps<MaterialUiTheme>
@@ -49,6 +47,7 @@ interface Theme {
 }
 
 const defaultTheme: Theme = {
+	backgroundStyles: {},
 	booleanStyles: { color: cyan[300] },
 	commaStyles: { color: grey[300] },
 	curlyStyles: { color: yellow[300] },
@@ -58,9 +57,9 @@ const defaultTheme: Theme = {
 	semiStyles: { color: grey[300] },
 	squareStyles: { color: purple[300] },
 	stringStyles: { color: lightGreen[300] },
-	backgroundStyles: {},
 }
 const oopsAllOrange: Theme = {
+	backgroundStyles: {},
 	booleanStyles: { color: orange[100] },
 	commaStyles: { color: orange[200] },
 	curlyStyles: { color: orange[300] },
@@ -70,7 +69,6 @@ const oopsAllOrange: Theme = {
 	semiStyles: { color: orange[700] },
 	squareStyles: { color: orange[800] },
 	stringStyles: { color: orange[900] },
-	backgroundStyles: {},
 }
 
 const themeMap: Record<string, Theme> = {
@@ -97,7 +95,7 @@ const getThemeTypeFromReactType = (type: Exclude<ReactTokenType, 'meta' | 'white
 
 const getStylesFor = (type: keyof Theme, settings: Settings) => {
 	const currentTheme = themeMap[settings.theme]
-	
+
 	return currentTheme[type]
 }
 
@@ -106,6 +104,7 @@ export {
 	getThemeTypeFromReactType,
 	indentCharactersMap,
 	themeMap,
+	type IndentChar,
 	type ReactTokenType,
-	type Settings
+	type Settings,
 }

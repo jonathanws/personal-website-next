@@ -1,4 +1,5 @@
-import { ReactTokenType } from './services/settings'
+import { Formatting } from './services/formatting'
+import { indentCharactersMap, ReactTokenType } from './services/settings'
 
 type JsonTokenType =
 	| 'comma'
@@ -220,19 +221,6 @@ const getTokens = (data: unknown) => {
 	return tokens
 }
 
-type FormatFunction = (type: JsonTokenType, prevType: JsonTokenType | undefined) => boolean
-
-interface Formatting {
-	addNewLineAndIndentation: FormatFunction
-	addSpaceAfter: FormatFunction
-	addSpaceBefore: FormatFunction
-	decrementsLevel: FormatFunction
-	incrementsLevel: FormatFunction
-	generateMetaTokens: boolean
-	indentCharacter: '	' | ' ' // tab | space
-	indentRhythm: number
-}
-
 const getFormattedTokens = (tokens: JsonToken[], formatting: Formatting) => {
 	const {
 		addNewLineAndIndentation,
@@ -329,7 +317,14 @@ const getFormattedTokens = (tokens: JsonToken[], formatting: Formatting) => {
 
 			// no need to include whitespace if on a root-level element
 			if (indentLevel) {
-				addToLine(indentCharacter.repeat(indentLevel * indentRhythm), 'whitespace', metadata)
+				addToLine(
+					indentCharacter.repeat(indentCharacter === indentCharactersMap.space
+						? indentLevel * indentRhythm
+						: indentLevel
+					),
+					'whitespace',
+					metadata,
+				)
 			}
 		}
 
@@ -354,36 +349,10 @@ const getFormattedTokens = (tokens: JsonToken[], formatting: Formatting) => {
 	return lines
 }
 
-const defaultFormatRules: Formatting = {
-	addNewLineAndIndentation: (type: JsonTokenType, prevType: JsonTokenType | undefined) => {
-		switch (type) {
-			case 'curlyOpen':
-				return prevType ? ['squareOpen', 'comma'].includes(prevType) : false
-			case 'curlyClose':
-				return prevType ? ['squareClose', 'curlyClose', 'value'].includes(prevType) : false
-			case 'squareOpen':
-				return prevType ? ['squareOpen', 'comma'].includes(prevType) : false
-			case 'squareClose':
-				return prevType ? ['squareClose', 'curlyClose'].includes(prevType) : false
-			case 'key':
-				return true
-			default:
-				return false
-		}
-	},
-	addSpaceAfter: (type: JsonTokenType, prevType: JsonTokenType | undefined) => type === 'semi',
-	addSpaceBefore: (type: JsonTokenType, prevType: JsonTokenType | undefined) => prevType ? type === 'value' && prevType === 'comma' : false,
-	decrementsLevel: (type: JsonTokenType, prevType: JsonTokenType | undefined) => ['curlyClose', 'squareClose'].includes(type),
-	incrementsLevel: (type: JsonTokenType, prevType: JsonTokenType | undefined) => ['curlyOpen', 'squareOpen'].includes(type),
-	indentCharacter: '\t',
-	indentRhythm: 1,
-	generateMetaTokens: true,
-}
-
 export {
-	defaultFormatRules,
 	getFormattedTokens,
 	getTokens,
+	type JsonTokenType,
 	type ReactLine,
 	type ReactToken,
 }

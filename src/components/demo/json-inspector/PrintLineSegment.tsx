@@ -1,8 +1,9 @@
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import { SxProps, Theme } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
 
 interface Props {
 	children?: React.ReactNode
-	sxProps?: TypographyProps['sx']
+	sxProps?: SxProps<Theme>
 }
 
 export default function PrintLineSegment({ children, sxProps }: Props) {

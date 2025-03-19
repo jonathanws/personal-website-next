@@ -10,18 +10,15 @@ interface Props {
 
 export default function PrintMeta({ children, settings }: Props) {
 	return (
-		<PrintLineSegment
-			settings={settings}
-			sxProps={{
-				...(children && settings.showMetaText && {
-					color: grey[500],
-					'&::after': {
-						color: alpha(grey[500], 0.5),
-						content: `" ${children}"`,
-						fontStyle: 'italic',
-					}
-				}),
-			}}
-		/>
+		<PrintLineSegment sxProps={{
+			...(children && settings.showMetaText && {
+				'&::after': {
+					color: alpha(grey[500], 0.5),
+					content: `" ${children}"`,
+					fontStyle: 'italic',
+				},
+				color: grey[500],
+			}),
+		}} />
 	)
 }
