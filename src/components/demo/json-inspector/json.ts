@@ -24,28 +24,28 @@ type ReactToken = BaseToken<ReactTokenType> // tokens understood by react
 type ReactLine = ReactToken[]
 
 const createJsonToken = (text: string, incomingType?: JsonTokenType): JsonToken => {
-	const tokenMap: Record<string, JsonToken> = {
-		'"': { text, type: 'value', metadata: {} },
-		',': { text, type: 'comma', metadata: {} },
-		':': { text, type: 'semi', metadata: {} },
-		'{': { text, type: 'curlyOpen', metadata: {} },
-		'}': { text, type: 'curlyClose', metadata: {} },
-		'[': { text, type: 'squareOpen', metadata: { arrayLength: 0 } },
-		']': { text, type: 'squareClose', metadata: {} },
+	const map: Record<string, JsonTokenType> = {
+		',': 'comma',
+		':': 'semi',
+		'"': 'value',
+		'[': 'squareOpen',
+		']': 'squareClose',
+		'{': 'curlyOpen',
+		'}': 'curlyClose',
 	}
 
-	if (tokenMap[text]) {
-		return tokenMap[text]
-	}
+	const type = incomingType ? incomingType : map[text]
 
-	if (!incomingType) {
+	if (!type) {
 		throw new Error()
 	}
 
+	const metadata = type === 'squareOpen' ? { arrayLength: 0 } : {}
+
 	return {
+		metadata,
 		text,
-		type: incomingType,
-		metadata: {},
+		type,
 	}
 }
 
@@ -172,27 +172,20 @@ const getTokens = (data: unknown) => {
 	const stack: Extract<JsonTokenType, 'squareOpen' | 'squareClose' | 'curlyOpen' | 'curlyClose' | 'value'>[] = []
 	const arrayStartIndexes: number[] = []
 
-	const findLastIndexOf = <T = unknown>(arr: T[], cond: (t: T) => boolean): number => {
-		for (let i = arr.length - 1; i >= 0; i--) {
-			if (cond(arr[i])) {
-				return i
-			}
-		}
-
-		return -1
-	}
-
-	const addToArrayLength = (arrayToken: JsonToken, inc = 1) => {
-		if (!arrayToken) {
-			console.error('no token')
+	// helper function
+	const incrementParentIfNeeded = () => {
+		if (stack[stack.length - 1] !== 'squareOpen') {
 			return
 		}
 
-		if (!arrayToken.metadata.arrayLength) {
-			arrayToken.metadata.arrayLength = 0
+		const lastArrayIndex = arrayStartIndexes[arrayStartIndexes.length - 1]
+		const token = tokens[lastArrayIndex]
+
+		if (!token.metadata.arrayLength) {
+			token.metadata.arrayLength = 0
 		}
 
-		arrayToken.metadata.arrayLength += inc
+		token.metadata.arrayLength += 1
 	}
 
 	tokens.forEach(({ type }, index) => {
@@ -203,45 +196,22 @@ const getTokens = (data: unknown) => {
 
 				break
 			case 'curlyOpen':
-			case 'value':
 				stack.push(type)
 
 				break
-			case 'curlyClose':
-				// closing curly bracket found: remove all contents from stack
-				stack.splice(findLastIndexOf(stack, (type) => type === 'curlyOpen'))
+			case 'value':
+				incrementParentIfNeeded()
 
-				// we check for a parent array to update since if/when we eventually hit that closing
-				// square bracket, this object will be completely gone and not able to be counted
-				if (stack.length > 0 && stack[stack.length - 1] === 'squareOpen') {
-					addToArrayLength(tokens[arrayStartIndexes[arrayStartIndexes.length - 1]])
-				}
+				break
+			case 'curlyClose':
+				stack.splice(-1) // will always reference curlyOpen
+				incrementParentIfNeeded()
 
 				break
 			case 'squareClose':
-				let correspondingBracket = findLastIndexOf(stack, (type) => type === 'squareOpen')
-
-				// looping to account for arrays inside of arrays
-				while (correspondingBracket !== -1) {
-					// update the current array
-					addToArrayLength(
-						tokens[arrayStartIndexes.splice(-1)[0]],
-						stack
-							.splice(correspondingBracket) // everything inside of current array, with [0] being 'squareOpen'
-							.filter((t) => t !== 'squareOpen').length, // everything (besides [0]) in here should be 'value'
-					)
-
-					// If this was inside another array, update the parent array too since this
-					// array will be gone from the stack by the time the parent is counting
-					const parentArrayIndex = arrayStartIndexes[arrayStartIndexes.length - 1]
-
-					if (parentArrayIndex !== undefined) {
-						addToArrayLength(tokens[parentArrayIndex])
-					}
-
-					// search for grandparent array to potentially keep going
-					correspondingBracket = findLastIndexOf(stack, (type) => type === 'squareOpen')
-				}
+				stack.splice(-1) // will always reference squareOpen
+				arrayStartIndexes.splice(-1)
+				incrementParentIfNeeded()
 
 				break
 		}
@@ -296,9 +266,9 @@ const getFormattedTokens = (tokens: JsonToken[], formatting: Formatting) => {
 
 		if (tokenWithArrayLength) {
 			line.push({
+				metadata: {},
 				text: `${tokenWithArrayLength.metadata.arrayLength} ite${tokenWithArrayLength.metadata.arrayLength === 1 ? 'm' : 'ms'}`,
 				type: 'meta',
-				metadata: {},
 			})
 		}
 	}
@@ -311,7 +281,7 @@ const getFormattedTokens = (tokens: JsonToken[], formatting: Formatting) => {
 		}
 
 		// push to most recent line
-		lines[lines.length - 1].push({ text, type, metadata })
+		lines[lines.length - 1].push({ metadata, text, type })
 	}
 
 	// helper function.  Converts json types into react types
@@ -415,4 +385,5 @@ export {
 	getFormattedTokens,
 	getTokens,
 	type ReactLine,
+	type ReactToken,
 }

@@ -1,4 +1,4 @@
-import grey from '@mui/material/colors/grey'
+import { grey } from '@mui/material/colors'
 import { alpha } from '@mui/material/styles'
 import PrintLineSegment from './PrintLineSegment'
 import { Settings } from './services/settings'
