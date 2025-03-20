@@ -2,51 +2,25 @@ import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import ExpandButtonToggle from './ExpandButtonToggle'
-import { ReactLine } from './json'
+import { CollapsableArea, ReactLine } from './json'
 
 interface Props {
+	collapsableAreas: CollapsableArea[]
+	onCollapsableAreaClick: (a: CollapsableArea) => void
 	reactLines: ReactLine[]
 	showNumbers: boolean
 }
 
-export default function JsonInspectorSidebar({ reactLines, showNumbers }: Props) {
+export default function JsonInspectorSidebar({ collapsableAreas, onCollapsableAreaClick, reactLines, showNumbers }: Props) {
 	const transitionSpeed = 0.1
 
-	const onToggle = (index: number) => {
-		console.log('toggle', index)
-	}
-
-	// Show buttons if there is an open bracket, but only if there isn't a closing bracket on the same line
-	const shouldShowExpandButton = (segments: ReactLine) => {
-		const hasOpenCurly = segments.some(({ text, type }) => {
-			return type === 'curly' && text === '{'
-		})
-
-		if (hasOpenCurly) {
-			const hasClosedCurly = segments.some(({ text, type }) => {
-				return type === 'curly' && text === '}'
-			})
-
-			return hasOpenCurly && !hasClosedCurly
-		}
-
-		const hasOpenSquare = segments.some(({ text, type }) => {
-			return type === 'square' && text === '['
-		})
-
-		if (hasOpenSquare) {
-			const hasClosedSquare = segments.some(({ text, type }) => {
-				return type === 'square' && text === ']'
-			})
-
-			return hasOpenSquare && !hasClosedSquare
-		}
-
-		return false
+	const onToggle = (area: CollapsableArea) => {
+		onCollapsableAreaClick(area)
 	}
 
 	return (
 		<Stack direction='row'>
+			{/* line numbers column */}
 			<Box
 				display='block'
 				overflow='hidden'
@@ -62,11 +36,17 @@ export default function JsonInspectorSidebar({ reactLines, showNumbers }: Props)
 				{Array.from(Array(reactLines.length)).map((_, index) => <Typography key={index} height='22px'>{index + 1}</Typography>)}
 			</Box>
 
+			{/* collapsable buttons column */}
 			<Box display='flex' flexDirection='column'>
-				{reactLines.map((segments, i) => shouldShowExpandButton(segments)
-					? <ExpandButtonToggle key={i} onToggle={() => onToggle(i)} />
-					: <Box key={i} height='22px' />
-				)}
+				{
+					reactLines.map((lines, i) => {
+						const area = collapsableAreas.find((a) => i === a.lineStart)
+
+						return area
+							? <ExpandButtonToggle key={i} expanded={area.expanded} onToggle={() => onToggle(area)} />
+							: <Box key={i} height='22px' />
+					})
+				}
 			</Box>
 		</Stack>
 	)

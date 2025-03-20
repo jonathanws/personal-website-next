@@ -349,9 +349,89 @@ const getFormattedTokens = (tokens: JsonToken[], formatting: Formatting) => {
 	return lines
 }
 
+// For the collapable code buttons in the sidebar
+interface CollapsableArea {
+	expanded: boolean
+	lineStart: number
+	lineEnd: number
+}
+
+/**
+ * Retrieve a list of where collapsable buttons should go in the sidebar, and what lines they reference.
+ * Buttons are not placed on lines whose matching bracket is on the same line
+*/
+const getCollapsableAreas = (reactLines: ReactLine[]) => {
+	type Brackets = '[' | ']' | '{' | '}'
+	interface ReduceCollapsableAreas {
+		areas: CollapsableArea[]
+		stack: {
+			line: number,
+			text: Brackets
+		}[]
+	}
+
+	const reducedLines = reactLines.reduce<ReduceCollapsableAreas>((acc, segments, index) => {
+		const { areas, stack } = acc
+	
+		const matchingBrackets: Partial<Record<Brackets, Brackets>> = {
+			']': '[',
+			'}': '{',
+		}
+
+		// this is neat.  Narrow a type by using Array.filter
+		// creates a type with the 'text' field being narrowed from string to string-union
+		type NarrowedReactToken = Exclude<ReactToken, 'text'> & { text: Brackets }
+
+		segments
+			// narrow ReactToken's { text: string } into just the four characters we care about
+			.filter<NarrowedReactToken>((segment): segment is NarrowedReactToken => [']', '[', '}', '{'].includes(segment.text))
+			.forEach(({ text }) => {
+				if (text === '{' || text === '[') {
+					stack.push({ line: index, text })
+
+					return
+				}
+
+				// don't need to worry about this breaking on first iteration, since we guarantee valid json
+				const lastOnStack = stack[stack.length - 1]
+
+				if (lastOnStack.text !== matchingBrackets[text]) {
+					return
+				}
+
+				// found a match, remove opening bracket from the stack
+				stack.splice(-1)
+
+				// don't show collapsables if both brackets are on the same line
+				if (lastOnStack.line === index) {
+					return
+				}
+
+				areas.push({
+					expanded: false,
+					lineStart: lastOnStack.line,
+					lineEnd: index,
+				})
+
+				return
+			})
+
+		return acc
+	}, {
+		areas: [],
+		stack: []
+	})
+
+	console.log('returning', reducedLines.areas.length, 'areas')
+
+	return reducedLines.areas
+}
+
 export {
+	getCollapsableAreas,
 	getFormattedTokens,
 	getTokens,
+	type CollapsableArea,
 	type JsonTokenType,
 	type ReactLine,
 	type ReactToken,

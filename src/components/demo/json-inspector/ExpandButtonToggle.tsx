@@ -1,28 +1,22 @@
-import { ExpandLess, ExpandMore } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
-import { useState } from 'react'
+import ExpandLessRounded from '@mui/icons-material/ExpandLessRounded'
+import ExpandMoreRounded from '@mui/icons-material/ExpandMoreRounded'
+import IconButton from '@mui/material/IconButton'
 
 const maxSize = '22px'
 
 interface ExpandButtonToggleProps {
+	expanded: boolean
 	onToggle: () => void
 }
 
-export default function ExpandButtonToggle ({ onToggle }: ExpandButtonToggleProps) {
-	const [open, setOpen] = useState(true)
-
-	const onClick = () => {
-		setOpen(!open)
-		onToggle()
-	}
-
+export default function ExpandButtonToggle ({ expanded, onToggle }: ExpandButtonToggleProps) {
 	return <IconButton
-		onClick={onClick}
+		onClick={onToggle}
 		sx={{
 			maxHeight: maxSize,
 			maxWidth: maxSize,
 		}}
 	>
-		{open ? <ExpandMore /> : <ExpandLess />}
+		{expanded ? <ExpandLessRounded /> : <ExpandMoreRounded />}
 	</IconButton>
 }

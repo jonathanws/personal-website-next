@@ -1,15 +1,27 @@
-import { Add, Expand, KeyboardTab, Remove, SpaceBar, UnfoldLess, UnfoldMore } from '@mui/icons-material'
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered'
+import AddRounded from '@mui/icons-material/AddRounded'
+import ExpandRounded from '@mui/icons-material/ExpandRounded'
+import FormatListNumberedRounded from '@mui/icons-material/FormatListNumberedRounded'
+import KeyboardTabRounded from '@mui/icons-material/KeyboardTabRounded'
+import RemoveRounded from '@mui/icons-material/RemoveRounded'
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
-import { Button, Divider, MenuItem, Select, Stack, SvgIcon, Tooltip } from '@mui/material'
+import SpaceBarRounded from '@mui/icons-material/SpaceBarRounded'
+import UnfoldLessRounded from '@mui/icons-material/UnfoldLessRounded'
+import UnfoldMoreRounded from '@mui/icons-material/UnfoldMoreRounded'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import { grey } from '@mui/material/colors'
+import Divider from '@mui/material/Divider'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import Stack from '@mui/material/Stack'
+import SvgIcon from '@mui/material/SvgIcon'
 import Toolbar from '@mui/material/Toolbar'
+import Tooltip from '@mui/material/Tooltip'
 import * as React from 'react'
-import { defaultFormatRules } from './services/formatting'
-import { indentCharactersMap, Settings, themeMap } from './services/settings'
+import { defaultFormatRules } from '../services/formatting'
+import { indentCharactersMap, Settings, themeMap } from '../services/settings'
 
 // TODO: don't set state if state is the same
 
@@ -81,7 +93,7 @@ export default function SettingsToolbar({ settings, setSettings, onCollapseAllSe
 			renderWhitespace: !old.renderWhitespace,
 		}))}
 	>
-		<Expand sx={{ transform: 'rotate(90deg)' }} />
+		<ExpandRounded sx={{ transform: 'rotate(90deg)' }} />
 	</SquareIconButton>
 
 	const IndentWithTabs = () => <SquareIconButton
@@ -97,7 +109,7 @@ export default function SettingsToolbar({ settings, setSettings, onCollapseAllSe
 			}))
 		}}
 	>
-		<KeyboardTab />
+		<KeyboardTabRounded />
 	</SquareIconButton>
 
 	const IndentWithSpace = () => <SquareIconButton
@@ -112,13 +124,13 @@ export default function SettingsToolbar({ settings, setSettings, onCollapseAllSe
 			}))
 		}}
 	>
-		<SpaceBar />
+		<SpaceBarRounded />
 	</SquareIconButton>
 
 	const IndentRhythmPicker = () => <>
 		<TooltipWrapper title='Decrease indent size'>
 			<SquareIconButton onClick={() => onIndentRhythmChange(-1)}>
-				<Remove />
+				<RemoveRounded />
 			</SquareIconButton>
 		</TooltipWrapper>
 
@@ -138,7 +150,7 @@ export default function SettingsToolbar({ settings, setSettings, onCollapseAllSe
 
 		<TooltipWrapper title='Increase indent size'>
 			<SquareIconButton onClick={() => onIndentRhythmChange(1)}>
-				<Add />
+				<AddRounded />
 			</SquareIconButton>
 		</TooltipWrapper>
 	</>
@@ -154,11 +166,11 @@ export default function SettingsToolbar({ settings, setSettings, onCollapseAllSe
 	</SquareIconButton>
 
 	const CollapseAll = () => <SquareIconButton onClick={onCollapseAllSections}>
-		<UnfoldLess />
+		<UnfoldLessRounded />
 	</SquareIconButton>
 
 	const ExpandAll = () => <SquareIconButton onClick={onExpandAllSections}>
-		<UnfoldMore />
+		<UnfoldMoreRounded />
 	</SquareIconButton>
 
 	const ShowLineNumbers = () => <SquareIconButton
@@ -168,7 +180,7 @@ export default function SettingsToolbar({ settings, setSettings, onCollapseAllSe
 			showLineNumbers: !old.showLineNumbers,
 		}))}
 	>
-		<FormatListNumberedIcon />
+		<FormatListNumberedRounded />
 	</SquareIconButton>
 
 	const ThemePicker = () => <Select
