@@ -3,13 +3,13 @@ import { getHostname, NEXT_PUBLIC_SUPABASE_ANON_KEY } from './constants'
 
 const supabase = createClient(getHostname('jersey-id'), NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
-const SUPABASE_FUNCTIONS = [
-	'player-by-team-jersey',
-	'random-player',
-	'teams',
-] as const
+type SupabaseFunctionName =
+	| 'player-by-team-jersey'
+	| 'random-player'
+	| 'teams'
 
-const invokeSupabaseFunction = async(name: typeof SUPABASE_FUNCTIONS[number], options?: FunctionInvokeOptions) => supabase.functions.invoke(name, options)
+
+const invokeSupabaseFunction = async(name: SupabaseFunctionName, options?: FunctionInvokeOptions) => supabase.functions.invoke(name, options)
 
 interface NFLAthleteAndNFLTeam {
 	player: NFLAthlete
@@ -148,7 +148,7 @@ const isNFLTeam = (maybe: unknown): maybe is NFLTeam =>
 	&& 'logo' in maybe && typeof maybe.logo === 'string'
 	&& 'name' in maybe && typeof maybe.name === 'string'
 
-const isNFLTeams = (maybeNFLTeams: any): maybeNFLTeams is NFLTeam[] =>
+const isNFLTeams = (maybeNFLTeams: unknown): maybeNFLTeams is NFLTeam[] =>
 	Array.isArray(maybeNFLTeams) &&
 	maybeNFLTeams.every((t) => isNFLTeam(t))
 

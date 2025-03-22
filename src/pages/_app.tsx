@@ -1,9 +1,9 @@
+import '@/styles/globals.css'
 import { CssBaseline } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import type { AppProps } from 'next/app'
 import { Lato } from 'next/font/google'
-import '@/styles/globals.css'
 import Head from 'next/head'
 import NextLink from 'next/link'
 import { forwardRef } from 'react'
@@ -17,7 +17,7 @@ const lato = Lato({
 
 
 const LinkBehavior = forwardRef(function LinkBehavior(props, ref) {
-	// @ts-ignore
+	// @ts-expect-error - this is what next says to do
 	return <NextLink ref={ref} {...props} />
 })
 

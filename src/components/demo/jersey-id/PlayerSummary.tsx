@@ -1,15 +1,16 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import { useJerseyIdContext } from '@/contexts/JerseyIdDemoContext'
 
-interface Props {
-	height: string
-	jersey: string
-	name: string
-	position: string
-	weight: string
-}
+export default function PlayerSummary() {
+	const [player] = useJerseyIdContext((store) => store.playerAndTeam?.player)
 
-export default function PlayerSummary({ height, jersey, name, position, weight }: Props) {
+	if (!player) {
+		return
+	}
+
+	const { displayHeight, jersey, fullName, position, displayWeight } = player
+
 	return (
 		<Box
 			display='flex'
@@ -22,8 +23,8 @@ export default function PlayerSummary({ height, jersey, name, position, weight }
 				flexGrow={1}
 				textAlign='center'
 			>
-				<Typography fontSize='1.3em'>{name}</Typography>
-				<Typography>{position} - {height} - {weight}</Typography>
+				<Typography fontSize='1.3em'>{fullName}</Typography>
+				<Typography>{position.name} - {displayHeight} - {displayWeight}</Typography>
 			</Box>
 		</Box>
 	)

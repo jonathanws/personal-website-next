@@ -1,24 +1,28 @@
 import { IconButton, useMediaQuery, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import { blueGrey } from '@mui/material/colors'
+import { useJerseyIdContext } from '@/contexts/JerseyIdDemoContext'
 
 interface Props {
 	displayName: string
 	focus: boolean
 	id: string
 	logo: string
-	onClick: () => void
 }
 
-export default function TeamPickerGridItem({ displayName, focus, id, logo, onClick }: Props) {
+export default function TeamPickerGridItem({ displayName, focus, id, logo }: Props) {
 	const theme = useTheme()
+	const [_, setStore] = useJerseyIdContext((store) => store.showTeamPicker)
 
 	const isXs = useMediaQuery(theme.breakpoints.down('sm')) // <=600px
 	const isSm = useMediaQuery(theme.breakpoints.down('md')) // <=900px (includes 900)
 	// everything md or larger we treat as the same
 
 	const getTeamButton = (size: number) => <IconButton
-		onClick={() => onClick()}
+		onClick={() => setStore({
+			showTeamPicker: false,
+			teamIdForQuery: id,
+		})}
 		sx={{
 			aspectRatio: '1 / 1',
 			border: focus ? `2px solid ${blueGrey[200]}` : '2px solid transparent',

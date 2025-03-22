@@ -15,7 +15,7 @@ const logoDimensions = {
 
 interface Skill {
 	duration: string
-	icons: JSX.Element[]
+	icons: React.ReactNode
 	title: string
 }
 
@@ -75,7 +75,7 @@ const skills: Skill[] = [
 	},
 	{
 		duration: '6 months',
-		icons: [<PeopleIcon key={0} color='action' />],
+		icons: [<PeopleIcon key={0} color='action' sx={logoDimensions} />],
 		title: 'Managing Devs',
 	},
 	{

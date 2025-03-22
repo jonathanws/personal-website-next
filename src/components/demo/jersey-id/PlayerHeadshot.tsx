@@ -1,20 +1,24 @@
 import Box, { BoxProps } from '@mui/material/Box'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { NFLAthleteAndNFLTeam } from '@/services/nfl-service'
 
 interface Props {
 	fadeTo: string
-	headshot: {
-		alt: string
-		href: string
-	}
-	logo: {
-		alt: string
-		href: string
-	}
-	teamColor: string
+	playerAndTeam: NFLAthleteAndNFLTeam
 }
 
-export default function PlayerHeadshot({ fadeTo, headshot, logo, teamColor }: Props) {
+export default function PlayerHeadshot({ fadeTo, playerAndTeam }: Props) {
+	const { player, team } = playerAndTeam
+	const { headshot } = player
+
+	const logo = useMemo(
+		() => ({
+			alt: team.abbreviation,
+			href: team.logo,
+		}),
+		[team]
+	)
+
 	const [currentHeadshot, setCurrentHeadshot] = useState(headshot)
 	const [currentLogo, setCurrentLogo] = useState(logo)
 
@@ -92,7 +96,7 @@ export default function PlayerHeadshot({ fadeTo, headshot, logo, teamColor }: Pr
 			width='100%'
 		>
 			{/* base background color */}
-			<Box sx={getStylesForZLevel(1, `linear-gradient(0deg, #${teamColor}, #${teamColor})`)} />
+			<Box sx={getStylesForZLevel(1, `linear-gradient(0deg, #${team.color}, #${team.color})`)} />
 
 			{/* team logo */}
 			<Box
