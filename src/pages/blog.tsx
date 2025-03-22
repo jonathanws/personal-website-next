@@ -96,10 +96,8 @@ export default function Blog() {
 						<Stack
 							direction='row'
 							spacing={1}
-							sx={{
-								mb: 2,
-								mt: 6,
-							}}
+							mb={2}
+							mt={6}
 						>
 							{toggleableBlogTags.map((tag, i) =>
 								<BlogSelectableChip
@@ -115,7 +113,7 @@ export default function Blog() {
 						<Divider sx={{
 							marginY: 3,
 							width: '100%',
-						}}/>
+						}} />
 
 						<BlogSearchResults
 							blogPosts={toggleableBlogPosts.filter(({ visible }) => visible)}

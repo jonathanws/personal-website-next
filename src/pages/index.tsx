@@ -30,7 +30,7 @@ export default function Home() {
 
 			{
 				sections.map((Section, index) => <Section
-					backgroundColor={ index % 2 === 0 ? BG_ALT : BG_PRIMARY }
+					backgroundColor={index % 2 === 0 ? BG_ALT : BG_PRIMARY}
 					key={index}
 				/>)
 			}
