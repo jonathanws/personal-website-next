@@ -1,16 +1,11 @@
-import Alert, { AlertColor } from '@mui/material/Alert'
+import Alert from '@mui/material/Alert'
 import Snackbar, { SnackbarProps } from '@mui/material/Snackbar'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { useJerseyIdContext } from '@/contexts/JerseyIdDemoContext'
 
-interface Props {
-	children: string
-	onClose: () => void
-	open: boolean
-	severity: AlertColor
-}
-
-export default function MySnackbar({ children, onClose, open, severity }: Props) {
+export default function MySnackbar() {
+	const [snackbar, setStore] = useJerseyIdContext((store) => store.snackbar)
 	const theme = useTheme()
 
 	// display at bottom on phones, top-right on everything else
@@ -22,14 +17,21 @@ export default function MySnackbar({ children, onClose, open, severity }: Props)
 		<Snackbar
 			anchorOrigin={snackbarPosition}
 			autoHideDuration={3_000}
-			onClose={onClose}
-			open={open}
+			onClose={() => {
+				setStore({
+					snackbar: {
+						...snackbar,
+						open: false,
+					},
+				})
+			}}
+			open={snackbar.open}
 		>
 			<Alert
-				severity={severity}
+				severity={snackbar.severity}
 				variant='filled'
 			>
-				{children}
+				{snackbar.text}
 			</Alert>
 		</Snackbar>
 	)

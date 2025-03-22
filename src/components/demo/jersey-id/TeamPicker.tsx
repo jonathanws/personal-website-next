@@ -1,26 +1,21 @@
 import Box from '@mui/material/Box'
 import { blueGrey } from '@mui/material/colors'
-import { NFLTeam } from '@/services/nfl-service'
+import { useJerseyIdContext } from '@/contexts/JerseyIdDemoContext'
 import CollapsableOverlapPaper from './CollapsableOverlapPaper'
 import { borderRadiusNum } from './PlayerLookup'
 import TeamPickerGridItem from './TeamPickerGridItem'
 
-interface Props {
-	onSelect: (id: string) => void
-	open: boolean
-	selectedTeamId: string
-	teams: NFLTeam[]
-}
-
-export default function TeamPicker({ onSelect, open, selectedTeamId, teams }: Props) {
-	const onTeamPickerGridItemClicked = (id: string) => onSelect(id)
+export default function TeamPicker() {
+	const [showTeamPicker] = useJerseyIdContext((store) => store.showTeamPicker)
+	const [teamIdForQuery] = useJerseyIdContext((store) => store.teamIdForQuery)
+	const [teams] = useJerseyIdContext((store) => store.teams)
 
 	return (
 		<CollapsableOverlapPaper
 			elevation={3}
 			background={blueGrey[700]}
 			borderRadius={borderRadiusNum}
-			open={open}
+			open={showTeamPicker}
 			zIndex={2}
 		>
 			<Box
@@ -33,10 +28,9 @@ export default function TeamPicker({ onSelect, open, selectedTeamId, teams }: Pr
 					teams.map(({ displayName, id, logo }) => <TeamPickerGridItem
 						key={`team-logo${id}`}
 						displayName={displayName}
-						focus={id === selectedTeamId}
+						focus={id === teamIdForQuery}
 						id={id}
 						logo={logo}
-						onClick={() => onTeamPickerGridItemClicked(id)}
 					/>)
 				}
 			</Box>

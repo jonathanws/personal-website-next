@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container'
 import Head from 'next/head'
-import DebugBreakpoints from '@/components/DebugBreakpoints'
 import PlayerLookup from '@/components/demo/jersey-id/PlayerLookup'
+import { JerseyIdContextProvider } from '@/contexts/JerseyIdDemoContext'
 
 export default function JerseyIdDemoPage() {
 	return (
@@ -13,8 +13,6 @@ export default function JerseyIdDemoPage() {
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
-
-			{/* <DebugBreakpoints /> */}
 
 			<Container
 				disableGutters
@@ -31,7 +29,9 @@ export default function JerseyIdDemoPage() {
 					},
 				}}
 			>
-				<PlayerLookup />
+				<JerseyIdContextProvider>
+					<PlayerLookup />
+				</JerseyIdContextProvider>
 			</Container>
 		</>
 	)
