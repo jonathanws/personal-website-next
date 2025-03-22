@@ -46,6 +46,7 @@ export default function Blog() {
 		}
 
 		setToggleableBlogPosts(newToggleableBlogPosts)
+		// eslint-disable-next-line
 	}, [toggleableBlogTags])
 
 	const onResetSearch = () => {

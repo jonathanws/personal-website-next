@@ -17,7 +17,7 @@ const lato = Lato({
 
 
 const LinkBehavior = forwardRef(function LinkBehavior(props, ref) {
-	// @ts-ignore
+	// @ts-expect-error - this is what next says to do
 	return <NextLink ref={ref} {...props} />
 })
 
