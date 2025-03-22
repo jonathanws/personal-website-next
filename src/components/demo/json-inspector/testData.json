@@ -1,0 +1,48 @@
+{
+	"arrayOfObjects": [
+		{
+			"id": 1,
+			"name": "Alice"
+		},
+		{
+			"details": {
+				"active": false,
+				"age": 30
+			},
+			"id": 2,
+			"name": "Bob"
+		}
+	],
+	"arraysOfPrimitives": {
+		"booleansOnly": [true, true, false, false],
+		"nullsOnly": [null, null],
+		"numbersOnly": [10, 20, 30, 40],
+		"stringsOnly": ["one", "two", "three"]
+	},
+	"booleanFalse": false,
+	"booleanTrue": true,
+	"emptyArray": [],
+	"emptyObject": {},
+	"nestedArrays": {
+		"booleansNested": [
+			[true, false],
+			[false, true]
+		],
+		"nullsNested": [[null, null], [null, null]],
+		"numbersNested": [[1, 2, 3], [4, 5, 6]],
+		"stringsNested": [["apple", "banana"], ["cherry", "date"]]
+	},
+	"nestedObject": {
+		"key1": "value1",
+		"key2": {
+			"booleansArray": [true, false, false, true],
+			"nestedKey": 123,
+			"nullsArray": [null, null, null],
+			"numbersArray": [1, 2, 3, 4, 5],
+			"stringsArray": ["alpha", "beta", "gamma"]
+		}
+	},
+	"nullValue": null,
+	"numberValue": 42,
+	"simpleKeyValue": "text"
+}

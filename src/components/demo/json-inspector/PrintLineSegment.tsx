@@ -14,7 +14,8 @@ export default function PrintLineSegment({ children, sxProps }: Props) {
 			display='inline'
 			fontSize={14}
 			fontWeight={500}
-			whiteSpace='pre-wrap'
+			// whiteSpace='pre-wrap'
+			whiteSpace='nowrap'
 		>
 			{children}
 		</Typography>

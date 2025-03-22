@@ -2,30 +2,26 @@ import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import ExpandButtonToggle from './ExpandButtonToggle'
-import { CollapsableArea, ReactLine } from './json'
+import { useJsonContext } from './JsonContext'
 
-interface Props {
-	collapsableAreas: CollapsableArea[]
-	onCollapsableAreaClick: (a: CollapsableArea) => void
-	reactLines: ReactLine[]
-	showNumbers: boolean
-}
-
-export default function JsonInspectorSidebar({ collapsableAreas, onCollapsableAreaClick, reactLines, showNumbers }: Props) {
+export default function JsonInspectorSidebar() {
+	const [areas] = useJsonContext((store) => store.areas)
+	const [showLineNumbers, setStore] = useJsonContext((store) => store.showLineNumbers)
+	const [tokenLines] = useJsonContext((store) => store.tokenLines)
 	const transitionSpeed = 0.1
 
-	const onToggle = (area: CollapsableArea) => {
-		onCollapsableAreaClick(area)
-	}
+	// const onToggle = (area: CollapsableArea) => {
+	// 	onCollapsableAreaClick(area)
+	// }
 
 	return (
 		<Stack direction='row'>
 			{/* line numbers column */}
 			<Box
-				display='block'
+				display='block' // TODO: ?
 				overflow='hidden'
-				pr={showNumbers ? 1 : 0}
-				width={showNumbers ? '20px' : 0}
+				pr={showLineNumbers ? 1 : 0}
+				width={showLineNumbers ? '20px' : 0}
 				sx={{
 					transition: [
 						`width ${transitionSpeed}s ease-in-out`,
@@ -33,17 +29,27 @@ export default function JsonInspectorSidebar({ collapsableAreas, onCollapsableAr
 					].join(', '),
 				}}
 			>
-				{Array.from(Array(reactLines.length)).map((_, index) => <Typography key={index} height='22px'>{index + 1}</Typography>)}
+				{Array.from(Array(tokenLines.length)).map((_, index) =>
+					<Typography key={index} height='22px' >{index + 1}</Typography>
+				)}
 			</Box>
 
 			{/* collapsable buttons column */}
-			<Box display='flex' flexDirection='column'>
+			<Box overflow='hidden'>
 				{
-					reactLines.map((lines, i) => {
-						const area = collapsableAreas.find((a) => i === a.lineStart)
+					tokenLines.map((lines, i) => {
+						const area = areas.find((a) => i === a.lineStart)
 
 						return area
-							? <ExpandButtonToggle key={i} expanded={area.expanded} onToggle={() => onToggle(area)} />
+							? <ExpandButtonToggle
+								key={i}
+								expanded={area.expanded}
+								onToggle={() => {
+									console.log('toggle', area.expanded)
+
+									return area.expanded = !area.expanded
+								}}
+							/>
 							: <Box key={i} height='22px' />
 					})
 				}
