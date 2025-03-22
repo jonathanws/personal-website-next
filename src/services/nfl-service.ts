@@ -148,7 +148,7 @@ const isNFLTeam = (maybe: unknown): maybe is NFLTeam =>
 	&& 'logo' in maybe && typeof maybe.logo === 'string'
 	&& 'name' in maybe && typeof maybe.name === 'string'
 
-const isNFLTeams = (maybeNFLTeams: any): maybeNFLTeams is NFLTeam[] =>
+const isNFLTeams = (maybeNFLTeams: unknown): maybeNFLTeams is NFLTeam[] =>
 	Array.isArray(maybeNFLTeams) &&
 	maybeNFLTeams.every((t) => isNFLTeam(t))
 

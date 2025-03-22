@@ -75,7 +75,7 @@ const skills: Skill[] = [
 	},
 	{
 		duration: '6 months',
-		icons: [<PeopleIcon key={0} color='action' />],
+		icons: [<PeopleIcon key={0} color='action' sx={logoDimensions} />],
 		title: 'Managing Devs',
 	},
 	{

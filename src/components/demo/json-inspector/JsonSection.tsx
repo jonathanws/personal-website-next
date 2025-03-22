@@ -1,19 +1,20 @@
-import { CollapsableArea, ReactLine } from './json'
+import { useJsonContext } from './JsonContext'
 import ReactLineContainer from './ReactLineContainer'
-import { Settings } from './services/settings'
 
-interface Props {
-	collapsableAreas: CollapsableArea[]
-	reactLines: ReactLine[]
-	settings: Settings
-	level: number
-}
+export default function JsonSection() {
+	const [areas] = useJsonContext((store) => store.areas)
+	const [tokenLines] = useJsonContext((store) => store.tokenLines)
 
-export default function JsonSection({ collapsableAreas, reactLines, settings }: Props) {
-	return reactLines.map((line, lineIndex) => <ReactLineContainer
+	const focus = (lineIndex: number) => {
+		const area = areas.find((area) => area.lineStart === lineIndex)
+
+		// counterintuitively, focus the row when the area is *not* expanded
+		return area ? !area?.expanded : false
+	}
+
+	return tokenLines.map((line, lineIndex) => <ReactLineContainer
 		key={lineIndex}
-		focus={collapsableAreas.find((area) => area.lineStart === lineIndex)?.expanded || false}
+		focus={focus(lineIndex)}
 		line={line}
-		settings={settings}
 	/>)
 }

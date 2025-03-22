@@ -87,7 +87,12 @@ body {
 }
 
 #__next {
-  min-height: 100vh;
+  height: 100vh;
+  /* border: 4px solid lightblue; */
+  /*
+   * immediate children who want to be full height (height: 100%) can't do that if min-height is set.
+   * when set to regular 'height', that works, but articles overflow the height when scrolling.
+   */
 }
 
 body {

@@ -1,5 +1,4 @@
 import { JsonTokenType } from '../json'
-import { indentCharactersMap, IndentChar } from './settings'
 
 // TODO: consider sending all tokens to each format function.
 // see if we can correctly format
@@ -63,6 +62,12 @@ const incrementAfterBracketOpen: FormatFunction = (...args) => {
 	return ['curlyOpen', 'squareOpen'].includes(type)
 }
 
+const indentCharactersMap = {
+	space: ' ',
+	tab: '	',
+} as const
+type IndentChar = (typeof indentCharactersMap)[keyof typeof indentCharactersMap]
+
 interface Formatting {
 	addNewLineAndIndentation: FormatFunction
 	addSpaceAfter: FormatFunction
@@ -87,5 +92,7 @@ const defaultFormatRules: Formatting = {
 
 export {
 	defaultFormatRules,
+	indentCharactersMap,
 	type Formatting,
+	type IndentChar,
 }

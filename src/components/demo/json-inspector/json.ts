@@ -1,5 +1,5 @@
-import { Formatting } from './services/formatting'
-import { indentCharactersMap, ReactTokenType } from './services/settings'
+import { Formatting, indentCharactersMap } from './services/formatting'
+import { ReactTokenType } from './services/settings'
 
 type JsonTokenType =
 	| 'comma'
@@ -23,6 +23,42 @@ type JsonToken = BaseToken<JsonTokenType> // tokens understood by the json parse
 type ReactToken = BaseToken<ReactTokenType> // tokens understood by react
 
 type ReactLine = ReactToken[]
+
+/**
+ * First step of preparing use input for tokenization.  Validates user input
+ */
+const getJsonCharArray = (data: unknown): string[] => {
+	if (data === null) {
+		return []
+	}
+
+	if (typeof data !== 'string' && typeof data !== 'object') {
+		return []
+	}
+
+	// validity check
+	try {
+		if (typeof data === 'string') {
+			JSON.parse(data)
+		} else if (typeof data === 'object') {
+			JSON.parse(JSON.stringify(data))
+		}
+	} catch (e) {
+		console.error('could not parse incoming data', e)
+	}
+
+	if (typeof data === 'string') {
+		const temp = JSON.stringify(JSON.parse(data))
+
+		return temp ? temp.split('') : []
+	} else if (typeof data === 'object') {
+		return JSON.stringify(data).split('')
+	}
+
+	console.error('neither string nor object', [])
+
+	return []
+}
 
 const createJsonToken = (text: string, incomingType?: JsonTokenType): JsonToken => {
 	const map: Record<string, JsonTokenType> = {
@@ -50,18 +86,24 @@ const createJsonToken = (text: string, incomingType?: JsonTokenType): JsonToken 
 	}
 }
 
-// state placeholders for building booleans/strings/etc
-interface ReduceTokenBuilder {
-	buildingDataType: 'boolean' | 'null' | 'number' | 'string' | ''
-	tokens: JsonToken[]
-}
+// // all the different characters that signal we should start building X
+// const startingBooleanCharacters = new Set(['f', 't'])
+// const startingNumberCharacters = new Set(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'])
+//	null always only starts with 'n', no set needed
+
+// when building values, what characters go into different types?
+const booleanBodyCharacters = new Set(['a', 'e', 'f', 'l', 'r', 's', 't', 'u'])
+const numberBodyCharacters = new Set(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'])
+const nullBodyCharacters = new Set(['n', 'u', 'l'])
 
 const getTokens = (data: unknown) => {
-	const jsonCharArray = JSON.parse(JSON.stringify(data))
-		? JSON.stringify(data).split('')
-		: []
+	// state placeholders for building booleans/strings/etc
+	interface ReduceTokenBuilder {
+		buildingDataType: 'boolean' | 'null' | 'number' | 'string' | ''
+		tokens: JsonToken[]
+	}
 
-	const tokens = jsonCharArray.reduce<ReduceTokenBuilder>(
+	const { tokens } = getJsonCharArray(data).reduce<ReduceTokenBuilder>(
 		(acc, text, index) => {
 			// helper function
 			const addToLastToken = (s: string) => {
@@ -96,30 +138,34 @@ const getTokens = (data: unknown) => {
 
 					return acc
 				case 'boolean':
-					if (['a', 'e', 'f', 'l', 'r', 's', 't', 'u'].includes(text)) {
+					if (booleanBodyCharacters.has(text)) {
 						addToLastToken(text)
 
 						return acc
 					}
 
 					acc.buildingDataType = ''
+
 					break
 				case 'number':
-					if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'].includes(text)) {
+					if (numberBodyCharacters.has(text)) {
 						addToLastToken(text)
 
 						return acc
 					}
 
 					acc.buildingDataType = ''
+
 					break
 				case 'null':
-					if (['n', 'u', 'l'].includes(text)) {
+					if (nullBodyCharacters.has(text)) {
 						addToLastToken(text)
+
 						return acc
 					}
 
 					acc.buildingDataType = ''
+
 					break
 			}
 
@@ -166,7 +212,7 @@ const getTokens = (data: unknown) => {
 			buildingDataType: '',
 			tokens: [],
 		}
-	).tokens
+	)
 
 	// generate metadata for some tokens
 
@@ -372,7 +418,6 @@ const getCollapsableAreas = (reactLines: ReactLine[]) => {
 
 	const reducedLines = reactLines.reduce<ReduceCollapsableAreas>((acc, segments, index) => {
 		const { areas, stack } = acc
-	
 		const matchingBrackets: Partial<Record<Brackets, Brackets>> = {
 			']': '[',
 			'}': '{',
@@ -386,51 +431,71 @@ const getCollapsableAreas = (reactLines: ReactLine[]) => {
 			// narrow ReactToken's { text: string } into just the four characters we care about
 			.filter<NarrowedReactToken>((segment): segment is NarrowedReactToken => [']', '[', '}', '{'].includes(segment.text))
 			.forEach(({ text }) => {
-				if (text === '{' || text === '[') {
-					stack.push({ line: index, text })
+				switch (text) {
+					case '{':
+					case '[':
+						stack.push({ line: index, text })
 
-					return
+						break
+					case '}':
+					case ']':
+						// don't need to worry about this breaking on first iteration, since we guarantee valid json
+						const lastOnStack = stack[stack.length - 1]
+
+						if (lastOnStack.text !== matchingBrackets[text]) {
+							return
+						}
+
+						// found a match, remove opening bracket from the stack
+						stack.splice(-1)
+
+						// don't show collapsables if both brackets are on the same line
+						if (lastOnStack.line === index) {
+							return
+						}
+
+						areas.push({
+							expanded: true,
+							lineStart: lastOnStack.line,
+							lineEnd: index,
+						})
+
+						break
 				}
-
-				// don't need to worry about this breaking on first iteration, since we guarantee valid json
-				const lastOnStack = stack[stack.length - 1]
-
-				if (lastOnStack.text !== matchingBrackets[text]) {
-					return
-				}
-
-				// found a match, remove opening bracket from the stack
-				stack.splice(-1)
-
-				// don't show collapsables if both brackets are on the same line
-				if (lastOnStack.line === index) {
-					return
-				}
-
-				areas.push({
-					expanded: false,
-					lineStart: lastOnStack.line,
-					lineEnd: index,
-				})
-
-				return
 			})
 
 		return acc
 	}, {
 		areas: [],
-		stack: []
+		stack: [],
 	})
-
-	console.log('returning', reducedLines.areas.length, 'areas')
 
 	return reducedLines.areas
 }
 
+/**
+ * one function to rule them all, one function to join them
+ * one function to bring them all, and in the react app, **bind them**
+ *
+ * The main function exported from this service.  Returns formatted react (json) tokens
+ * and collapsable areas.
+ */
+const getTokenLinesAndCollapsableAreas = (data: unknown, formatting: Formatting) => {
+	console.log('generating all the token')
+	const tokenLines = getFormattedTokens(getTokens(data), formatting)
+	const areas = getCollapsableAreas(tokenLines)
+
+	return {
+		areas,
+		tokenLines,
+	}
+}
+
 export {
-	getCollapsableAreas,
-	getFormattedTokens,
-	getTokens,
+	// getCollapsableAreas,
+	// getFormattedTokens,
+	// getTokens,
+	getTokenLinesAndCollapsableAreas,
 	type CollapsableArea,
 	type JsonTokenType,
 	type ReactLine,

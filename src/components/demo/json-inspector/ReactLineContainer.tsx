@@ -1,17 +1,19 @@
 import Box from '@mui/material/Box'
 import { ReactLine } from './json'
+import { useJsonContext } from './JsonContext'
 import PrintLineSegment from './PrintLineSegment'
 import PrintMeta from './PrintMeta'
 import PrintWhitespace from './PrintWhitespace'
-import { getStylesFor, getThemeTypeFromReactType, Settings } from './services/settings'
+import { getStylesFor, getThemeTypeFromReactType } from './services/settings'
 
 interface ReactLineContainerProps {
 	focus: boolean
 	line: ReactLine
-	settings: Settings
 }
 
-export default function ReactLineContainer({ focus = false, line, settings }: ReactLineContainerProps) {
+export default function ReactLineContainer({ focus = false, line }: ReactLineContainerProps) {
+	const [theme] = useJsonContext((store) => store.theme)
+
 	return (
 		<Box
 			lineHeight={1}
@@ -26,18 +28,20 @@ export default function ReactLineContainer({ focus = false, line, settings }: Re
 				line.map(({ text, type }, key) => {
 					switch (type) {
 						case 'meta':
-							return <PrintMeta key={key} settings={settings}>{`${text}${focus ? ' ...' : ''}`}</PrintMeta>
+							return <PrintMeta key={key}>{`${text}${focus ? ' ...' : ''}`}</PrintMeta>
 						case 'whitespace':
-							return <PrintWhitespace key={key} settings={settings}>{text}</PrintWhitespace>
+							// console.log('')
+							// console.log('whitespace token', { text, type })
+							return <PrintWhitespace key={key}>{text}</PrintWhitespace>
 						default:
-							return <PrintLineSegment key={key} sxProps={getStylesFor(getThemeTypeFromReactType(type), settings)}>{text}</PrintLineSegment>
+							return <PrintLineSegment key={key} sxProps={getStylesFor(getThemeTypeFromReactType(type), theme)}>{text}</PrintLineSegment>
 					}
 				})
 			}
 			{
 				// we only add meta tokens after '['s, so account for the lines that fold without a meta token to edit
 				focus && !line.some(({ type }) => type === 'meta') &&
-				<PrintMeta settings={settings}>{'...'}</PrintMeta>
+				<PrintMeta>{'...'}</PrintMeta>
 			}
 		</Box>
 	)

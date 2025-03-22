@@ -2,6 +2,7 @@ import Container from '@mui/material/Container'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { Fira_Code, Lato } from 'next/font/google'
 import Head from 'next/head'
+import { JsonContextProvider } from '@/components/demo/json-inspector/JsonContext'
 import JsonInspector from '@/components/demo/json-inspector/JsonInspector'
 
 const lato = Lato({
@@ -39,15 +40,17 @@ export default function JsonInspectorDemoPage() {
 			<Head>
 				<title>JSON Inspector</title>
 				{/* this line sometimes shows up in link previews */}
-				<meta name='description' content="Easily inspect your JSON" />
+				<meta name='description' content='Easily inspect your JSON' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
 
 			<ThemeProvider theme={jsonInspectorTheme}>
-				<Container maxWidth={false}>
-					<JsonInspector />
-				</Container>
+				<JsonContextProvider>
+					<Container maxWidth={false} sx={{ border: '2px solid pink', height: '100%', p: 2 }}>
+						<JsonInspector />
+					</Container>
+				</JsonContextProvider>
 			</ThemeProvider>
 		</>
 	)

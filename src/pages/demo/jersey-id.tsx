@@ -1,6 +1,5 @@
 import Container from '@mui/material/Container'
 import Head from 'next/head'
-import DebugBreakpoints from '@/components/DebugBreakpoints'
 import PlayerLookup from '@/components/demo/jersey-id/PlayerLookup'
 
 export default function JerseyIdDemoPage() {
@@ -14,14 +13,14 @@ export default function JerseyIdDemoPage() {
 				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
 
-			{/* <DebugBreakpoints /> */}
-
 			<Container
 				disableGutters
 				sx={{
 					mt: {
 						sm: 2,
-						xs: 0,
+					},
+					p: {
+						xs: 1,
 					},
 					// sizing styles that keep everything in a nice, narrow column
 					width: {

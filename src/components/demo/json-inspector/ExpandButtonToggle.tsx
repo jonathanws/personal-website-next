@@ -10,13 +10,18 @@ interface ExpandButtonToggleProps {
 }
 
 export default function ExpandButtonToggle ({ expanded, onToggle }: ExpandButtonToggleProps) {
+	const sx={
+		maxHeight: maxSize,
+		maxWidth: maxSize,
+	}
+
+	// ExpandLess: ^ , ExpandMore: v
+	const icon = expanded ? <ExpandMoreRounded /> : <ExpandLessRounded />
+
 	return <IconButton
 		onClick={onToggle}
-		sx={{
-			maxHeight: maxSize,
-			maxWidth: maxSize,
-		}}
+		sx={sx}
 	>
-		{expanded ? <ExpandLessRounded /> : <ExpandMoreRounded />}
+		{icon}
 	</IconButton>
 }

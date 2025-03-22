@@ -1,6 +1,6 @@
 import { cyan, grey, lightGreen, orange, pink, purple, red, yellow } from '@mui/material/colors'
 import { Theme as MaterialUiTheme, SxProps } from '@mui/material/styles'
-import { Formatting } from './formatting'
+import { defaultFormatRules, Formatting } from './formatting'
 
 interface Settings {
 	formatting: Formatting
@@ -9,6 +9,15 @@ interface Settings {
 	showMetaText: boolean
 	theme: ThemeName
 	trailingComma: boolean
+}
+
+const defaultSettings: Settings = {
+	formatting: defaultFormatRules,
+	renderWhitespace: true,
+	showLineNumbers: true,
+	showMetaText: true,
+	theme: 'default',
+	trailingComma: true,
 }
 
 type ReactTokenType =
@@ -23,12 +32,6 @@ type ReactTokenType =
 	| 'square'
 	| 'string'
 	| 'whitespace'
-
-const indentCharactersMap = {
-	space: ' ',
-	tab: '	',
-} as const
-type IndentChar = (typeof indentCharactersMap)[keyof typeof indentCharactersMap]
 
 interface Theme {
 	booleanStyles: SxProps<MaterialUiTheme>
@@ -72,7 +75,7 @@ const oopsAllOrange: Theme = {
 const themeMap: Record<string, Theme> = {
 	default: defaultTheme,
 	oopsAllOrange: oopsAllOrange,
-}
+} as const
 type ThemeName = keyof typeof themeMap
 
 const getThemeTypeFromReactType = (type: Exclude<ReactTokenType, 'meta' | 'whitespace'>): keyof Theme => {
@@ -91,18 +94,15 @@ const getThemeTypeFromReactType = (type: Exclude<ReactTokenType, 'meta' | 'white
 	return map[type]
 }
 
-const getStylesFor = (type: keyof Theme, settings: Settings) => {
-	const currentTheme = themeMap[settings.theme]
-
-	return currentTheme[type]
+const getStylesFor = (type: keyof Theme, theme: Settings['theme']) => {
+	return themeMap[theme][type]
 }
 
 export {
+	defaultSettings,
 	getStylesFor,
 	getThemeTypeFromReactType,
-	indentCharactersMap,
 	themeMap,
-	type IndentChar,
 	type ReactTokenType,
 	type Settings,
 }
