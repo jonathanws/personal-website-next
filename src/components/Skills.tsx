@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import { BG_PRIMARY, sectionPaddings } from '@/services/theming'
+import { sectionPaddings } from '@/services/theming'
 
 const LOGO_SIZE = 28
 const logoDimensions = {
@@ -94,9 +94,13 @@ const skills: Skill[] = [
 	},
 ]
 
-export default function Skills() {
+interface Props {
+	backgroundColor: string
+}
+
+export default function Skills({ backgroundColor }: Props) {
 	return (
-		<Box sx={{ backgroundColor: BG_PRIMARY }}>
+		<Box sx={{ backgroundColor }}>
 			<Container sx={sectionPaddings}>
 				<Typography variant='h3'>Skills</Typography>
 

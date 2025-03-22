@@ -17,11 +17,14 @@ export default function Blog() {
 		selected: true,
 	})))
 	const onTagClick = (index: number) => {
-		const newToggleableBlogTags = [...toggleableBlogTags]
-
-		newToggleableBlogTags[index].selected = !newToggleableBlogTags[index].selected
-
-		setToggleableBlogTags(newToggleableBlogTags)
+		setToggleableBlogTags((previousToggleableBlogTags) =>
+			previousToggleableBlogTags.map((tag, i) => index === i
+				? {
+					...tag,
+					selected: !tag.selected,
+				}
+				: tag
+			))
 	}
 
 	const [toggleableBlogPosts, setToggleableBlogPosts] = useState(getBlogPosts().map((blog) => ({
@@ -29,31 +32,26 @@ export default function Blog() {
 		visible: true,
 	})))
 	useEffect(() => {
-		const newToggleableBlogPosts = [...toggleableBlogPosts]
-
-		for (const post of newToggleableBlogPosts) {
-			let visible = false
-
-			for (const tag of post.tags) {
-				const found = toggleableBlogTags.find(({ name }) => name === tag)
-
-				if (found?.selected) {
-					visible = true
-				}
-			}
-
-			post.visible = visible
-		}
-
-		setToggleableBlogPosts(newToggleableBlogPosts)
-		// eslint-disable-next-line
+		// Don't show blogs if none of the relevant chips are selected
+		setToggleableBlogPosts((previousToggleableBlogPosts) =>
+			previousToggleableBlogPosts.map((blog) => ({
+				...blog,
+				visible: blog.tags.some((tag) =>
+					toggleableBlogTags.some(({ name, selected }) => name === tag && selected)
+				),
+			}))
+		)
 	}, [toggleableBlogTags])
 
 	const onResetSearch = () => {
-		const newToggleableBlogTags = [...toggleableBlogTags]
-		newToggleableBlogTags.forEach((tag) => tag.selected = true)
-
-		setToggleableBlogTags(newToggleableBlogTags)
+		setToggleableBlogTags((previousToggleableBlogTags) =>
+			previousToggleableBlogTags.map(
+				(tag) => ({
+					...tag,
+					selected: true,
+				})
+			)
+		)
 	}
 
 	return (
@@ -68,9 +66,24 @@ export default function Blog() {
 
 			<Header />
 
-			<Container maxWidth={false} sx={{ backgroundColor: BG_ALT, minHeight: '100vh' }}>
-				<Container sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column', pt: 4 }}>
-					<Typography variant='h2' align='center'>Blog</Typography>
+			<Container
+				maxWidth={false}
+				sx={{
+					backgroundColor: BG_ALT,
+					minHeight: '100vh',
+				}}>
+				<Container sx={{
+					alignItems: 'center',
+					display: 'flex',
+					flexDirection: 'column',
+					pt: 4,
+				}}>
+					<Typography
+						variant='h2'
+						align='center'
+					>
+						Blog
+					</Typography>
 
 					<Box sx={{
 						mb: 10,
@@ -80,7 +93,12 @@ export default function Blog() {
 							xs: '100%',
 						},
 					}}>
-						<Stack direction='row' spacing={1} sx={{ mb: 2, mt: 6 }}>
+						<Stack
+							direction='row'
+							spacing={1}
+							mb={2}
+							mt={6}
+						>
 							{toggleableBlogTags.map((tag, i) =>
 								<BlogSelectableChip
 									key={i}
@@ -92,7 +110,10 @@ export default function Blog() {
 							)}
 						</Stack>
 
-						<Divider sx={{ marginY: 3, width: '100%' }} />
+						<Divider sx={{
+							marginY: 3,
+							width: '100%',
+						}} />
 
 						<BlogSearchResults
 							blogPosts={toggleableBlogPosts.filter(({ visible }) => visible)}

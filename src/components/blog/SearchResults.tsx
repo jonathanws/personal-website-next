@@ -41,22 +41,27 @@ export default function BlogSearchResults({ blogPosts, onResetSearch }: Props) {
 	return (
 		<Grid
 			container
-			spacing={2}>
-			{blogPosts.map(({ bodyTitle, description, heroSrc, url }, i) =>
+			spacing={2}
+		>
+			{blogPosts.map(({ bodyTitle, description, heroSrc, tags, url }, i) =>
 				<Grid
 					item
 					xs={12}
 					md={6}
 					lg={4}
 					xl={3}
-					key={i}>
+					key={i}
+				>
+					{/* This container div centers BlogCards when they are full-width on mobile */}
 					<Box
 						display='flex'
 						justifyContent='center'
-						alignItems='center'>
+						alignItems='center'
+					>
 						<BlogCard
 							description={description}
 							heroSrc={heroSrc}
+							tags={tags}
 							title={bodyTitle}
 							url={url}
 						/>
