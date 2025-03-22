@@ -1,5 +1,5 @@
-import { default as GitHubIcon } from '@mui/icons-material/GitHub'
-import { default as LinkedInIcon } from '@mui/icons-material/LinkedIn'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'

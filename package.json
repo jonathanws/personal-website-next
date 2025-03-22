@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 192.168.86.194",
+    "dev": "next dev",
     "prebuild": "rm -rf out/*",
     "build": "next build",
     "start": "next start",
@@ -27,6 +27,8 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@types/react-syntax-highlighter": "^15.5.7",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "eslint-plugin-import": "^2.28.1",
