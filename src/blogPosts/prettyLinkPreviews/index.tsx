@@ -16,7 +16,7 @@ const heroSrc = `${IMG_DIR}/hero.png`
 const url = 'pretty-link-previews'
 
 /** Displays screenshots in a padded container, just so they look nicer */
-const screenshotContainer = (screenshot: JSX.Element) => <Box sx={{ padding: '0 20%' }}>{screenshot}</Box>
+const screenshotContainer = (screenshot: React.ReactNode) => <Box sx={{ padding: '0 20%' }}>{screenshot}</Box>
 
 const prettyLinkPreviews: BlogPost = {
 	author: 'jonSmoley',

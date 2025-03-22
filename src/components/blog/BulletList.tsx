@@ -2,7 +2,7 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 
 interface Props {
-	list: any[]
+	list: React.ReactNode[]
 }
 
 export default function BlogBulletList ({ list }: Props) {
