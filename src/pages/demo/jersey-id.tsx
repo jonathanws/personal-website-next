@@ -1,6 +1,7 @@
 import Container from '@mui/material/Container'
 import Head from 'next/head'
 import PlayerLookup from '@/components/demo/jersey-id/PlayerLookup'
+import { JerseyIdContextProvider } from '@/contexts/JerseyIdDemoContext'
 
 export default function JerseyIdDemoPage() {
 	return (
@@ -30,7 +31,9 @@ export default function JerseyIdDemoPage() {
 					},
 				}}
 			>
-				<PlayerLookup />
+				<JerseyIdContextProvider>
+					<PlayerLookup />
+				</JerseyIdContextProvider>
 			</Container>
 		</>
 	)

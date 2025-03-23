@@ -1,16 +1,13 @@
 import Box from '@mui/material/Box'
 import { blueGrey } from '@mui/material/colors'
-import { NFLAthleteAndNFLTeam } from '@/services/nfl-service'
+import { useJerseyIdContext } from '@/contexts/JerseyIdDemoContext'
 import CollapsableOverlapPaper from './CollapsableOverlapPaper'
 import { borderRadiusNum } from './PlayerLookup'
 import RecentPlayerIcon from './RecentPlayerIcon'
 
-interface Props {
-	onRecentPlayerClick: (index: number) => void
-	recentPlayers: NFLAthleteAndNFLTeam[]
-}
+export default function RecentPlayers() {
+	const [recentPlayers, setStore] = useJerseyIdContext((store) => store.recentPlayers)
 
-export default function RecentPlayers({ onRecentPlayerClick, recentPlayers }: Props) {
 	return (
 		<CollapsableOverlapPaper
 			elevation={3}
@@ -31,7 +28,7 @@ export default function RecentPlayers({ onRecentPlayerClick, recentPlayers }: Pr
 						index={index}
 						jersey={player.jersey}
 						logo={team.logo}
-						onClick={() => onRecentPlayerClick(index)}
+						onClick={() => setStore({ playerAndTeam: (recentPlayers[index]) })}
 					/>)
 				}
 			</Box>

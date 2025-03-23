@@ -15,7 +15,7 @@ const logoDimensions = {
 
 interface Skill {
 	duration: string
-	icons: JSX.Element[]
+	icons: React.ReactNode
 	title: string
 }
 

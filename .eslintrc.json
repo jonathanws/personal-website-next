@@ -35,7 +35,7 @@
 		],
 		// warns against using imports being "out of order"
 		"import/order": [
-			"warn",
+			"error",
 			{
 				"alphabetize": {
 					"order": "asc",

@@ -3,13 +3,13 @@ import { getHostname, NEXT_PUBLIC_SUPABASE_ANON_KEY } from './constants'
 
 const supabase = createClient(getHostname('jersey-id'), NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
-const SUPABASE_FUNCTIONS = [
-	'player-by-team-jersey',
-	'random-player',
-	'teams',
-] as const
+type SupabaseFunctionName =
+	| 'player-by-team-jersey'
+	| 'random-player'
+	| 'teams'
 
-const invokeSupabaseFunction = async(name: typeof SUPABASE_FUNCTIONS[number], options?: FunctionInvokeOptions) => supabase.functions.invoke(name, options)
+
+const invokeSupabaseFunction = async(name: SupabaseFunctionName, options?: FunctionInvokeOptions) => supabase.functions.invoke(name, options)
 
 interface NFLAthleteAndNFLTeam {
 	player: NFLAthlete
