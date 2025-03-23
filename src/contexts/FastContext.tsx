@@ -35,7 +35,7 @@ export default function createFastContext<Store>(initialState: Store) {
 		const subscribe = useCallback((callback: () => void) => {
 			subscribers.current.add(callback)
 
-			// optional cleanup function
+			// optional unsubscribe function
 			return () => subscribers.current.delete(callback)
 		}, [])
 
@@ -54,9 +54,12 @@ export default function createFastContext<Store>(initialState: Store) {
 		</StoreContext.Provider>
 	)
 
+	/**
+	 * This bit is eventually imported by components; used to access the store
+	 */
 	const useStore = <SelectorOutput, >(selector: (store: Store) => SelectorOutput): [
-		SelectorOutput,
-		(value: Partial<Store>) => void
+		SelectorOutput, // the store
+		(value: Partial<Store>) => void // the store setter
 	] => {
 		const store = useContext(StoreContext)
 

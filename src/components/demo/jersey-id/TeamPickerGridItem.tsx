@@ -12,7 +12,7 @@ interface Props {
 
 export default function TeamPickerGridItem({ displayName, focus, id, logo }: Props) {
 	const theme = useTheme()
-	const [_, setStore] = useJerseyIdContext((store) => store.showTeamPicker)
+	const setStore = useJerseyIdContext((store) => store.showTeamPicker)[1]
 
 	const isXs = useMediaQuery(theme.breakpoints.down('sm')) // <=600px
 	const isSm = useMediaQuery(theme.breakpoints.down('md')) // <=900px (includes 900)
