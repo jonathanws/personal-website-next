@@ -51,7 +51,7 @@ export default function PlayerLookup() {
 		}
 
 		fetchData()
-	}, [])
+	}, [setStore])
 
 	return (
 		<Box
