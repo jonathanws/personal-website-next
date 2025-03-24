@@ -1,12 +1,13 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SearchIcon from '@mui/icons-material/Search'
+import ShuffleRounded from '@mui/icons-material/ShuffleRounded'
 import { AlertColor } from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import { useMemo } from 'react'
 import { useJerseyIdContext } from '@/contexts/JerseyIdDemoContext'
-import { getPlayerByTeamIdAndJersey, NFLAthleteAndNFLTeam } from '@/services/nfl-service'
+import { getPlayerByTeamIdAndJersey, getRandomPlayer, NFLAthleteAndNFLTeam } from '@/services/nfl-service'
 import NumericInput from './NumericInput'
 
 const PLACEHOLDER_IMG = 'https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png'
@@ -53,14 +54,45 @@ export default function PlayerSearch() {
 		// TODO: change this on different screen sizes?
 		const MAX_RECENT_PLAYERS = 4 // does not include zero
 
-		if (recentPlayers.length === MAX_RECENT_PLAYERS) {
-			setStore({ recentPlayers: recentPlayers.slice(1) }) // remove first element
-		}
-
-		setStore({ recentPlayers: [...recentPlayers, newguy] })
+		setStore({
+			recentPlayers: [
+				...(recentPlayers.slice((MAX_RECENT_PLAYERS - 1) * -1)),
+				newguy,
+			]
+		})
 	}
 
-	const onPlayerSearch = async () => {
+	const fetchData = async ({ call, onError }: { call: () => Promise<NFLAthleteAndNFLTeam | undefined>, onError: () => void }) => {
+		try {
+			setStore({ loading: true })
+			const playerAndTeam = await call()
+
+			if (playerAndTeam) {
+				setStore({ playerAndTeam })
+				addRecentPlayer(playerAndTeam)
+			}
+
+			return playerAndTeam
+		} catch (e) {
+			console.error('Error fetching player', e)
+			onError()
+		} finally {
+			setStore({ loading: false })
+		}
+	}
+
+	const searchForRandomPlayer = async () => {
+		const data = await fetchData({
+			call: () => getRandomPlayer(),
+			onError: () => popSnackbar('Error getting random player', 'error')
+		})
+
+		if (!data) {
+			popSnackbar('Could not load random player', 'error')
+		}
+	}
+
+	const searchForPlayer = async () => {
 		if (!teamIdForQuery) {
 			popSnackbar('Pick a team to search', 'warning')
 
@@ -73,23 +105,13 @@ export default function PlayerSearch() {
 			return
 		}
 
-		try {
-			setStore({ loading: true })
-			const data = await getPlayerByTeamIdAndJersey(teamIdForQuery, jerseyForQuery)
+		const data = await fetchData({
+			call: () => getPlayerByTeamIdAndJersey(teamIdForQuery, jerseyForQuery),
+			onError: () => popSnackbar('Error searching for player', 'error')
+		})
 
-			if (!data) {
-				popSnackbar('Player not found', 'info')
-
-				return
-			}
-
-			setStore({ playerAndTeam: data })
-			addRecentPlayer(data)
-		} catch (e) {
-			console.log('Error searching for player', e)
-			popSnackbar('Error searching for player', 'error')
-		} finally {
-			setStore({ loading: false })
+		if (!data) {
+			popSnackbar('Player not found', 'info')
 		}
 	}
 
@@ -133,17 +155,25 @@ export default function PlayerSearch() {
 							: newJersey,
 					})
 				}}
-				onEnter={() => onPlayerSearch()}
+				onEnter={() => searchForPlayer()}
 				value={jerseyForQuery}
 				sx={{ flexGrow: 1 }}
 			/>
 
 			<Button
-				onClick={() => onPlayerSearch()}
+				onClick={() => searchForPlayer()}
 				size='large'
 				color='inherit'
 			>
 				<SearchIcon sx={{ fontSize: '2rem' }} />
+			</Button>
+
+			<Button
+				onClick={() => searchForRandomPlayer()}
+				size='large'
+				color='inherit'
+			>
+				<ShuffleRounded sx={{ fontSize: '2rem' }} />
 			</Button>
 		</Stack>
 	)
