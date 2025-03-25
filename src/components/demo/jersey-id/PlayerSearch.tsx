@@ -58,7 +58,7 @@ export default function PlayerSearch() {
 			recentPlayers: [
 				...(recentPlayers.slice((MAX_RECENT_PLAYERS - 1) * -1)),
 				newguy,
-			]
+			],
 		})
 	}
 
@@ -84,7 +84,7 @@ export default function PlayerSearch() {
 	const searchForRandomPlayer = async () => {
 		const data = await fetchData({
 			call: () => getRandomPlayer(),
-			onError: () => popSnackbar('Error getting random player', 'error')
+			onError: () => popSnackbar('Error getting random player', 'error'),
 		})
 
 		if (!data) {
@@ -107,7 +107,7 @@ export default function PlayerSearch() {
 
 		const data = await fetchData({
 			call: () => getPlayerByTeamIdAndJersey(teamIdForQuery, jerseyForQuery),
-			onError: () => popSnackbar('Error searching for player', 'error')
+			onError: () => popSnackbar('Error searching for player', 'error'),
 		})
 
 		if (!data) {
