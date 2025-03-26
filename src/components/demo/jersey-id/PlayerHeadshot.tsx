@@ -1,13 +1,13 @@
 import Box, { BoxProps } from '@mui/material/Box'
 import { useEffect, useMemo, useState } from 'react'
 import { NFLAthleteAndNFLTeam } from '@/services/nfl-service'
+import { backgroundColor } from './PlayerLookup'
 
 interface Props {
-	fadeTo: string
 	playerAndTeam: NFLAthleteAndNFLTeam
 }
 
-export default function PlayerHeadshot({ fadeTo, playerAndTeam }: Props) {
+export default function PlayerHeadshot({ playerAndTeam }: Props) {
 	const { player, team } = playerAndTeam
 	const { headshot } = player
 
@@ -91,7 +91,6 @@ export default function PlayerHeadshot({ fadeTo, playerAndTeam }: Props) {
 
 	return (
 		<Box
-			display='inline-block' // ensure it wraps the image size
 			position='relative'
 			width='100%'
 		>
@@ -135,7 +134,7 @@ export default function PlayerHeadshot({ fadeTo, playerAndTeam }: Props) {
 			/>
 
 			{/* bottom fade-out gradient */}
-			<Box sx={getStylesForZLevel(5, `linear-gradient(to bottom, transparent 70%, ${fadeTo} 100%)`)} />
+			<Box sx={getStylesForZLevel(5, `linear-gradient(to bottom, transparent 70%, ${backgroundColor} 100%)`)} />
 		</Box>
 	)
 }

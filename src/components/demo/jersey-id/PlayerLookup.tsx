@@ -19,10 +19,9 @@ import TeamPicker from './TeamPicker'
 
 // ensure common look and feel for each "section"
 export const borderRadiusNum = 16
+export const backgroundColor = blueGrey[900]
 
 export default function PlayerLookup() {
-	const backgroundColor = blueGrey[900]
-
 	const [loading, setStore] = useJerseyIdContext((store) => store.loading)
 	const [playerAndTeam] = useJerseyIdContext((store) => store.playerAndTeam)
 
@@ -71,25 +70,12 @@ export default function PlayerLookup() {
 						zIndex: 3, // ensure this section is always on top
 					}}
 				>
-					<Box sx={{
-						// approximate (floor) values of how big this container is when a player is loading
-						minHeight: {
-							md: '503px',
-							sm: '431px',
-							xs: '372px',
-						},
-					}}>
-						{
-							playerAndTeam && <PlayerHeadshot
-								fadeTo={backgroundColor}
-								playerAndTeam={playerAndTeam}
-							/>
-						}
+					{/* All of the pictures returned are 600 (width) x 436 (height) */}
+					<Box sx={{ aspectRatio: '600 / 436' }}>
+						{playerAndTeam && <PlayerHeadshot playerAndTeam={playerAndTeam} />}
 					</Box>
 
-					<Box px={2}>
-						{playerAndTeam && <PlayerSummary />}
-					</Box>
+					<PlayerSummary />
 
 					<PlayerSearch />
 				</Paper>

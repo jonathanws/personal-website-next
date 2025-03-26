@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button'
+import { grey } from '@mui/material/colors'
 import { darken } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
@@ -44,9 +45,12 @@ export default function RecentPlayerIcon({ color, index, jersey, logo, onClick }
 			}}
 		>
 			<Typography
+				variant='sport'
 				sx={{
+					color: grey[300],
 					fontSize: '2.5rem',
 					fontWeight: 'bold',
+					lineHeight: '2.5rem',
 					// Since there's no great way to create a text outline without it also covering the text itself,
 					// create four text shadows (one for each cardinal direction) to give the illusion of an outline
 					textShadow: [...Array(4)]

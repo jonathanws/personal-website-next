@@ -4,7 +4,11 @@ import ShuffleRounded from '@mui/icons-material/ShuffleRounded'
 import { AlertColor } from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { useMemo } from 'react'
 import { useJerseyIdContext } from '@/contexts/JerseyIdDemoContext'
 import { getPlayerByTeamIdAndJersey, getRandomPlayer, NFLAthleteAndNFLTeam } from '@/services/nfl-service'
@@ -13,8 +17,11 @@ import NumericInput from './NumericInput'
 const PLACEHOLDER_IMG = 'https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png'
 
 export default function PlayerSearch() {
+	const theme = useTheme()
 	const [showTeamPicker, setStore] = useJerseyIdContext((store) => store.showTeamPicker)
 	const [teams] = useJerseyIdContext((store) => store.teams)
+
+	const isXs = useMediaQuery(theme.breakpoints.down('sm'))
 
 	// fields that eventually go to the backend
 	const [teamIdForQuery] = useJerseyIdContext((store) => store.teamIdForQuery)
@@ -118,6 +125,7 @@ export default function PlayerSearch() {
 	return (
 		<Stack
 			direction='row'
+			alignItems='center'
 			gap={1}
 			mx={1}
 			p={1}
@@ -125,23 +133,27 @@ export default function PlayerSearch() {
 			{/* TeamPicker toggle button */}
 			<Button
 				color='inherit'
-				sx={{ gap: 1 }}
+				sx={{
+					flexShrink: 0,
+					gap: isXs ? 0 : 1,
+					p: 1,
+				}}
 				onClick={() => setStore({ showTeamPicker: !showTeamPicker })}
 			>
-				<ExpandMoreIcon
-					sx={{
-						fontSize: '2rem',
-						transform: showTeamPicker ? `rotate(${180}deg)` : `rotate(${0}deg)`,
-						transition: 'transform 0.2s ease-in-out',
-					}}
-				/>
-
 				<Box
 					component='img'
 					src={selectedTeamLogo}
 					sx={{
 						height: teamImgSize,
 						width: teamImgSize,
+					}}
+				/>
+
+				<ExpandMoreIcon
+					sx={{
+						fontSize: '2rem',
+						transform: showTeamPicker ? `rotate(${180}deg)` : `rotate(${0}deg)`,
+						transition: 'transform 0.2s ease-in-out',
 					}}
 				/>
 			</Button>
@@ -160,21 +172,23 @@ export default function PlayerSearch() {
 				sx={{ flexGrow: 1 }}
 			/>
 
-			<Button
+			<IconButton
 				onClick={() => searchForPlayer()}
-				size='large'
+				size={isXs ? 'medium' : 'large'}
 				color='inherit'
 			>
-				<SearchIcon sx={{ fontSize: '2rem' }} />
-			</Button>
+				<SearchIcon fontSize='inherit' />
+			</IconButton>
 
-			<Button
+			<Divider flexItem orientation='vertical' sx={{ my: 1 }} />
+
+			<IconButton
 				onClick={() => searchForRandomPlayer()}
-				size='large'
+				size={isXs ? 'medium' : 'large'}
 				color='inherit'
 			>
-				<ShuffleRounded sx={{ fontSize: '2rem' }} />
-			</Button>
+				<ShuffleRounded fontSize='inherit' />
+			</IconButton>
 		</Stack>
 	)
 }

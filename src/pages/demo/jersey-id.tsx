@@ -1,5 +1,5 @@
-import Container from '@mui/material/Container'
 import { grey } from '@mui/material/colors'
+import Container from '@mui/material/Container'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import localFont from 'next/font/local'
 import Head from 'next/head'
@@ -12,23 +12,23 @@ const forgottenFuturist = localFont({
 	src: [
 		{
 			path: '../../../public/fonts/ForgottenFuturist-Regular.otf',
-			weight: '400',
 			style: 'normal',
+			weight: '400',
 		},
 		{
 			path: '../../../public/fonts/ForgottenFuturist-RegularItalic.otf',
-			weight: '400',
 			style: 'italic',
+			weight: '400',
 		},
 		{
 			path: '../../../public/fonts/ForgottenFuturist-Bold.otf',
-			weight: '700',
 			style: 'normal',
+			weight: '700',
 		},
 		{
 			path: '../../../public/fonts/ForgottenFuturist-BoldItalic.otf',
-			weight: '700',
 			style: 'italic',
+			weight: '700',
 		},
 	],
 })
@@ -63,21 +63,21 @@ export default function JerseyIdDemoPage() {
 				defaultProps: {
 					variantMapping: {
 						sport: 'p', // map the variant to a <p> tag
-					}
-				}
-			}
-		},
-		typography: {
-			sport: {
-				fontFamily: forgottenFuturist.style.fontFamily,
-				fontStyle: 'italic',
-				fontWeight: 700,
-				color: grey[300],
-			}
+					},
+				},
+			},
 		},
 		palette: {
 			mode: 'dark',
-		}
+		},
+		typography: {
+			sport: {
+				color: grey[300],
+				fontFamily: forgottenFuturist.style.fontFamily,
+				fontStyle: 'italic',
+				fontWeight: 700,
+			},
+		},
 	})
 
 	return (
