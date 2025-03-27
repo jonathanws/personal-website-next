@@ -15,9 +15,7 @@ import PlayerSummary from './PlayerSummary'
 import RecentPlayers from './RecentPlayers'
 import TeamPicker from './TeamPicker'
 
-// TODO: prevent phone rotation
-
-// ensure common look and feel for each "section"
+// used by other components so that they all match
 export const borderRadiusNum = 16
 export const backgroundColor = blueGrey[900]
 

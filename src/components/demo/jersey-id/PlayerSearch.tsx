@@ -16,12 +16,26 @@ import NumericInput from './NumericInput'
 
 const PLACEHOLDER_IMG = 'https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png'
 
+export const MAX_RECENT_PLAYERS = {
+	md: 6,
+	sm: 5,
+	xs: 4,
+}
+
 export default function PlayerSearch() {
 	const theme = useTheme()
 	const [showTeamPicker, setStore] = useJerseyIdContext((store) => store.showTeamPicker)
 	const [teams] = useJerseyIdContext((store) => store.teams)
 
+	const isMd = useMediaQuery(theme.breakpoints.up('md'))
+	const isSm = useMediaQuery(theme.breakpoints.up('sm'))
 	const isXs = useMediaQuery(theme.breakpoints.down('sm'))
+
+	const maxRecentPlayers = isMd
+		? MAX_RECENT_PLAYERS.md
+		: isSm
+			? MAX_RECENT_PLAYERS.sm
+			: MAX_RECENT_PLAYERS.xs
 
 	// fields that eventually go to the backend
 	const [teamIdForQuery] = useJerseyIdContext((store) => store.teamIdForQuery)
@@ -58,12 +72,9 @@ export default function PlayerSearch() {
 			return
 		}
 
-		// TODO: change this on different screen sizes?
-		const MAX_RECENT_PLAYERS = 4 // does not include zero
-
 		setStore({
 			recentPlayers: [
-				...(recentPlayers.slice((MAX_RECENT_PLAYERS - 1) * -1)),
+				...(recentPlayers.slice((maxRecentPlayers - 1) * -1)),
 				newguy,
 			],
 		})

@@ -1,6 +1,7 @@
 import { grey } from '@mui/material/colors'
 import Container from '@mui/material/Container'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { Lato } from 'next/font/google'
 import localFont from 'next/font/local'
 import Head from 'next/head'
 import JerseyIdArticle from '@/components/demo/jersey-id/JerseyIdArticle'
@@ -31,6 +32,11 @@ const forgottenFuturist = localFont({
 			weight: '700',
 		},
 	],
+})
+const lato = Lato({
+	fallback: ['Arial', 'sans-serif'],
+	subsets: ['latin'],
+	weight: ['700'],
 })
 
 /**
@@ -71,6 +77,35 @@ export default function JerseyIdDemoPage() {
 			mode: 'dark',
 		},
 		typography: {
+			// used/not-used in the article below
+			body1: {
+				fontSize: '1.125rem',
+				lineHeight: '2rem',
+			},
+			fontFamily: lato.style.fontFamily,
+			h1: {
+				fontSize: '2.5rem',
+				fontWeight: 700,
+				lineHeight: 1,
+				marginBottom: 24,
+				marginTop: 12,
+			},
+			h2: {
+				fontSize: '2rem',
+				fontWeight: 700,
+				marginBottom: 16,
+				marginTop: 8,
+			},
+			h3: {
+				fontSize: '1.75rem',
+				fontWeight: 700,
+				marginBottom: 14,
+				marginTop: 7,
+			},
+			h4: undefined,
+			h5: undefined,
+			h6: undefined,
+			// used in the main widget
 			sport: {
 				color: grey[300],
 				fontFamily: forgottenFuturist.style.fontFamily,
@@ -85,7 +120,7 @@ export default function JerseyIdDemoPage() {
 			<Head>
 				<title>Jersey ID</title>
 				{/* this line sometimes shows up in link previews */}
-				<meta name='description' content="NFL Player Jersey Number Lookup" />
+				<meta name='description' content='NFL Player Jersey Number Lookup' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
@@ -105,11 +140,13 @@ export default function JerseyIdDemoPage() {
 					},
 				}}
 			>
-				<JerseyIdContextProvider>
-					<ThemeProvider theme={jerseyIdTheme}>
+				<ThemeProvider theme={jerseyIdTheme}>
+					<JerseyIdContextProvider>
 						<PlayerLookup />
-					</ThemeProvider>
-				</JerseyIdContextProvider>
+					</JerseyIdContextProvider>
+
+					<JerseyIdArticle />
+				</ThemeProvider>
 			</Container>
 		</>
 	)
