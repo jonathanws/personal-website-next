@@ -206,7 +206,7 @@ const typeguardingApiResponses: BlogPost = {
 	icon: <img src='/typescript.svg' alt='Typescript' height={24} width={24} />,
 	menuTitle: 'Validating API Responses',
 	tags: ['typescript'],
-	url: 'validating-api-responses',
+	url: '/blog/validating-api-responses',
 }
 
 export default typeguardingApiResponses

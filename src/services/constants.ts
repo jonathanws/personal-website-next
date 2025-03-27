@@ -1,3 +1,5 @@
+import { BlogPageUrl } from './blogPosts'
+
 const EMAIL_URL = 'mailto:jonathanws18@gmail.com'
 const GITHUB_URL = 'https://github.com/jonathanws/'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/jon-smoley/'
@@ -20,20 +22,21 @@ const demoMap: Record<typeof DEMO_IDS[keyof typeof DEMO_IDS], string> = {
  */
 const getHostname = (demo?: typeof DEMO_IDS[keyof typeof DEMO_IDS]) => demo ? demoMap[demo] : NEXT_PUBLIC_HOSTNAME
 
-const DEMO = '/demo'
-
-const PAGES: Record<Uppercase<string>, `/${string}`> = {
-	BLOG: '/blog',
-	DEMO_JERSEY_ID: `${DEMO}/${DEMO_IDS.JERSEY_ID}`,
-	HOME: '/',
-}
+/**
+ * All pages for the entire website, including SSG urls
+ */
+type Page =
+	| '/blog'
+	| BlogPageUrl
+	| '/error'
+	| '/'
 
 export {
+	type Page,
 	EMAIL_URL,
 	GITHUB_URL,
 	LINKEDIN_URL,
 	NEXT_PUBLIC_SUPABASE_ANON_KEY,
-	PAGES,
 	RESUME_URL,
 	getHostname,
 }

@@ -112,7 +112,7 @@ const prettyGitHistory: BlogPost = {
 	icon: <img src='/git.svg' alt='Git' height={24} width={24} />,
 	menuTitle: 'Pretty Git History',
 	tags: ['git'],
-	url: 'pretty-git-history',
+	url: '/blog/pretty-git-history',
 }
 
 export default prettyGitHistory

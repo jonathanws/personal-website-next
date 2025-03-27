@@ -13,7 +13,7 @@ const IMG_DIR = '/blog/prettyLinkPreviews'
 const bodyTitle = 'Create pretty link previews with meta tags'
 const description = 'Use OpenGraph Meta tags to create professional looking links'
 const heroSrc = `${IMG_DIR}/hero.png`
-const url = 'pretty-link-previews'
+const url = '/blog/pretty-link-previews'
 
 /** Displays screenshots in a padded container, just so they look nicer */
 const screenshotContainer = (screenshot: React.ReactNode) => <Box sx={{ padding: '0 20%' }}>{screenshot}</Box>
@@ -150,7 +150,7 @@ const prettyLinkPreviews: BlogPost = {
 			text={[
 				'<meta',
 				'	property="og:url"',
-				`	content="${getHostname()}/blog/${url}"`,
+				`	content="${getHostname()}/${url}"`, // make sure this matches prod
 				'>',
 			]}
 		/>

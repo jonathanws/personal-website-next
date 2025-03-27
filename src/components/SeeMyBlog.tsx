@@ -25,7 +25,7 @@ export default function SeeMyBlog({ backgroundColor }: Props) {
 	const blogPreviews = getBlogPosts()
 		.map(({ heroSrc, menuTitle, url }, i) => (
 			<SwiperSlide key={i}>
-				<a href={`/blog/${url}`}>
+				<a href={url}>
 					<img
 						alt={menuTitle}
 						src={heroSrc}
