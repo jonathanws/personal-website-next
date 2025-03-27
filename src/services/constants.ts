@@ -1,4 +1,5 @@
 import { BlogPageUrl } from './blogPosts'
+import { DemoPageUrl } from './demos'
 
 const EMAIL_URL = 'mailto:jonathanws18@gmail.com'
 const GITHUB_URL = 'https://github.com/jonathanws/'
@@ -9,18 +10,17 @@ const NEXT_PUBLIC_HOSTNAME = process.env.NEXT_PUBLIC_HOSTNAME || ''
 const NEXT_PUBLIC_SUPABASE_JERSEY_ID = process.env.NEXT_PUBLIC_SUPABASE_JERSEY_ID || ''
 const NEXT_PUBLIC_SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 
-const DEMO_IDS = {
-	JERSEY_ID: 'jersey-id',
-} as const
+type DemoId =
+	| 'jersey-id'
 
-const demoMap: Record<typeof DEMO_IDS[keyof typeof DEMO_IDS], string> = {
+const demoMap: Record<DemoId, string> = {
 	'jersey-id': NEXT_PUBLIC_SUPABASE_JERSEY_ID,
 }
 
 /**
  * Returns either the domain where nextjs is hosted (used by <img> and <meta> tags), or gets the supabase backend urls for demos
  */
-const getHostname = (demo?: typeof DEMO_IDS[keyof typeof DEMO_IDS]) => demo ? demoMap[demo] : NEXT_PUBLIC_HOSTNAME
+const getHostname = (demo?: DemoId) => demo ? demoMap[demo] : NEXT_PUBLIC_HOSTNAME
 
 /**
  * All pages for the entire website, including SSG urls
@@ -28,6 +28,7 @@ const getHostname = (demo?: typeof DEMO_IDS[keyof typeof DEMO_IDS]) => demo ? de
 type Page =
 	| '/blog'
 	| BlogPageUrl
+	| DemoPageUrl
 	| '/error'
 	| '/'
 

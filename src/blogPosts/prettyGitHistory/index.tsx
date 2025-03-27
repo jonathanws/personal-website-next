@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import Typography from '@mui/material/Typography'
 import BlogAlert from '@/components/blog/Alert'
 import { BlogBulletList, BlogBulletListItem } from '@/components/blog/BulletList'

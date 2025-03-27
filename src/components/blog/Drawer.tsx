@@ -47,6 +47,16 @@ export default function BlogDrawer({ drawerOpen, onDrawerToggle }: Props) {
 					listItemIcon={(article) => article.icon}
 					listItemText={(article) => article.menuTitle}
 				/>
+
+				<Divider sx={{ borderColor: darken(theme.palette.text.primary, .4), borderWidth: 1, m: [6, 3, 6, 3] }} />
+
+				<ExpandableDrawerSection
+					title='Demos'
+					items={getDemos()}
+					onItemClick={(demo) => onDrawerItemSelected(demo.url)}
+					isItemSelected={(demo) => demo.url === router.query.url}
+					listItemText={(demo) => demo.title}
+				/>
 			</Drawer>
 		</Box>
 	)
