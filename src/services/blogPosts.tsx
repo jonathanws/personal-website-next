@@ -20,7 +20,7 @@ export interface BlogPost {
 	url: string // the unique identifier of a blog post
 }
 
-// ordered from newest to
+// ordered from newest to oldest
 export const getBlogPosts = (): BlogPost[] => [
 	prettyLinkPreviews,
 	typeguardingApiResponses,
