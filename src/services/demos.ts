@@ -10,6 +10,7 @@ interface Demo {
 	body: () => React.ReactNode
 	description: string
 	heroSrc: string
+	icon: React.ReactNode
 	src: string
 	title: string
 	url: DemoPageUrl // the unique identifier of a demo

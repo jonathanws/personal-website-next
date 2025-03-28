@@ -1,19 +1,21 @@
-import { grey } from '@mui/material/colors'
+import SportsFootballRounded from '@mui/icons-material/SportsFootballRounded'
+import { brown, grey } from '@mui/material/colors'
 import Container from '@mui/material/Container'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { Lato } from 'next/font/google'
 import localFont from 'next/font/local'
-import GoBack from '@/components/demo/jersey-id/GoBack'
-import JerseyIdArticle from '@/components/demo/jersey-id/JerseyIdArticle'
-import PlayerLookup from '@/components/demo/jersey-id/PlayerLookup'
-import { JerseyIdContextProvider } from '@/contexts/JerseyIdDemoContext'
+import { useState } from 'react'
+import BlogDrawer from '@/components/blog/Drawer'
+import BlogHeader from '@/components/blog/Header'
+import DebugBreakpoints from '@/components/DebugBreakpoints'
+import JerseyIdArticle from '@/components/demo/jersey-id/article/JerseyIdArticle'
 import { Demo } from '@/services/demos'
 
 // TODO: verify auth on supabase endpoints
 
 // TODO: rotate anon key
 
-// for whatever reason, this is unable to find text files without the '../../../public' prefix
+// for whatever reason, this is unable to find text files without the '../../../../public' prefix
 const forgottenFuturist = localFont({
 	src: [
 		{
@@ -67,9 +69,7 @@ declare module '@mui/material/Typography' {
 	}
 }
 
-const jerseyIdDemo: Demo = {
-	alt: 'Sample image of the Jersey ID project',
-	body: () => {
+const JerseyIdDemo = (): React.ReactNode => {
 		const jerseyIdTheme = createTheme({
 			components: {
 				MuiTypography: {
@@ -122,6 +122,9 @@ const jerseyIdDemo: Demo = {
 			},
 		})
 
+	const [drawerOpen, setDrawerOpen] = useState(false)
+	const handleDrawerToggle = () => setDrawerOpen(!drawerOpen)
+
 		return (
 			<Container
 				disableGutters
@@ -138,20 +141,24 @@ const jerseyIdDemo: Demo = {
 					},
 				}}
 			>
+			<BlogDrawer drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle} />
+
+			<BlogHeader onDrawerToggle={handleDrawerToggle} />
+
+			<DebugBreakpoints />
+
 				<ThemeProvider theme={jerseyIdTheme}>
-					<GoBack />
-
-					<JerseyIdContextProvider>
-						<PlayerLookup />
-					</JerseyIdContextProvider>
-
 					<JerseyIdArticle />
 				</ThemeProvider>
 			</Container>
 		)
-	},
+}
+
+const jerseyIdDemo: Demo = {
+	alt: 'Sample image of the Jersey ID project',
+	body: JerseyIdDemo,
 	description: 'Watching a football game and wonder who just caught that ball?  See who caught it with Jersey ID!',
-	heroSrc: 'TODO:',
+	icon: <SportsFootballRounded sx={{ color: brown[500] }} />,
 	src: '/404-img.jpg',
 	title: 'Jersey ID',
 	url: '/demo/jersey-id',

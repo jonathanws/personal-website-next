@@ -15,6 +15,7 @@ interface State {
 	playerAndTeam: NFLAthleteAndNFLTeam | undefined // The player currently in focus
 	recentPlayers: NFLAthleteAndNFLTeam[]
 
+	showTutorialClickRandomPlayerButton: boolean // show/hide the tutorial tooltip over the random-player button
 	showTeamPicker: boolean
 	loading: boolean
 	snackbar: {
@@ -30,6 +31,7 @@ const initialState: State = {
 	playerAndTeam: undefined,
 	recentPlayers: [],
 	showTeamPicker: false,
+	showTutorialClickRandomPlayerButton: true,
 	snackbar: {
 		open: false,
 		severity: 'info',

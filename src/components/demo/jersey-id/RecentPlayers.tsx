@@ -1,5 +1,7 @@
 import { blueGrey } from '@mui/material/colors'
 import Grid from '@mui/material/Grid'
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { useJerseyIdContext } from '@/contexts/JerseyIdDemoContext'
 import CollapsableOverlapPaper from './CollapsableOverlapPaper'
 import { borderRadiusNum } from './PlayerLookup'
@@ -8,6 +10,15 @@ import RecentPlayerIcon from './RecentPlayerIcon'
 
 export default function RecentPlayers() {
 	const [recentPlayers, setStore] = useJerseyIdContext((store) => store.recentPlayers)
+
+	const theme = useTheme()
+	const isMd = useMediaQuery(theme.breakpoints.up('md'))
+	const isSm = useMediaQuery(theme.breakpoints.up('sm'))
+	const maxRecentPlayers = isMd
+		? MAX_RECENT_PLAYERS.md
+		: isSm
+			? MAX_RECENT_PLAYERS.sm
+			: MAX_RECENT_PLAYERS.xs
 
 	return (
 		<CollapsableOverlapPaper
@@ -20,24 +31,20 @@ export default function RecentPlayers() {
 			<Grid
 				container
 				p={2}
-				spacing={2}
 				sx={{
 					display: 'grid',
-					gap: 2,
-					gridAutoColumns: 'minmax(0, 1fr)',
-					gridTemplateColumns: {
-						md: `repeat(${MAX_RECENT_PLAYERS.md}, 1fr)`,
-						sm: `repeat(${MAX_RECENT_PLAYERS.sm}, 1fr)`,
-						xs: `repeat(${MAX_RECENT_PLAYERS.xs}, 1fr)`,
+					gap: {
+						sm: 2,
+						xs: 1,
 					},
-					justifyItems: 'stretch',
+					gridAutoColumns: 'minmax(0, 1fr)',
+					gridTemplateColumns: `repeat(${maxRecentPlayers}, 1fr)`,
+					justifyItems: 'center',
+					[`.MuiGrid-item:nth-of-type(n+${1 + (maxRecentPlayers)})`]: { display: 'none' },
 				}}
 			>
 				{
-					recentPlayers.map(({ player, team }, index) => <Grid
-						key={`${team.id}-${player.jersey}`}
-						item
-					>
+					recentPlayers.map(({ player, team }, index) => <Grid key={`${team.id}-${player.jersey}`} item>
 						<RecentPlayerIcon
 							color={team.color}
 							index={index}

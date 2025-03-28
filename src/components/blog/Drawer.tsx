@@ -55,6 +55,7 @@ export default function BlogDrawer({ drawerOpen, onDrawerToggle }: Props) {
 					items={getDemos()}
 					onItemClick={(demo) => onDrawerItemSelected(demo.url)}
 					isItemSelected={(demo) => demo.url === router.query.url}
+					listItemIcon={(article) => article.icon}
 					listItemText={(demo) => demo.title}
 				/>
 			</Drawer>

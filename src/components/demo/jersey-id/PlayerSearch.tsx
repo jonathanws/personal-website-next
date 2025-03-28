@@ -13,6 +13,7 @@ import { useMemo } from 'react'
 import { useJerseyIdContext } from '@/contexts/JerseyIdDemoContext'
 import { getPlayerByTeamIdAndJersey, getRandomPlayer, NFLAthleteAndNFLTeam } from '@/services/nfl-service'
 import NumericInput from './NumericInput'
+import TutorialPopover from './TutorialTooltip'
 
 const PLACEHOLDER_IMG = 'https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png'
 
@@ -100,6 +101,9 @@ export default function PlayerSearch() {
 	}
 
 	const searchForRandomPlayer = async () => {
+		// hide the tutorial tooltip
+		setStore({ showTutorialClickRandomPlayerButton: false })
+
 		const data = await fetchData({
 			call: () => getRandomPlayer(),
 			onError: () => popSnackbar('Error getting random player', 'error'),
@@ -183,23 +187,17 @@ export default function PlayerSearch() {
 				sx={{ flexGrow: 1 }}
 			/>
 
-			<IconButton
-				onClick={() => searchForPlayer()}
-				size={isXs ? 'medium' : 'large'}
-				color='inherit'
-			>
+			<IconButton onClick={() => searchForPlayer()} size={isXs ? 'medium' : 'large'} color='inherit'>
 				<SearchIcon fontSize='inherit' />
 			</IconButton>
 
 			<Divider flexItem orientation='vertical' sx={{ my: 1 }} />
 
-			<IconButton
-				onClick={() => searchForRandomPlayer()}
-				size={isXs ? 'medium' : 'large'}
-				color='inherit'
-			>
-				<ShuffleRounded fontSize='inherit' />
-			</IconButton>
+			<TutorialPopover title='Try searching for a random player!'>
+				<IconButton onClick={() => searchForRandomPlayer()} size={isXs ? 'medium' : 'large'} color='inherit'>
+					<ShuffleRounded fontSize='inherit' />
+				</IconButton>
+			</TutorialPopover>
 		</Stack>
 	)
 }

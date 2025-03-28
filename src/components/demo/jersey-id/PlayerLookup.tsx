@@ -51,10 +51,7 @@ export default function PlayerLookup() {
 	}, [setStore])
 
 	return (
-		<Box
-			mb={4}
-			borderRadius={`${borderRadiusNum}px`}
-		>
+		<Box mb={4} borderRadius={`${borderRadiusNum}px`}>
 			<Box position='relative'>
 				{loading && <FullScreenLoading />}
 

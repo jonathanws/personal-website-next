@@ -4,8 +4,6 @@ import Head from 'next/head'
 import { getHostname } from '@/services/constants'
 import { demoUrlPrefix, getDemos } from '@/services/demos'
 
-// TODO: do I really need to export these?
-
 /**
  * Generates the dynamic pages at runtime.  Also knows as SSG (server side generation).
  * This is different from SSR (server side rendering), which would happen upon user request.

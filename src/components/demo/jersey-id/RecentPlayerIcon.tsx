@@ -29,11 +29,15 @@ export default function RecentPlayerIcon({ color, index, jersey, logo, onClick }
 		},
 	]
 
+	const buttonSizes = {
+		sm: 80,
+		xs: 65,
+	}
+
 	return (
 		<Button
 			onClick={() => onClick(index)}
 			sx={{
-				aspectRatio: '1 / 1',
 				backgroundImage: backgrounds.map(({ backgroundImage }) => backgroundImage).join(','),
 				backgroundPosition: backgrounds.map(({ backgroundPosition }) => backgroundPosition).join(','),
 				backgroundRepeat: backgrounds.map(({ backgroundRepeat }) => backgroundRepeat).join(','),
@@ -41,7 +45,8 @@ export default function RecentPlayerIcon({ color, index, jersey, logo, onClick }
 				border: `8px solid ${darken(`#${color}`, 0.125)}`,
 				borderRadius: '50%',
 				boxShadow: '5px 5px 5px rgba(0, 0, 0, 0.4)', // left-right / up-down / blur / color
-				width: 80,
+				height: buttonSizes,
+				width: buttonSizes,
 			}}
 		>
 			<Typography
