@@ -17,10 +17,7 @@ export const getStaticProps: GetStaticProps<
 			? getDemos()
 				// demos are defined with the /demo/ prefix for their url, but next.js automatically
 				// adds folder names when building urls.  Remove this prefix so there aren't duplicates
-				.findIndex(({ url }) => url.startsWith(demoUrlPrefix)
-					? url.slice(demoUrlPrefix.length)
-					: url === params.url
-				)
+				.findIndex(({ url }) => params.url === (url.startsWith(demoUrlPrefix) ? url.slice(demoUrlPrefix.length) : url))
 				|| 0
 			: 0,
 	},

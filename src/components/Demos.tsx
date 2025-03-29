@@ -30,24 +30,13 @@ export default function Demos({ backgroundColor }: Props) {
 				pr: 2,
 			}}
 		>
-			<Box
-				display='flex'
-				flexDirection='column'
-				justifyContent='center'
-			>
+			<Box display='flex' flexDirection='column' justifyContent='center'>
 				<Typography pb={2}>{title}</Typography>
 				<Typography variant='subtitle1'>{description}</Typography>
 			</Box>
 
-			<a
-				href={url}
-				style={{ width: isSmallDevice ? '100%' : '50%' }}
-			>
-				<img
-					alt={alt}
-					src={src}
-					style={{ width: '100%' }}
-				/>
+			<a href={url} style={{ width: isSmallDevice ? '100%' : '50%' }}>
+				<img alt={alt} src={src} style={{ width: '100%' }} />
 			</a>
 		</Box>
 	))

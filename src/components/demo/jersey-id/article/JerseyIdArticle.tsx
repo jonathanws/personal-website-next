@@ -28,7 +28,8 @@ export default function JerseyIdArticle() {
 				xs: 2,
 			},
 		}}>
-			<Typography variant='h1'>NFL Jersey ID - A full-stack showcase</Typography>
+			<Typography variant='h1' sx={{ mb: 1 }}>NFL - Jersey ID</Typography>
+			<Typography variant='h2' sx={{ fontSize: '1.5rem', mb: 3.5, mt: 2 }} >A full-stack showcase</Typography>
 
 			<JerseyIdContextProvider>
 				<PlayerLookup />

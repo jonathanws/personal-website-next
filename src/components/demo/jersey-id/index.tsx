@@ -7,13 +7,8 @@ import localFont from 'next/font/local'
 import { useState } from 'react'
 import BlogDrawer from '@/components/blog/Drawer'
 import BlogHeader from '@/components/blog/Header'
-import DebugBreakpoints from '@/components/DebugBreakpoints'
 import JerseyIdArticle from '@/components/demo/jersey-id/article/JerseyIdArticle'
 import { Demo } from '@/services/demos'
-
-// TODO: verify auth on supabase endpoints
-
-// TODO: rotate anon key
 
 // for whatever reason, this is unable to find text files without the '../../../../public' prefix
 const forgottenFuturist = localFont({
@@ -84,7 +79,7 @@ const JerseyIdDemo = (): React.ReactNode => {
 				mode: 'dark',
 			},
 			typography: {
-				// used/not-used in the article below
+			// used/not-used in the article
 				body1: {
 					fontSize: '1.125rem',
 					lineHeight: '2rem',
@@ -144,8 +139,6 @@ const JerseyIdDemo = (): React.ReactNode => {
 			<BlogDrawer drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle} />
 
 			<BlogHeader onDrawerToggle={handleDrawerToggle} />
-
-			<DebugBreakpoints />
 
 				<ThemeProvider theme={jerseyIdTheme}>
 					<JerseyIdArticle />

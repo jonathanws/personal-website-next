@@ -35,6 +35,7 @@ export default function BlogDrawer({ drawerOpen, onDrawerToggle }: Props) {
 					sx: {
 						backgroundColor: BG_ALT,
 						backgroundImage: 'unset',
+						pt: 4,
 						width: drawerWidth,
 					},
 				}}
@@ -48,7 +49,7 @@ export default function BlogDrawer({ drawerOpen, onDrawerToggle }: Props) {
 					listItemText={(article) => article.menuTitle}
 				/>
 
-				<Divider sx={{ borderColor: darken(theme.palette.text.primary, .4), borderWidth: 1, m: [6, 3, 6, 3] }} />
+				{/* <Divider sx={{ borderColor: darken(theme.palette.text.primary, .4), borderWidth: 1, m: 3 }} />
 
 				<ExpandableDrawerSection
 					title='Demos'
@@ -57,7 +58,7 @@ export default function BlogDrawer({ drawerOpen, onDrawerToggle }: Props) {
 					isItemSelected={(demo) => demo.url === router.query.url}
 					listItemIcon={(article) => article.icon}
 					listItemText={(demo) => demo.title}
-				/>
+				/> */}
 			</Drawer>
 		</Box>
 	)

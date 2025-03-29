@@ -24,10 +24,7 @@ export const getStaticProps: GetStaticProps<
 			? getBlogPosts()
 				// blog posts are defined with the /blog/ prefix for their url, but next.js automatically
 				// adds folder names when building urls.  Remove this prefix so there aren't duplicates
-				.findIndex(({ url }) => url.startsWith(blogPrefix)
-					? url.slice(blogPrefix.length)
-					: url === params.url
-				)
+				.findIndex(({ url }) => params.url === (url.startsWith(blogPrefix) ? url.slice(blogPrefix.length) : url))
 				|| 0
 			: 0,
 	},
