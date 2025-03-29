@@ -30,7 +30,7 @@ const initialState: State = {
 	loading: false,
 	playerAndTeam: undefined,
 	recentPlayers: [],
-	showTeamPicker: false,
+	showTeamPicker: true,
 	showTutorialClickRandomPlayerButton: true,
 	snackbar: {
 		open: false,

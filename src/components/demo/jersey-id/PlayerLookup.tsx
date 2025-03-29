@@ -51,36 +51,39 @@ export default function PlayerLookup() {
 	}, [setStore])
 
 	return (
-		<Box mb={4} borderRadius={`${borderRadiusNum}px`}>
-			<Box position='relative'>
-				{loading && <FullScreenLoading />}
+		<Box
+			mb={4}
+			borderRadius={`${borderRadiusNum}px`}
+			overflow='hidden'
+			position='relative'
+		>
+			{loading && <FullScreenLoading />}
 
-				<Paper
-					elevation={3}
-					sx={{
-						background: backgroundColor,
-						borderRadius: `${borderRadiusNum}px`,
-						overflow: 'hidden',
-						position: 'relative', // needed for z-index
-						zIndex: 3, // ensure this section is always on top
-					}}
-				>
-					{/* All of the pictures returned are 600 (width) x 436 (height) */}
-					<Box sx={{ aspectRatio: '600 / 436' }}>
-						{playerAndTeam && <PlayerHeadshot playerAndTeam={playerAndTeam} />}
-					</Box>
+			<Paper
+				elevation={3}
+				sx={{
+					background: backgroundColor,
+					borderRadius: `${borderRadiusNum}px`,
+					overflow: 'hidden',
+					position: 'relative', // needed for z-index
+					zIndex: 3, // ensure this section is always on top
+				}}
+			>
+				{/* All of the pictures returned are 600 (width) x 436 (height) */}
+				<Box sx={{ aspectRatio: '600 / 436' }}>
+					{playerAndTeam && <PlayerHeadshot playerAndTeam={playerAndTeam} />}
+				</Box>
 
-					<PlayerSummary />
+				<PlayerSummary />
 
-					<PlayerSearch />
-				</Paper>
+				<PlayerSearch />
+			</Paper>
 
-				<TeamPicker />
+			<TeamPicker />
 
-				<RecentPlayers />
+			<RecentPlayers />
 
-				<MySnackbar />
-			</Box>
+			<MySnackbar />
 		</Box>
 	)
 }

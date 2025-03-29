@@ -1,5 +1,4 @@
 import { ParsedUrlQuery } from 'querystring'
-import Box from '@mui/material/Box'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -82,18 +81,13 @@ export default function BlogArticle({ blogToDisplayId }: Props) {
 				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
 
-			<Box>
-				<BlogHeader onDrawerToggle={handleDrawerToggle} />
+			<BlogHeader onDrawerToggle={handleDrawerToggle} />
 
-				<BlogDrawer
-					drawerOpen={drawerOpen}
-					onDrawerToggle={handleDrawerToggle}
-				/>
+			<BlogDrawer drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle} />
 
-				{blogToDisplay ? <BlogBody {...blogToDisplay} /> : null}
+			{blogToDisplay ? <BlogBody {...blogToDisplay} /> : null}
 
-				<BlogFooter />
-			</Box>
+			<BlogFooter />
 		</>
 	)
 }

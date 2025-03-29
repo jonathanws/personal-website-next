@@ -65,86 +65,86 @@ declare module '@mui/material/Typography' {
 }
 
 const JerseyIdDemo = (): React.ReactNode => {
-		const jerseyIdTheme = createTheme({
-			components: {
-				MuiTypography: {
-					defaultProps: {
-						variantMapping: {
-							sport: 'p', // map the variant to a <p> tag
-						},
+	const jerseyIdTheme = createTheme({
+		components: {
+			MuiTypography: {
+				defaultProps: {
+					variantMapping: {
+						sport: 'p', // map the variant to a <p> tag
 					},
 				},
 			},
-			palette: {
-				mode: 'dark',
-			},
-			typography: {
+		},
+		palette: {
+			mode: 'dark',
+		},
+		typography: {
 			// used/not-used in the article
-				body1: {
-					fontSize: '1.125rem',
-					lineHeight: '2rem',
-				},
-				fontFamily: lato.style.fontFamily,
-				h1: {
-					fontSize: '2.5rem',
-					fontWeight: 700,
-					lineHeight: 1,
-					marginBottom: 24,
-					marginTop: 12,
-				},
-				h2: {
-					fontSize: '2rem',
-					fontWeight: 700,
-					marginBottom: 16,
-					marginTop: 8,
-				},
-				h3: {
-					fontSize: '1.75rem',
-					fontWeight: 700,
-					marginBottom: 14,
-					marginTop: 7,
-				},
-				h4: undefined,
-				h5: undefined,
-				h6: undefined,
-				// used in the main widget
-				sport: {
-					color: grey[300],
-					fontFamily: forgottenFuturist.style.fontFamily,
-					fontStyle: 'italic',
-					fontWeight: 700,
-				},
+			body1: {
+				fontSize: '1.125rem',
+				lineHeight: '2rem',
 			},
-		})
+			fontFamily: lato.style.fontFamily,
+			h1: {
+				fontSize: '2.5rem',
+				fontWeight: 700,
+				lineHeight: 1,
+				marginBottom: 24,
+				marginTop: 12,
+			},
+			h2: {
+				fontSize: '2rem',
+				fontWeight: 700,
+				marginBottom: 16,
+				marginTop: 8,
+			},
+			h3: {
+				fontSize: '1.75rem',
+				fontWeight: 700,
+				marginBottom: 14,
+				marginTop: 7,
+			},
+			h4: undefined,
+			h5: undefined,
+			h6: undefined,
+			// used in the main widget
+			sport: {
+				color: grey[300],
+				fontFamily: forgottenFuturist.style.fontFamily,
+				fontStyle: 'italic',
+				fontWeight: 700,
+			},
+		},
+	})
 
 	const [drawerOpen, setDrawerOpen] = useState(false)
 	const handleDrawerToggle = () => setDrawerOpen(!drawerOpen)
 
-		return (
-			<Container
-				disableGutters
-				sx={{
-					my: {
-						sm: 4,
-						xs: 0,
-					},
-					// sizing styles that keep everything in a nice, narrow column
-					width: {
-						md: '680px',
-						sm: '580px',
-						xs: '100%',
-					},
-				}}
-			>
+	return (
+		<Container
+			disableGutters
+			sx={{
+				my: {
+					sm: 4,
+					xs: 0,
+				},
+				// sizing styles that keep everything in a nice, narrow column
+				width: {
+					md: '680px',
+					sm: '580px',
+					xs: '100%',
+				},
+			}}
+		>
 			<BlogDrawer drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle} />
 
 			<BlogHeader onDrawerToggle={handleDrawerToggle} />
 
-				<ThemeProvider theme={jerseyIdTheme}>
-					<JerseyIdArticle />
-				</ThemeProvider>
-			</Container>
-		)
+			<ThemeProvider theme={jerseyIdTheme}>
+				<JerseyIdArticle />
+			</ThemeProvider>
+		</Container>
+	)
 }
 
 const jerseyIdDemo: Demo = {

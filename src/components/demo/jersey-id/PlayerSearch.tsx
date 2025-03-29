@@ -183,6 +183,7 @@ export default function PlayerSearch() {
 					})
 				}}
 				onEnter={() => searchForPlayer()}
+				placeholder='Jersey number'
 				value={jerseyForQuery}
 				sx={{ flexGrow: 1 }}
 			/>
