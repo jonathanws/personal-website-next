@@ -1,6 +1,8 @@
-import { IconButton, useMediaQuery, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import { blueGrey } from '@mui/material/colors'
+import IconButton from '@mui/material/IconButton'
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { useJerseyIdContext } from '@/contexts/JerseyIdDemoContext'
 
 interface Props {

@@ -1,8 +1,8 @@
-import { useMediaQuery } from '@mui/material'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { getDemos } from '@/services/demos'
 import { sectionPaddings } from '@/services/theming'
 
@@ -13,7 +13,7 @@ interface Props {
 export default function Demos({ backgroundColor }: Props) {
 	const isSmallDevice = useMediaQuery(useTheme().breakpoints.down('sm'))
 
-	const displayDemos = () => getDemos().map(({ alt, description, href, src, title }, index) => (
+	const displayDemos = () => getDemos().map(({ alt, description, src, title, url }, index) => (
 		<Box
 			display='flex'
 			flexDirection={
@@ -30,24 +30,13 @@ export default function Demos({ backgroundColor }: Props) {
 				pr: 2,
 			}}
 		>
-			<Box
-				display='flex'
-				flexDirection='column'
-				justifyContent='center'
-			>
+			<Box display='flex' flexDirection='column' justifyContent='center'>
 				<Typography pb={2}>{title}</Typography>
 				<Typography variant='subtitle1'>{description}</Typography>
 			</Box>
 
-			<a
-				href={href}
-				style={{ width: isSmallDevice ? '100%' : '50%' }}
-			>
-				<img
-					alt={alt}
-					src={src}
-					style={{ width: '100%' }}
-				/>
+			<a href={url} style={{ width: isSmallDevice ? '100%' : '50%' }}>
+				<img alt={alt} src={src} style={{ width: '100%' }} />
 			</a>
 		</Box>
 	))

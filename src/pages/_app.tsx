@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
-import { CssBaseline } from '@mui/material'
 import { blue, grey } from '@mui/material/colors'
+import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import type { AppProps } from 'next/app'
 import { Lato } from 'next/font/google'

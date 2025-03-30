@@ -5,7 +5,6 @@ import { blue, grey } from '@mui/material/colors'
 import { SxProps, Theme } from '@mui/material/styles'
 import SvgIcon, { SvgIconTypeMap } from '@mui/material/SvgIcon'
 import { useRouter } from 'next/router'
-import { PAGES } from '@/services/constants'
 
 interface Props {
 	size?: SvgIconTypeMap['props']['fontSize']
@@ -32,7 +31,7 @@ export default function SiteLogo({ size = 'large', sx = [] }: Props) {
 				},
 			},
 		]}
-		onClick={() => router.push(PAGES.HOME)}
+		onClick={() => router.push('/')}
 	>
 		<svg
 			width='2500'

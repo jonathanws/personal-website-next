@@ -1,7 +1,7 @@
-import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
+import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import 'swiper/css'
@@ -25,7 +25,7 @@ export default function SeeMyBlog({ backgroundColor }: Props) {
 	const blogPreviews = getBlogPosts()
 		.map(({ heroSrc, menuTitle, url }, i) => (
 			<SwiperSlide key={i}>
-				<a href={`/blog/${url}`}>
+				<a href={url}>
 					<img
 						alt={menuTitle}
 						src={heroSrc}

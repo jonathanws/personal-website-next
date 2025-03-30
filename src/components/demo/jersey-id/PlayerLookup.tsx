@@ -15,14 +15,11 @@ import PlayerSummary from './PlayerSummary'
 import RecentPlayers from './RecentPlayers'
 import TeamPicker from './TeamPicker'
 
-// TODO: prevent phone rotation
-
-// ensure common look and feel for each "section"
+// used by other components so that they all match
 export const borderRadiusNum = 16
+export const backgroundColor = blueGrey[900]
 
 export default function PlayerLookup() {
-	const backgroundColor = blueGrey[900]
-
 	const [loading, setStore] = useJerseyIdContext((store) => store.loading)
 	const [playerAndTeam] = useJerseyIdContext((store) => store.playerAndTeam)
 
@@ -57,49 +54,36 @@ export default function PlayerLookup() {
 		<Box
 			mb={4}
 			borderRadius={`${borderRadiusNum}px`}
+			overflow='hidden'
+			position='relative'
 		>
-			<Box position='relative'>
-				{loading && <FullScreenLoading />}
+			{loading && <FullScreenLoading />}
 
-				<Paper
-					elevation={3}
-					sx={{
-						background: backgroundColor,
-						borderRadius: `${borderRadiusNum}px`,
-						overflow: 'hidden',
-						position: 'relative', // needed for z-index
-						zIndex: 3, // ensure this section is always on top
-					}}
-				>
-					<Box sx={{
-						// approximate (floor) values of how big this container is when a player is loading
-						minHeight: {
-							md: '503px',
-							sm: '431px',
-							xs: '372px',
-						},
-					}}>
-						{
-							playerAndTeam && <PlayerHeadshot
-								fadeTo={backgroundColor}
-								playerAndTeam={playerAndTeam}
-							/>
-						}
-					</Box>
+			<Paper
+				elevation={3}
+				sx={{
+					background: backgroundColor,
+					borderRadius: `${borderRadiusNum}px`,
+					overflow: 'hidden',
+					position: 'relative', // needed for z-index
+					zIndex: 3, // ensure this section is always on top
+				}}
+			>
+				{/* All of the pictures returned are 600 (width) x 436 (height) */}
+				<Box sx={{ aspectRatio: '600 / 436' }}>
+					{playerAndTeam && <PlayerHeadshot playerAndTeam={playerAndTeam} />}
+				</Box>
 
-					<Box px={2}>
-						{playerAndTeam && <PlayerSummary />}
-					</Box>
+				<PlayerSummary />
 
-					<PlayerSearch />
-				</Paper>
+				<PlayerSearch />
+			</Paper>
 
-				<TeamPicker />
+			<TeamPicker />
 
-				<RecentPlayers />
+			<RecentPlayers />
 
-				<MySnackbar />
-			</Box>
+			<MySnackbar />
 		</Box>
 	)
 }

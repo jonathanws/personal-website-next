@@ -6,7 +6,6 @@ import CardMedia from '@mui/material/CardMedia'
 import Chip from '@mui/material/Chip'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/router'
-import { PAGES } from '@/services/constants'
 
 interface Props {
 	description: string
@@ -21,7 +20,7 @@ export default function BlogCard({ description, heroSrc, tags, title, url }: Pro
 
 	return (
 		<Card sx={{ maxWidth: 345 }}>
-			<CardActionArea onClick={() => router.push(`${PAGES.BLOG}/${url}`)}>
+			<CardActionArea onClick={() => router.push(url)}>
 				<CardMedia
 					sx={{ height: 190 }}
 					image={heroSrc}
