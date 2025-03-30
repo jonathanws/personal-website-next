@@ -2,7 +2,7 @@ import jerseyIdDemo from '@/components/demo/jersey-id'
 
 const demoUrlPrefix = '/demo/'
 type DemoPageUrl = `${typeof demoUrlPrefix}${
-	| 'jersey-id'
+	| 'whos-wearing-that-number'
 }`
 
 interface Demo {

@@ -161,7 +161,7 @@ const jerseyIdDemo: Demo = {
 	icon: <SportsFootballRounded sx={{ color: brown[500] }} />,
 	src: '/404-img.jpg',
 	title: 'Who\'s Wearing That Number?',
-	url: '/demo/jersey-id',
+	url: '/demo/whos-wearing-that-number',
 }
 
 export default jerseyIdDemo
