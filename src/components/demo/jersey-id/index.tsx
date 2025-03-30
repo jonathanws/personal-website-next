@@ -1,5 +1,5 @@
 import SportsFootballRounded from '@mui/icons-material/SportsFootballRounded'
-import { brown, grey } from '@mui/material/colors'
+import { blue, brown, grey } from '@mui/material/colors'
 import Container from '@mui/material/Container'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { Lato } from 'next/font/google'
@@ -77,12 +77,18 @@ const JerseyIdDemo = (): React.ReactNode => {
 		},
 		palette: {
 			mode: 'dark',
+			primary: {
+				main: blue[700],
+			},
 		},
 		typography: {
 			// used/not-used in the article
 			body1: {
 				fontSize: '1.125rem',
 				lineHeight: '2rem',
+			},
+			button: {
+				fontWeight: 700,
 			},
 			fontFamily: lato.style.fontFamily,
 			h1: {
@@ -148,12 +154,13 @@ const JerseyIdDemo = (): React.ReactNode => {
 }
 
 const jerseyIdDemo: Demo = {
-	alt: 'Sample image of the Jersey ID project',
+	alt: 'Sample image of the Who\'s Wearing That Number demo',
 	body: JerseyIdDemo,
-	description: 'Watching a football game and wonder who just caught that ball?  See who caught it with Jersey ID!',
+	description: 'Watching a football game and wonder who just caught that ball?  See who caught it with Who\'s Wearing That Number?',
+	heroSrc: '',
 	icon: <SportsFootballRounded sx={{ color: brown[500] }} />,
 	src: '/404-img.jpg',
-	title: 'Jersey ID',
+	title: 'Who\'s Wearing That Number?',
 	url: '/demo/jersey-id',
 }
 
