@@ -1,16 +1,13 @@
 import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
 import Drawer from '@mui/material/Drawer'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
+import { darken, useTheme } from '@mui/material/styles'
 import { useRouter } from 'next/router'
-import { BlogPost, getBlogPosts } from '@/services/blogPosts'
-import { PAGES } from '@/services/constants'
+import { getBlogPosts } from '@/services/blogPosts'
+import { Page } from '@/services/constants'
+import { getDemos } from '@/services/demos'
 import { BG_ALT } from '@/services/theming'
+import ExpandableDrawerSection from './ExpandableDrawerSection'
 
 interface Props {
 	drawerOpen: boolean
@@ -18,63 +15,50 @@ interface Props {
 }
 
 export default function BlogDrawer({ drawerOpen, onDrawerToggle }: Props) {
+	const theme = useTheme()
 	const drawerWidth = 300
 
 	const router = useRouter()
-	const onDrawerItemSelected = (url: BlogPost['url']) => {
+	const onDrawerItemSelected = (url: Page) => {
 		onDrawerToggle()
-		router.push(`${PAGES.BLOG}/${url}`)
+		router.push(url)
 	}
 
 	return (
-		<Box
-			component='nav'
-			aria-label='blog articles'
-		>
+		<Box component='nav' aria-label='Navigation drawer'>
 			<Drawer
 				variant='temporary'
 				open={drawerOpen}
 				onClose={onDrawerToggle}
 				ModalProps={{ keepMounted: true }} // better open performance on mobile
-				sx={{
-					'& .MuiDrawer-paper': {
-						boxSizing: 'border-box',
+				PaperProps={{
+					sx: {
+						backgroundColor: BG_ALT,
+						backgroundImage: 'unset',
+						pt: 4,
 						width: drawerWidth,
 					},
 				}}
 			>
-				<div style={{
-					backgroundColor: BG_ALT,
-					height: '100%',
-				}}>
-					<Toolbar>
-						<Typography variant='h6'>Articles</Typography>
-					</Toolbar>
+				<ExpandableDrawerSection
+					title='Articles'
+					items={getBlogPosts()}
+					onItemClick={(article) => onDrawerItemSelected(article.url)}
+					isItemSelected={(article) => article.url === router.query.url}
+					listItemIcon={(article) => article.icon}
+					listItemText={(article) => article.menuTitle}
+				/>
 
-					<List>
-						{getBlogPosts().map(({ icon, menuTitle, url }, index) => (
-							<ListItem
-								key={index}
-								disablePadding
-								sx={{
-									'& .Mui-selected .MuiListItemText-primary': {
-										color: 'primary.light',
-									},
-									'&:hover .MuiListItemText-primary': {
-										color: 'white',
-									},
-								}}>
-								<ListItemButton
-									onClick={() => onDrawerItemSelected(url)}
-									selected={url == router.query.url}
-								>
-									<ListItemIcon>{icon}</ListItemIcon>
-									<ListItemText primary={menuTitle} />
-								</ListItemButton>
-							</ListItem>
-						))}
-					</List>
-				</div>
+				{/* <Divider sx={{ borderColor: darken(theme.palette.text.primary, .4), borderWidth: 1, m: 3 }} />
+
+				<ExpandableDrawerSection
+					title='Demos'
+					items={getDemos()}
+					onItemClick={(demo) => onDrawerItemSelected(demo.url)}
+					isItemSelected={(demo) => demo.url === router.query.url}
+					listItemIcon={(article) => article.icon}
+					listItemText={(demo) => demo.title}
+				/> */}
 			</Drawer>
 		</Box>
 	)

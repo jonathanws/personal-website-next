@@ -15,7 +15,7 @@ export default function TeamPicker() {
 			elevation={3}
 			background={blueGrey[700]}
 			borderRadius={borderRadiusNum}
-			open={showTeamPicker}
+			open={showTeamPicker && teams.length > 0}
 			zIndex={2}
 		>
 			<Box

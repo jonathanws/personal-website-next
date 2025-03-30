@@ -1,5 +1,4 @@
 import { ParsedUrlQuery } from 'querystring'
-import Box from '@mui/material/Box'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -8,7 +7,7 @@ import BlogDrawer from '@/components/blog/Drawer'
 import BlogFooter from '@/components/blog/Footer'
 import BlogHeader from '@/components/blog/Header'
 import { getAuthor } from '@/services/blogAuthors'
-import { getBlogPosts } from '@/services/blogPosts'
+import { blogPrefix, getBlogPosts } from '@/services/blogPosts'
 import { getHostname } from '@/services/constants'
 
 /**
@@ -22,8 +21,10 @@ export const getStaticProps: GetStaticProps<
 	props: {
 		blogToDisplayId: params
 			? getBlogPosts()
-				.findIndex(({ url }) => url === params.url)
-					|| 0
+				// blog posts are defined with the /blog/ prefix for their url, but next.js automatically
+				// adds folder names when building urls.  Remove this prefix so there aren't duplicates
+				.findIndex(({ url }) => params.url === (url.startsWith(blogPrefix) ? url.slice(blogPrefix.length) : url))
+				|| 0
 			: 0,
 	},
 })
@@ -34,7 +35,15 @@ export const getStaticProps: GetStaticProps<
  */
 export const getStaticPaths: GetStaticPaths = () => ({
 	fallback: false,
-	paths: getBlogPosts().map(({ url }) => ({ params: { url } })),
+	paths: getBlogPosts().map((blog) => ({
+		params: {
+			// blog posts are defined with the /blog/ prefix for their url, but next.js automatically
+			// adds folder names when building urls.  Remove this prefix so there aren't duplicates
+			url: blog.url.startsWith(blogPrefix)
+				? blog.url.slice(blogPrefix.length)
+				: blog.url,
+		},
+	})),
 })
 
 interface Props {
@@ -61,7 +70,7 @@ export default function BlogArticle({ blogToDisplayId }: Props) {
 
 						{/* this line provides an image when used in a link preview */}
 						<meta property='og:image' content={`${getHostname()}${blogToDisplay.heroSrc}`} />
-						<meta property='og:url' content={`${getHostname()}/blog/${blogToDisplay.url}`} />
+						<meta property='og:url' content={`${getHostname()}${blogToDisplay.url}`} />
 						<meta property='og:title' content={blogToDisplay.bodyTitle} />
 						<meta property='og:description' content={blogToDisplay.description} />
 						<meta property='og:type' content='article' />
@@ -72,18 +81,13 @@ export default function BlogArticle({ blogToDisplayId }: Props) {
 				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
 
-			<Box>
-				<BlogHeader onDrawerToggle={handleDrawerToggle} />
+			<BlogHeader onDrawerToggle={handleDrawerToggle} />
 
-				<BlogDrawer
-					drawerOpen={drawerOpen}
-					onDrawerToggle={handleDrawerToggle}
-				/>
+			<BlogDrawer drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle} />
 
-				{blogToDisplay ? <BlogBody {...blogToDisplay} /> : null}
+			{blogToDisplay ? <BlogBody {...blogToDisplay} /> : null}
 
-				<BlogFooter />
-			</Box>
+			<BlogFooter />
 		</>
 	)
 }

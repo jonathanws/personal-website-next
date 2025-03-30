@@ -1,19 +1,28 @@
-import { PAGES } from './constants'
+import jerseyIdDemo from '@/components/demo/jersey-id'
 
-export interface Demo {
+const demoUrlPrefix = '/demo/'
+type DemoPageUrl = `${typeof demoUrlPrefix}${
+	| 'jersey-id'
+}`
+
+interface Demo {
 	alt: string
+	body: () => React.ReactNode
 	description: string
-	href: string
+	heroSrc: string
+	icon: React.ReactNode
 	src: string
 	title: string
+	url: DemoPageUrl // the unique identifier of a demo
 }
 
-export const getDemos = (): Demo[] => [
-	{
-		alt: 'Sample image of the Jersey ID project',
-		description: 'Watching a football game and wonder who just caught that ball?  See who caught it with Jersey ID!',
-		href: PAGES.DEMO_JERSEY_ID,
-		src: '/404-img.jpg',
-		title: 'Jersey ID',
-	},
+const getDemos = (): Demo[] => [
+	jerseyIdDemo,
 ]
+
+export {
+	type Demo,
+	type DemoPageUrl,
+	demoUrlPrefix,
+	getDemos,
+}

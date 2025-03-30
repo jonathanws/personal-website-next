@@ -12,7 +12,7 @@ export default function Home() {
 	const sections = [
 		Introduction,
 		Skills,
-		Demos,
+		// Demos, // hiding until release
 		SeeMyBlog,
 		Interested,
 	]

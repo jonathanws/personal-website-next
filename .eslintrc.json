@@ -26,6 +26,7 @@
 				"before": false
 			}
 		],
+		"eqeqeq": ["error"],
 		// warns against not using new line(s) after last import statement.  Depends on 'import' plugin
 		"import/newline-after-import": [
 			"warn",
@@ -77,6 +78,18 @@
 		"linebreak-style": [
 			"error",
 			"unix"
+		],
+		// vscode auto-imports like import { Box } from '@mui/material'.  We want the more-specific import
+		"no-restricted-imports": [
+			"warn",
+			{
+				"paths": [
+					{
+						"name": "@mui/material",
+						"message": "Use direct imports like '@mui/material/Box' instead."
+					}
+				]
+			}
 		],
 		// warns against trailing spaces
 		"no-trailing-spaces": "warn",

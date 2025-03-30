@@ -4,11 +4,12 @@ import TextField from '@mui/material/TextField'
 interface Props {
 	onChange: (c: string) => void
 	onEnter?: () => void
+	placeholder?: string
 	sx?: SxProps<Theme>
 	value: string
 }
 
-export default function NumericInput({ onChange, onEnter, sx, value }: Props) {
+export default function NumericInput({ onChange, onEnter, placeholder, sx, value }: Props) {
 	const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
 		// only numbers are allowed
 		if (!/^\d*$/.test(target.value)) {
@@ -41,12 +42,8 @@ export default function NumericInput({ onChange, onEnter, sx, value }: Props) {
 				pattern: '[0-9]*',
 				style: { MozAppearance: 'textfield' },
 			}}
-			sx={{
-				...sx,
-				'& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
-					display: 'none',
-				},
-			}}
+			placeholder={placeholder}
+			sx={sx}
 		/>
 	)
 }

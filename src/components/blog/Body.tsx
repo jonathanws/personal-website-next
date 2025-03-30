@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { BlogPost } from '@/services/blogPosts'
 import { BG_ALT } from '@/services/theming'
@@ -21,23 +20,17 @@ export default function BlogBody({ author, body, bodyTitle, date, heroSrc, tags 
 	return (
 		<Box
 			component='main'
-			sx={{
-				alignItems: 'center',
-				background: BG_ALT,
-				display: 'flex',
-				flexDirection: 'column',
-				flexGrow: 1,
-				maxWidth: '100vw',
-				p: 3,
-				paddingBottom: 10,
-			}}
+			display='flex'
+			flexDirection='column'
+			alignItems='center'
+			bgcolor={BG_ALT}
+			maxWidth='100vw'
+			p={3}
+			pb={10}
+			mt={8}
 		>
-			<Toolbar />
-
 			<Box sx={contentContainerStyles}>
-				<Typography sx={{ typography: { md: 'h1', xs: 'h3' } }}>
-					{bodyTitle}
-				</Typography>
+				<Typography sx={{ typography: { md: 'h1', xs: 'h3' } }}>{bodyTitle}</Typography>
 
 				<BlogArticleMeta author={author} date={date} tags={tags} />
 			</Box>
@@ -46,9 +39,7 @@ export default function BlogBody({ author, body, bodyTitle, date, heroSrc, tags 
 				<BlogImage hero src={heroSrc} alt='hero image' />
 			</Box>
 
-			<Box sx={contentContainerStyles}>
-				{body}
-			</Box>
+			<Box sx={contentContainerStyles}>{body}</Box>
 		</Box>
 	)
 }

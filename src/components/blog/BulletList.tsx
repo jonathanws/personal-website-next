@@ -1,14 +1,11 @@
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 
-interface Props {
-	list: React.ReactNode[]
+interface BlogBulletListProps {
+	children: React.ReactNode | React.ReactNode[]
 }
 
-export default function BlogBulletList ({ list }: Props) {
-	const paddingY = 0.5
-	const paddingX = 2
-
+const BlogBulletList = ({ children }: BlogBulletListProps) => {
 	return (
 		<List sx={{
 			listStyleType: 'disc',
@@ -16,20 +13,24 @@ export default function BlogBulletList ({ list }: Props) {
 			pl: 4,
 			pt: 0,
 		}}>
-			{list.map((l, i) => (
-				<ListItem
-					key={i}
-					sx={{
-						display: 'list-item',
-						pb: paddingY,
-						pl: paddingX,
-						pr: paddingX,
-						pt: paddingY,
-					}}
-				>
-					{l}
-				</ListItem>
-			))}
+			{children}
 		</List>
 	)
+}
+
+const BlogBulletListItem = ({ children }: { children:  React.ReactNode }) => {
+	return (
+		<ListItem sx={{
+			display: 'list-item',
+			px: 2,
+			py: 0.5,
+		}}>
+			{children}
+		</ListItem>
+	)
+}
+
+export {
+	BlogBulletList,
+	BlogBulletListItem,
 }

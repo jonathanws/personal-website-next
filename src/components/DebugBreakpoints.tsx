@@ -41,6 +41,7 @@ export default function DebugBreakpoints() {
 				m: 2,
 				px: 3,
 				py: 1,
+				mt: 12,
 			}}
 		> - {windowWidth}px</Box>
 	)
