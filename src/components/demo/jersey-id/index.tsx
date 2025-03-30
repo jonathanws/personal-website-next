@@ -156,7 +156,7 @@ const JerseyIdDemo = (): React.ReactNode => {
 const jerseyIdDemo: Demo = {
 	alt: 'Sample image of the Who\'s Wearing That Number demo',
 	body: JerseyIdDemo,
-	description: 'Watching a football game and wonder who just caught that ball?  See who caught it with Who\'s Wearing That Number?',
+	description: 'Watching a football game and wonder who just caught that ball?  See who caught it with Who\'s Wearing That Number',
 	heroSrc: '',
 	icon: <SportsFootballRounded sx={{ color: brown[500] }} />,
 	src: '/404-img.jpg',
