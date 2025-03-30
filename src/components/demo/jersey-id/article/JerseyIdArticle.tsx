@@ -20,32 +20,22 @@ const ThemedListItem = ({ children }: { children: React.ReactNode }) => <ListIte
 
 export default function JerseyIdArticle() {
 	/**
-	 * The nested containers are here to allow the PlayerLookup component to be full-bleed on xs screens
+	 * The nested Boxes allow the PlayerLookup component to be full-bleed on xs screens
 	 */
 	return (
-		<Container
-			disableGutters
-			sx={{
-				mb: 10,
-				mt: 8,
-				pt: {
-					md: 4,
-					xs: 2,
-				},
-			}}
-		>
-			<Container>
+		<Box mt={8} mb={10} pt={{ md: 4, xs: 2 }}>
+			<Box sx={{ px: { sm: 0, xs: 2 } }}>
 				<Typography variant='h1' sx={{ mb: 1 }}>NFL - Jersey ID</Typography>
 				<Typography variant='h2' sx={{ fontSize: '1.5rem', mb: 3.5, mt: 2 }}>A full-stack showcase</Typography>
-			</Container>
+			</Box>
 
-			<Container sx={{ px: { sm: 2, xs: 0 } }}>
+			<Box>
 				<JerseyIdContextProvider>
 					<PlayerLookup />
 				</JerseyIdContextProvider>
-			</Container>
+			</Box>
 
-			<Container>
+			<Box sx={{ px: { sm: 0, xs: 2 } }}>
 				<Typography>Look up any NFL player by their team and jersey number! This latest case study tackles two key challenges:</Typography>
 				<List>
 					<ThemedListItem>1. Successfully look up active NFL players</ThemedListItem>
@@ -110,7 +100,7 @@ export default function JerseyIdArticle() {
 						Send Jon an email
 					</Button>
 				</Box>
-			</Container>
-		</Container>
+			</Box>
+		</Box>
 	)
 }
