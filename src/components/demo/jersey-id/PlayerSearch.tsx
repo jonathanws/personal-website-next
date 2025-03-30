@@ -101,8 +101,11 @@ export default function PlayerSearch() {
 	}
 
 	const searchForRandomPlayer = async () => {
-		// hide the tutorial tooltip
-		setStore({ showTutorialClickRandomPlayerButton: false })
+		// hide the tutorial tooltip, and close the team picker
+		setStore({
+			showTutorialClickRandomPlayerButton: false,
+			showTeamPicker: false,
+		})
 
 		const data = await fetchData({
 			call: () => getRandomPlayer(),
