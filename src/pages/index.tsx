@@ -12,7 +12,7 @@ export default function Home() {
 	const sections = [
 		Introduction,
 		Skills,
-		// Demos, // hiding until release
+		Demos,
 		SeeMyBlog,
 		Interested,
 	]
@@ -28,12 +28,7 @@ export default function Home() {
 
 			<Header />
 
-			{
-				sections.map((Section, index) => <Section
-					backgroundColor={index % 2 === 0 ? BG_ALT : BG_PRIMARY}
-					key={index}
-				/>)
-			}
+			{sections.map((Section, index) => <Section backgroundColor={index % 2 === 0 ? BG_ALT : BG_PRIMARY} key={index} />)}
 
 			{/* match whatever the previous section background color is */}
 			<Footer backgroundColor={ sections.length % 2 === 0 ? BG_PRIMARY : BG_ALT } />

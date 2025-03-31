@@ -1,7 +1,6 @@
 import Email from '@mui/icons-material/Email'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -14,7 +13,7 @@ import DatabaseCacheTable from './DatabaseCacheTable'
 import EndpointChip from './EndpointChip'
 import Flowchart from './Flowchart'
 
-const ThemedListItem = ({ children }: { children: React.ReactNode }) => <ListItem sx={{ py: 1 }}>
+const ThemedListItem = ({ children }: { children: React.ReactNode }) => <ListItem sx={{ ':not(:first-child)' : { pt: 1 }, py: 0 }}>
 	<ListItemText primaryTypographyProps={{ variant: 'body1' }}>{children}</ListItemText>
 </ListItem>
 
@@ -23,10 +22,10 @@ export default function JerseyIdArticle() {
 	 * The nested Boxes allow the PlayerLookup component to be full-bleed on xs screens
 	 */
 	return (
-		<Box mt={8} mb={10} pt={{ md: 4, xs: 2 }}>
+		<Box mt={8} py={2} pb={10}>
 			<Box sx={{ px: { sm: 0, xs: 2 } }}>
-				<Typography variant='h1' sx={{ mb: 1 }}>NFL - Jersey ID</Typography>
-				<Typography variant='h2' sx={{ fontSize: '1.5rem', mb: 3.5, mt: 2 }}>A full-stack showcase</Typography>
+				<Typography variant='h1' sx={{ mb: 1 }}>Who&apos;s Wearing That Number?</Typography>
+				<Typography fontSize='1.25rem' fontStyle='italic' sx={{ mb: 4, mt: 2 }}>A case study on a full-stack widget built with Next.js, Supabase, Typescript, and Deno.</Typography>
 			</Box>
 
 			<Box>

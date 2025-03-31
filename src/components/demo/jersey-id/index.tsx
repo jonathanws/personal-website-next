@@ -1,5 +1,5 @@
 import SportsFootballRounded from '@mui/icons-material/SportsFootballRounded'
-import { brown, grey } from '@mui/material/colors'
+import { blue, brown, grey } from '@mui/material/colors'
 import Container from '@mui/material/Container'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { Lato } from 'next/font/google'
@@ -10,6 +10,7 @@ import BlogHeader from '@/components/blog/Header'
 import JerseyIdArticle from '@/components/demo/jersey-id/article/JerseyIdArticle'
 import { Demo } from '@/services/demos'
 
+const IMG_DIR = '/demo/whos-wearing-that-number'
 // for whatever reason, this is unable to find text files without the '../../../../public' prefix
 const forgottenFuturist = localFont({
 	src: [
@@ -77,12 +78,21 @@ const JerseyIdDemo = (): React.ReactNode => {
 		},
 		palette: {
 			mode: 'dark',
+			primary: {
+				main: blue[700],
+			},
 		},
 		typography: {
+			allVariants:{
+				color: grey[300],
+			},
 			// used/not-used in the article
 			body1: {
 				fontSize: '1.125rem',
 				lineHeight: '2rem',
+			},
+			button: {
+				fontWeight: 700,
 			},
 			fontFamily: lato.style.fontFamily,
 			h1: {
@@ -148,14 +158,13 @@ const JerseyIdDemo = (): React.ReactNode => {
 }
 
 const jerseyIdDemo: Demo = {
-	alt: 'Sample image of the Jersey ID project',
+	alt: 'Sample image of the Who\'s Wearing That Number demo',
 	body: JerseyIdDemo,
-	description: 'Watching a football game and wonder who just caught that ball?  See who caught it with Jersey ID!',
-	heroSrc: 'TODO:',
+	description: 'Watching a game and wonder who just caught that ball?  See who caught it with Who\'s Wearing That Number',
+	heroSrc: `${IMG_DIR}/hero.png`,
 	icon: <SportsFootballRounded sx={{ color: brown[500] }} />,
-	src: '/404-img.jpg',
-	title: 'Jersey ID',
-	url: '/demo/jersey-id',
+	title: 'Who\'s Wearing That Number?',
+	url: '/demo/whos-wearing-that-number',
 }
 
 export default jerseyIdDemo
