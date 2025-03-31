@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Demos from '@/components/Demos'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Interested from '@/components/Interested'
@@ -11,9 +12,11 @@ export default function Home() {
 	const sections = [
 		Introduction,
 		Skills,
+		Demos,
 		SeeMyBlog,
 		Interested,
 	]
+
 	return (
 		<>
 			<Head>
@@ -25,12 +28,7 @@ export default function Home() {
 
 			<Header />
 
-			{
-				sections.map((Section, index) => <Section
-					backgroundColor={index % 2 === 0 ? BG_ALT : BG_PRIMARY}
-					key={index}
-				/>)
-			}
+			{sections.map((Section, index) => <Section backgroundColor={index % 2 === 0 ? BG_ALT : BG_PRIMARY} key={index} />)}
 
 			{/* match whatever the previous section background color is */}
 			<Footer backgroundColor={ sections.length % 2 === 0 ? BG_PRIMARY : BG_ALT } />

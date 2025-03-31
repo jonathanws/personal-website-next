@@ -1,7 +1,6 @@
-/* eslint-disable react/jsx-key */
 import Typography from '@mui/material/Typography'
 import BlogAlert from '@/components/blog/Alert'
-import BlogBulletList from '@/components/blog/BulletList'
+import { BlogBulletList, BlogBulletListItem } from '@/components/blog/BulletList'
 import Code from '@/components/blog/Code'
 import BlogImage from '@/components/blog/Image'
 import BlogInlineCode from '@/components/blog/InlineCode'
@@ -52,22 +51,22 @@ const prettyGitHistory: BlogPost = {
 
 		<Typography variant='h3'>Formatting strings</Typography>
 		<Typography paragraph>To display data from Git, find the <BlogLink text='flag that corresponds to the data you want' href='https://git-scm.com/docs/git-log#Documentation/git-log.txt-emCgreenem:~:text=The%20placeholders-,are,-%3A' />.  Just a few examples of the numerous flags :</Typography>
-		<BlogBulletList list={[
-			<Typography variant='body1'><BlogInlineCode>%an</BlogInlineCode> - author name</Typography>,
-			<Typography variant='body1'><BlogInlineCode>%ae</BlogInlineCode> - author email</Typography>,
-			<Typography variant='body1'><BlogInlineCode>%cn</BlogInlineCode> - comitter name</Typography>,
-			<i>and many more...</i>,
-		]} />
+		<BlogBulletList>
+			<BlogBulletListItem><Typography variant='body1'><BlogInlineCode>%an</BlogInlineCode> - author name</Typography></BlogBulletListItem>
+			<BlogBulletListItem><Typography variant='body1'><BlogInlineCode>%ae</BlogInlineCode> - author email</Typography></BlogBulletListItem>
+			<BlogBulletListItem><Typography variant='body1'><BlogInlineCode>%cn</BlogInlineCode> - comitter name</Typography></BlogBulletListItem>
+			<BlogBulletListItem><i>and many more...</i></BlogBulletListItem>
+		</BlogBulletList>
 
 		<Typography variant='h3'>Putting it all together</Typography>
 		<Typography paragraph>Each piece of data receives it&apos;s style using <BlogInlineCode>%C</BlogInlineCode>, in the following format:</Typography>
-		<BlogBulletList list={[
-			<BlogInlineCode>{gitStyleFormat}</BlogInlineCode>,
-		]} />
+		<BlogBulletList>
+			<BlogBulletListItem><BlogInlineCode>{gitStyleFormat}</BlogInlineCode></BlogBulletListItem>
+		</BlogBulletList>
 		<Typography paragraph>So a red/italic styling of a human-readable styled author date (<BlogInlineCode>%ah</BlogInlineCode>) would be</Typography>
-		<BlogBulletList list={[
-			<BlogInlineCode>{gitStyleFormatExample}</BlogInlineCode>,
-		]} />
+		<BlogBulletList>
+			<BlogBulletListItem><BlogInlineCode>{gitStyleFormatExample}</BlogInlineCode></BlogBulletListItem>
+		</BlogBulletList>
 		<Typography paragraph>Then, once we add that to the <BlogInlineCode>--pretty=format</BlogInlineCode> flag in out Git config...</Typography>
 		<Code
 			language='bash'
@@ -112,7 +111,7 @@ const prettyGitHistory: BlogPost = {
 	icon: <img src='/git.svg' alt='Git' height={24} width={24} />,
 	menuTitle: 'Pretty Git History',
 	tags: ['git'],
-	url: 'pretty-git-history',
+	url: '/blog/pretty-git-history',
 }
 
 export default prettyGitHistory

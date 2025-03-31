@@ -60,7 +60,7 @@ export default function Code({ highlightLines, language, text }: Props) {
 			position: 'relative',
 		}}>
 			<Tooltip
-				title={showSuccessIcon ? 'Text Copied' : 'Copy'}
+				title={showSuccessIcon ? 'Text copied' : 'Copy'}
 				placement='left'
 			>
 				<StyledIconButton

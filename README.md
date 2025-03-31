@@ -28,8 +28,10 @@ npm run deploy
 
 Sometimes you'll need to clear the cache in cloudfront to see your changes.
 
-To do that, navigate to the cloudfront distribution named "Personal Nextjs Website".
+To do that, go to [Cloudfront](https://console.aws.amazon.com/cloudfront).
 
-Click "Create staging distribution"
+* Click on the cloudfront distribution **Personal Nextjs Website**.  The one that says production.
 
-If deploying a new blog article, enter `/blog/*`
+* Click on the Invalidations tab
+
+* Create an invalidation with `/*`.  If deploying a new blog article, just enter `/blog/*`

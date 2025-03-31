@@ -59,7 +59,7 @@ export default function Blog() {
 			<Head>
 				<title>Blog posts</title>
 				{/* this line sometimes shows up in link previews */}
-				<meta name='description' content="Jon's Blogs" />
+				<meta name='description' content='Jon&apos;s Blogs' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<link rel='icon' href='/images/favicon.ico' />
 			</Head>
