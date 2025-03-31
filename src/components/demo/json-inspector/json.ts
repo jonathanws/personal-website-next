@@ -92,7 +92,7 @@ const createJsonToken = (text: string, incomingType?: JsonTokenType): JsonToken 
 //	null always only starts with 'n', no set needed
 
 // when building values, what characters go into different types?
-const booleanBodyCharacters = new Set(['a', 'e', 'f', 'l', 'r', 's', 't', 'u'])
+const booleanBodyCharacters = new Set(['a', 'e', 'f', 'l', 'r', 's', 't', 'u']) // TODO: don't need 'f' / 't'
 const numberBodyCharacters = new Set(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'])
 const nullBodyCharacters = new Set(['n', 'u', 'l'])
 
@@ -214,7 +214,9 @@ const getTokens = (data: unknown) => {
 		}
 	)
 
-	// generate metadata for some tokens
+	/**
+	 * generate metadata for some tokens
+	 */
 
 	const stack: Extract<JsonTokenType, 'squareOpen' | 'squareClose' | 'curlyOpen' | 'curlyClose' | 'value'>[] = []
 	const arrayStartIndexes: number[] = []
@@ -492,9 +494,6 @@ const getTokenLinesAndCollapsableAreas = (data: unknown, formatting: Formatting)
 }
 
 export {
-	// getCollapsableAreas,
-	// getFormattedTokens,
-	// getTokens,
 	getTokenLinesAndCollapsableAreas,
 	type CollapsableArea,
 	type JsonTokenType,
