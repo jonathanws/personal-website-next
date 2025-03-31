@@ -98,7 +98,7 @@ const prettyLinkPreviews: BlogPost = {
 			text={[
 				'<meta',
 				'	property="og:image"',
-				`	content="${getHostname()}${IMG_DIR}/${heroSrc}"`,
+				`	content="${getHostname()}${IMG_DIR}${heroSrc}"`,
 				'>',
 			]}
 		/>
@@ -150,7 +150,7 @@ const prettyLinkPreviews: BlogPost = {
 			text={[
 				'<meta',
 				'	property="og:url"',
-				`	content="${getHostname()}/${url}"`, // make sure this matches prod
+				`	content="${getHostname()}${url}"`,
 				'>',
 			]}
 		/>
