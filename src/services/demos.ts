@@ -11,7 +11,6 @@ interface Demo {
 	description: string
 	heroSrc: string
 	icon: React.ReactNode
-	src: string
 	title: string
 	url: DemoPageUrl // the unique identifier of a demo
 }
