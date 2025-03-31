@@ -83,6 +83,9 @@ const JerseyIdDemo = (): React.ReactNode => {
 			},
 		},
 		typography: {
+			allVariants:{
+				color: grey[300],
+			},
 			// used/not-used in the article
 			body1: {
 				fontSize: '1.125rem',
