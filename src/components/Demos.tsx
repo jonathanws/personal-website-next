@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box'
+import { blueGrey } from '@mui/material/colors'
 import Container from '@mui/material/Container'
-import { useTheme } from '@mui/material/styles'
+import Link from '@mui/material/Link'
+import { alpha, useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { getDemos } from '@/services/demos'
@@ -13,7 +15,13 @@ interface Props {
 export default function Demos({ backgroundColor }: Props) {
 	const isSmallDevice = useMediaQuery(useTheme().breakpoints.down('sm'))
 
-	const displayDemos = () => getDemos().map(({ alt, description, src, title, url }, index) => (
+	const flavorText = 20
+	const promoImg = 100 - flavorText
+
+	const flavorTextWidth = `${flavorText}%`
+	const promoImgWidth = `${promoImg}%`
+
+	const displayDemos = () => getDemos().map(({ alt, description, heroSrc, title, url }, index) => (
 		<Box
 			display='flex'
 			flexDirection={
@@ -23,21 +31,26 @@ export default function Demos({ backgroundColor }: Props) {
 						? 'row'
 						: 'row-reverse'
 			}
+			px={2}
 			key={index}
-			sx={{
-				gap: 2,
-				pl: 2,
-				pr: 2,
-			}}
 		>
-			<Box display='flex' flexDirection='column' justifyContent='center'>
-				<Typography pb={2}>{title}</Typography>
+			<Box
+				display='flex'
+				flexDirection='column'
+				justifyContent='center'
+				width={isSmallDevice ? '100%' : flavorTextWidth}
+			>
+				<Typography variant='h4' pb={2}>{title}</Typography>
 				<Typography variant='subtitle1'>{description}</Typography>
 			</Box>
 
-			<a href={url} style={{ width: isSmallDevice ? '100%' : '50%' }}>
-				<img alt={alt} src={src} style={{ width: '100%' }} />
-			</a>
+			<Link href={url} sx={{
+				'&:hover': { background: alpha(blueGrey[50], 0.05) },
+				borderRadius: 4,
+				width: isSmallDevice ? '100%' : promoImgWidth,
+			}}>
+				<img alt={alt} src={heroSrc} style={{ maxWidth: '100%' }} />
+			</Link>
 		</Box>
 	))
 

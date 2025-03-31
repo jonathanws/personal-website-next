@@ -2,7 +2,7 @@ import jerseyIdDemo from '@/components/demo/jersey-id'
 
 const demoUrlPrefix = '/demo/'
 type DemoPageUrl = `${typeof demoUrlPrefix}${
-	| 'jersey-id'
+	| 'whos-wearing-that-number'
 }`
 
 interface Demo {
@@ -11,7 +11,6 @@ interface Demo {
 	description: string
 	heroSrc: string
 	icon: React.ReactNode
-	src: string
 	title: string
 	url: DemoPageUrl // the unique identifier of a demo
 }
