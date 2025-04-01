@@ -59,7 +59,7 @@ export default function DemoArticle({ demoToDisplayId }: Props) {
 
 						{/* this line provides an image when used in a link preview */}
 						<meta property='og:image' content={`${getHostname()}${demoToDisplay.heroSrc}`} />
-						<meta property='og:url' content={`${getHostname()}/${demoToDisplay.url}`} />
+						<meta property='og:url' content={`${getHostname()}${demoToDisplay.url}`} />
 						<meta property='og:title' content={demoToDisplay.title} />
 						<meta property='og:description' content={demoToDisplay.description} />
 						<meta property='og:type' content='article' />
